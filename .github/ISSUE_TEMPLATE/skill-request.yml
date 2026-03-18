@@ -1,0 +1,93 @@
+name: "🚀 Skill Request"
+description: Request a new skill to be added to the library
+title: "[Skill Request]: "
+labels: ["skill-request", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new skill! Please fill out the details below.
+
+  - type: input
+    id: skill-name
+    attributes:
+      label: Suggested Skill Name
+      description: What would you call this skill?
+      placeholder: e.g., "data-validator", "report-generator"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem does this skill solve?
+      placeholder: |
+        Currently, I have to manually...
+        This takes X hours per week...
+        There's no automated way to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How should the skill work?
+      placeholder: |
+        The skill should:
+        1. Take X as input
+        2. Process it by doing Y
+        3. Output Z
+    validations:
+      required: true
+
+  - type: textarea
+    id: inputs-outputs
+    attributes:
+      label: Expected Inputs & Outputs
+      description: What data goes in and comes out?
+      placeholder: |
+        **Inputs:**
+        - File: Excel roster export
+        - Config: Org filters
+
+        **Outputs:**
+        - Report: PDF summary
+        - Data: JSON metrics
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: Use Cases
+      description: Who would use this and when?
+      placeholder: |
+        1. Monthly reporting cycle
+        2. Ad-hoc analysis requests
+        3. Audit preparation
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How urgently is this needed?
+      options:
+        - "Low - Nice to have"
+        - "Medium - Would save significant time"
+        - "High - Critical for my workflow"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you willing to help build this?
+      options:
+        - label: I'm willing to contribute to building this skill
+        - label: I can provide test data/use cases
+        - label: I can help with documentation

@@ -1,0 +1,89 @@
+name: "✨ Skill Enhancement"
+description: Suggest an improvement to an existing skill
+title: "[Enhancement]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement! Please fill out the details below.
+
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Skill to Enhance
+      description: Which skill are you suggesting improvements for?
+      options:
+        - mbr-engine
+        - mbr-engine/threshold-governance
+        - mbr-engine/portability
+        - mbr-engine/onboarding
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: other-skill
+    attributes:
+      label: Other Skill (if applicable)
+      description: If you selected "Other" above, specify the skill
+      placeholder: skill-name
+
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: Current Behavior
+      description: How does the skill work today?
+      placeholder: |
+        Currently, the skill does X...
+        It doesn't support Y...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-enhancement
+    attributes:
+      label: Proposed Enhancement
+      description: What improvement would you like to see?
+      placeholder: |
+        The skill should also:
+        1. Support X
+        2. Add option for Y
+        3. Improve performance of Z
+    validations:
+      required: true
+
+  - type: textarea
+    id: value
+    attributes:
+      label: Value / Impact
+      description: Why is this enhancement valuable?
+      placeholder: |
+        This would:
+        - Save X hours per week
+        - Enable new use case Y
+        - Reduce errors by Z%
+    validations:
+      required: true
+
+  - type: dropdown
+    id: breaking-change
+    attributes:
+      label: Breaking Change?
+      description: Would this change break existing functionality?
+      options:
+        - "No - Backward compatible"
+        - "Maybe - Needs investigation"
+        - "Yes - Would require migration"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you willing to help implement this?
+      options:
+        - label: I'm willing to implement this enhancement
+        - label: I can help test the enhancement
+        - label: I can help document the changes
