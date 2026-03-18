@@ -1,0 +1,62 @@
+name: Skill Library Audit
+
+on:
+  schedule:
+    # Run every Monday at 08:00 UTC (ready for Tue/Wed/Thu review sessions)
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+    inputs:
+      post_issue:
+        description: "Post audit results as a GitHub issue"
+        required: false
+        default: "true"
+        type: choice
+        options: ["true", "false"]
+
+jobs:
+  audit:
+    name: Audit skill library and generate roadmap suggestions
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run library audit
+        id: audit
+        run: |
+          python scripts/audit.py --output /tmp/audit_report.md
+          echo "report_path=/tmp/audit_report.md" >> $GITHUB_OUTPUT
+
+      - name: Upload audit report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: skill-audit-report-${{ github.run_number }}
+          path: /tmp/audit_report.md
+          retention-days: 90
+
+      - name: Post audit as GitHub issue
+        if: ${{ github.event_name == 'schedule' || inputs.post_issue == 'true' }}
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "📋 Weekly Skill Library Audit — ${{ github.run_number }}"
+          content-filepath: /tmp/audit_report.md
+          labels: |
+            audit
+            roadmap
+            automated
+          assignees: jac007x
+
+      - name: Add summary to workflow
+        run: cat /tmp/audit_report.md >> $GITHUB_STEP_SUMMARY

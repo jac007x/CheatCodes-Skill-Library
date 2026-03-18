@@ -1,0 +1,54 @@
+name: "data-analyzer"
+display_name: "Data Analyzer"
+version: "1.0.0"
+status: "stable"
+
+category: "data"
+tags: [data, analysis, insights, csv, reporting, statistics]
+
+description: |
+  Analyzes a dataset and produces insights, summary statistics, anomalies,
+  and visualization recommendations.
+
+long_description: |
+  Data Analyzer accepts a description of a dataset (or a small CSV sample) and
+  returns: summary statistics, key trends, anomalies or outliers, correlations
+  worth investigating, and a recommended set of visualizations to tell the
+  data's story. Works across business, scientific, and engineering data.
+
+author: "jac007x"
+maintainers: ["jac007x"]
+created: "2024-02-15"
+updated: "2024-02-15"
+license: "MIT"
+
+min_requirements:
+  tools: []
+  platforms: [linux, macos, windows]
+
+dependencies: []
+
+usage: |
+  1. Copy the prompt from v1/prompt.md into your AI assistant.
+  2. Describe your dataset or paste a sample (up to ~50 rows).
+  3. Specify the business question you want answered.
+  4. Review the generated insights and visualization suggestions.
+
+examples:
+  - title: "Analyze monthly sales data"
+    description: "Identify trends and anomalies in a monthly sales CSV."
+    code: |
+      Business question: Which products are underperforming and why?
+      Dataset: <paste CSV header + sample rows>
+
+changelog:
+  - version: "1.0.0"
+    date: "2024-02-15"
+    status: "stable"
+    changes:
+      - "Initial stable release"
+
+community:
+  replacements: []
+  variations: []
+  feedback_issue: ""

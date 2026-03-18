@@ -1,0 +1,99 @@
+name: Skill Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      skill_path:
+        description: "Skill path (e.g., productivity/task-planner)"
+        required: true
+        type: string
+      version:
+        description: "Version to release (semver, e.g., 1.2.0)"
+        required: true
+        type: string
+      status:
+        description: "Release status"
+        required: true
+        default: "stable"
+        type: choice
+        options:
+          - stable
+          - beta
+          - deprecated
+          - archived
+      release_notes:
+        description: "Release notes (one change per line)"
+        required: true
+        type: string
+
+jobs:
+  release:
+    name: Tag and publish skill release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Validate skill exists
+        run: |
+          if [ ! -f "skills/${{ inputs.skill_path }}/skill.yaml" ]; then
+            echo "Error: skills/${{ inputs.skill_path }}/skill.yaml not found"
+            exit 1
+          fi
+
+      - name: Update skill.yaml version and status
+        run: |
+          python scripts/publish_skill.py \
+            --skill "${{ inputs.skill_path }}" \
+            --version "${{ inputs.version }}" \
+            --status "${{ inputs.status }}" \
+            --notes "${{ inputs.release_notes }}"
+
+      - name: Commit version bump
+        run: |
+          git config user.name "CheatCodes Bot"
+          git config user.email "bot@cheatcodes.dev"
+          git add skills/${{ inputs.skill_path }}/skill.yaml
+          git commit -m "chore: release ${{ inputs.skill_path }} v${{ inputs.version }} (${{ inputs.status }})"
+          git push
+
+      - name: Create git tag
+        run: |
+          TAG="${{ inputs.skill_path }}/${{ inputs.version }}"
+          TAG="${TAG//\//-}"
+          git tag "v${TAG}"
+          git push origin "v${TAG}"
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "v${{ inputs.skill_path == '' && '' || format('{0}-{1}', replace(inputs.skill_path, '/', '-'), inputs.version) }}"
+          name: "${{ inputs.skill_path }} v${{ inputs.version }}"
+          body: |
+            ## ${{ inputs.skill_path }} v${{ inputs.version }}
+            
+            **Status:** ${{ inputs.status }}
+            
+            ### Release Notes
+            ${{ inputs.release_notes }}
+            
+            ### Quick Clone
+            ```bash
+            bash <(curl -fsSL https://raw.githubusercontent.com/jac007x/CheatCodes-Skill-Library/main/scripts/clone-skill.sh) ${{ inputs.skill_path }} --version v${{ inputs.version }}
+            ```
+          prerelease: ${{ inputs.status == 'beta' }}
+          make_latest: ${{ inputs.status == 'stable' }}

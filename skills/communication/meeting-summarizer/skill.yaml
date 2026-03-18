@@ -1,0 +1,54 @@
+name: "meeting-summarizer"
+display_name: "Meeting Summarizer"
+version: "1.0.0"
+status: "stable"
+
+category: "communication"
+tags: [meetings, notes, summary, action-items, async]
+
+description: |
+  Converts raw meeting transcripts or notes into a concise, structured summary
+  with decisions, action items, and owners.
+
+long_description: |
+  Meeting Summarizer takes an unstructured meeting transcript or bulleted notes
+  and produces a clean summary with: key decisions, open questions, action
+  items (with owners and due dates), and a TL;DR for stakeholders who weren't
+  present. Designed to eliminate post-meeting note-taking overhead.
+
+author: "jac007x"
+maintainers: ["jac007x"]
+created: "2024-02-01"
+updated: "2024-02-01"
+license: "MIT"
+
+min_requirements:
+  tools: []
+  platforms: [linux, macos, windows]
+
+dependencies: []
+
+usage: |
+  1. Copy the prompt from v1/prompt.md into your AI assistant.
+  2. Paste your meeting transcript or notes.
+  3. Review and distribute the structured summary.
+
+examples:
+  - title: "Summarize a sprint planning meeting"
+    description: "Convert sprint planning notes into a clean summary with action items."
+    code: |
+      Meeting type: Sprint planning
+      Participants: Alice (PM), Bob (Eng), Carol (Design)
+      Notes: <paste raw notes or transcript>
+
+changelog:
+  - version: "1.0.0"
+    date: "2024-02-01"
+    status: "stable"
+    changes:
+      - "Initial stable release"
+
+community:
+  replacements: []
+  variations: []
+  feedback_issue: ""

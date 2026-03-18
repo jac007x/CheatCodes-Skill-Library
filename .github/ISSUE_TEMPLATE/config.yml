@@ -1,0 +1,9 @@
+name: config
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Browse all skills
+    url: https://github.com/jac007x/CheatCodes-Skill-Library/tree/main/skills
+    about: Browse the full skill library and quick-clone any skill.
+  - name: 🗺️ View the Roadmap
+    url: https://github.com/jac007x/CheatCodes-Skill-Library/blob/main/ROADMAP.md
+    about: See what's planned, in progress, and recently shipped.

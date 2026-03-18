@@ -1,0 +1,78 @@
+name: Bug Report
+description: Report a problem with an existing skill
+title: "[Bug] <skill-name> — <short description>"
+labels: ["bug", "triage"]
+assignees: ["jac007x"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐛 Bug Report
+        Help us improve skill quality by reporting unexpected behaviour.
+
+  - type: input
+    id: skill_path
+    attributes:
+      label: Skill
+      description: Path to the skill with the issue (e.g., `productivity/task-planner`)
+      placeholder: "category/skill-name"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Which version of the skill are you using?
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: Describe the unexpected behaviour clearly and concisely.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce the issue?
+      placeholder: |
+        1. Use the skill with this input: ...
+        2. The output was: ...
+        3. Expected output: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behaviour
+      description: What should the skill have produced?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behaviour
+      description: What did the skill actually produce?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Low — minor quality issue
+        - Medium — output is partially incorrect
+        - High — output is wrong / misleading
+        - Critical — skill produces harmful or dangerous output
+    validations:
+      required: true
