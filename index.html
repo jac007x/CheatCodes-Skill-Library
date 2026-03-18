@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⚡ CheatCodes Skill Library</title>
+  <style>
+    /* ── Reset & base ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #0d1117;
+      --surface:   #161b22;
+      --surface2:  #21262d;
+      --border:    #30363d;
+      --accent:    #58a6ff;
+      --accent2:   #79c0ff;
+      --green:     #3fb950;
+      --yellow:    #d29922;
+      --red:       #f85149;
+      --purple:    #bc8cff;
+      --text:      #e6edf3;
+      --text-dim:  #8b949e;
+      --text-muted:#6e7681;
+      --radius:    10px;
+      --font:      -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button {
+      font-family: var(--font);
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: opacity .15s, transform .1s;
+    }
+    button:hover { opacity: .85; }
+    button:active { transform: scale(.97); }
+
+    /* ── Layout ───────────────────────────────────────────────────── */
+    .page { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+    /* ── Header ───────────────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+    }
+    header .logo { font-size: 2.4rem; margin-bottom: .4rem; }
+    header h1 { font-size: 1.9rem; font-weight: 700; color: var(--accent2); }
+    header p  { color: var(--text-dim); margin-top: .4rem; font-size: 1.05rem; }
+
+    /* ── Search bar ───────────────────────────────────────────────── */
+    .search-wrap {
+      max-width: 540px;
+      margin: 1.6rem auto 0;
+      position: relative;
+    }
+    #search {
+      width: 100%;
+      padding: .75rem 1rem .75rem 2.8rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 1rem;
+      font-family: var(--font);
+      outline: none;
+      transition: border-color .2s;
+    }
+    #search:focus { border-color: var(--accent); }
+    #search::placeholder { color: var(--text-muted); }
+    .search-icon {
+      position: absolute;
+      left: .9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    /* ── Category pills ───────────────────────────────────────────── */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin: 1.8rem 0 1rem;
+    }
+    .pill {
+      padding: .35rem .9rem;
+      border-radius: 2rem;
+      font-size: .85rem;
+      font-weight: 500;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .pill:hover, .pill.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #000;
+    }
+
+    /* ── Skill grid ───────────────────────────────────────────────── */
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.2rem;
+    }
+
+    /* ── Skill card ───────────────────────────────────────────────── */
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      transition: border-color .2s, transform .15s;
+      cursor: pointer;
+    }
+    .skill-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .card-header { display: flex; align-items: center; gap: .7rem; }
+    .card-emoji  { font-size: 1.8rem; line-height: 1; }
+    .card-title  { font-size: 1.1rem; font-weight: 600; color: var(--text); }
+    .card-cat    { font-size: .75rem; color: var(--text-muted); }
+    .card-desc   { font-size: .9rem; color: var(--text-dim); line-height: 1.5; }
+    .card-footer { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin-top: auto; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      padding: .2rem .6rem;
+      border-radius: 2rem;
+      font-size: .75rem;
+      font-weight: 600;
+    }
+    .badge-stable { background: rgba(63,185,80,.15); color: var(--green); }
+    .badge-beta   { background: rgba(210,153,34,.15); color: var(--yellow); }
+    .tag {
+      font-size: .73rem;
+      padding: .15rem .5rem;
+      border-radius: 4px;
+      background: var(--surface2);
+      color: var(--text-muted);
+    }
+
+    /* ── No results ───────────────────────────────────────────────── */
+    .no-results {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+    }
+    .no-results .big { font-size: 2.5rem; margin-bottom: .5rem; }
+
+    /* ── Modal overlay ────────────────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.7);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      width: 100%;
+      max-width: 660px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.6rem 1.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-emoji { font-size: 2.4rem; line-height: 1; }
+    .modal-title { font-size: 1.3rem; font-weight: 700; color: var(--text); }
+    .modal-cat   { font-size: .8rem; color: var(--text-muted); margin-top: .15rem; }
+    .modal-close {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      width: 2rem; height: 2rem;
+      border-radius: 50%;
+      font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal-body { padding: 1.4rem 1.6rem; }
+    .modal-desc { color: var(--text-dim); margin-bottom: 1.2rem; line-height: 1.6; }
+    .section-title {
+      font-size: .8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--text-muted);
+      margin-bottom: .6rem;
+    }
+    .version-list { display: flex; flex-direction: column; gap: .6rem; margin-bottom: 1.4rem; }
+    .version-item {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      cursor: pointer;
+      transition: border-color .15s;
+    }
+    .version-item:hover { border-color: var(--accent); }
+    .version-item.selected { border-color: var(--accent); background: rgba(88,166,255,.07); }
+    .version-label { font-weight: 600; font-size: .95rem; }
+    .version-note  { font-size: .82rem; color: var(--text-dim); margin-top: .1rem; }
+
+    /* ── Wizard ───────────────────────────────────────────────────── */
+    .wizard { display: none; }
+    .wizard.active { display: block; }
+    .wizard-step {
+      display: none;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .wizard-step.active { display: flex; }
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      margin-bottom: .5rem;
+      font-size: .82rem;
+      color: var(--text-muted);
+    }
+    .step-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+    .step-dot.done  { background: var(--green); }
+    .step-dot.active{ background: var(--accent); }
+
+    .field-group { display: flex; flex-direction: column; gap: .4rem; }
+    .field-label { font-size: .9rem; font-weight: 500; color: var(--text); }
+    .field-hint  { font-size: .8rem; color: var(--text-muted); }
+    .field-input {
+      width: 100%;
+      padding: .65rem .9rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: .95rem;
+      font-family: var(--font);
+      outline: none;
+      transition: border-color .2s;
+      resize: vertical;
+    }
+    .field-input:focus { border-color: var(--accent); }
+    textarea.field-input { min-height: 90px; }
+
+    /* ── Prompt output ────────────────────────────────────────────── */
+    .prompt-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem 1.2rem;
+      font-family: var(--font-mono);
+      font-size: .82rem;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--text);
+      max-height: 300px;
+      overflow-y: auto;
+      position: relative;
+    }
+    .copy-btn {
+      background: var(--accent);
+      color: #000;
+      padding: .6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: .9rem;
+    }
+    .copy-btn.copied {
+      background: var(--green);
+      color: #fff;
+    }
+    .save-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: .6rem 1.2rem;
+    }
+    .btn-row { display: flex; gap: .7rem; flex-wrap: wrap; align-items: center; }
+    .btn-primary { background: var(--accent); color: #000; padding: .6rem 1.4rem; font-weight: 600; }
+    .btn-ghost   { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: .6rem 1.2rem; }
+    .btn-danger  { background: rgba(248,81,73,.15); border: 1px solid var(--red); color: var(--red); padding: .5rem 1rem; font-size: .85rem; }
+
+    .beta-warning {
+      background: rgba(210,153,34,.1);
+      border: 1px solid rgba(210,153,34,.4);
+      border-radius: 8px;
+      padding: .9rem 1.1rem;
+      font-size: .88rem;
+      color: var(--yellow);
+      line-height: 1.5;
+    }
+    .beta-warning strong { display: block; margin-bottom: .2rem; }
+
+    /* ── Action buttons (card bottom) ─────────────────────────────── */
+    .modal-actions {
+      padding: 1.2rem 1.6rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .55rem 1rem;
+      border-radius: 6px;
+      font-size: .875rem;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .action-primary { background: var(--accent); color: #000; }
+    .action-secondary { background: var(--surface2); border: 1px solid var(--border); color: var(--text); }
+
+    /* ── Footer ───────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: .875rem;
+    }
+    footer a { color: var(--text-dim); }
+
+    /* ── Responsive ───────────────────────────────────────────────── */
+    @media (max-width: 520px) {
+      header h1 { font-size: 1.5rem; }
+      .skill-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ──────────────────────────────────────────────────────────── -->
+<header>
+  <div class="logo">⚡</div>
+  <h1>CheatCodes Skill Library</h1>
+  <p>Ready-made AI prompts for anyone. Pick a skill, fill in your details, copy &amp; go.</p>
+  <div class="search-wrap">
+    <span class="search-icon">🔎</span>
+    <input id="search" type="search" placeholder="Search skills… (e.g. 'plan a project', 'code review')" autocomplete="off" />
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- ── How it works banner ─────────────────────────────────────────────── -->
+  <details style="margin: 1.6rem 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.2rem;">
+    <summary style="cursor:pointer; font-weight:600; color: var(--accent2); font-size:.95rem;">
+      ❓ New here? What is a skill and how do I use it?
+    </summary>
+    <div style="margin-top:.8rem; color: var(--text-dim); font-size:.9rem; line-height:1.7; max-width: 700px;">
+      <p><strong style="color:var(--text);">A skill is a ready-made prompt</strong> — a set of instructions you paste into an AI assistant like <em>ChatGPT, Claude, or Microsoft Copilot</em>. The skill tells the AI exactly what to do, so you get a great result without figuring out the right words yourself.</p>
+      <ol style="margin-top:.7rem; padding-left:1.3rem; display:flex; flex-direction:column; gap:.4rem;">
+        <li>Click any skill card below.</li>
+        <li>Click <strong>"🚀 Use this skill"</strong> and fill in a few details about your situation.</li>
+        <li>Click <strong>"Copy prompt"</strong>.</li>
+        <li>Paste it into your AI assistant and read the result. Done!</li>
+      </ol>
+      <p style="margin-top:.7rem;">
+        <strong style="color:var(--text);">Prefer the terminal?</strong>
+        Run the interactive concierge from your command line:
+        <code style="background:var(--bg); padding:.1rem .4rem; border-radius:4px; font-size:.82rem; color:var(--accent);">python scripts/concierge.py</code>
+      </p>
+    </div>
+  </details>
+
+  <!-- ── Filter pills ─────────────────────────────────────────────────────── -->
+  <div class="filter-bar" id="filterBar">
+    <button class="pill active" data-cat="all">All skills</button>
+  </div>
+
+  <!-- ── Skill grid ───────────────────────────────────────────────────────── -->
+  <div class="skill-grid" id="skillGrid"></div>
+
+  <!-- ── Contribute row ──────────────────────────────────────────────────── -->
+  <div style="margin-top:3rem; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:1.4rem 1.6rem; display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:space-between;">
+    <div>
+      <div style="font-weight:600; font-size:1rem; margin-bottom:.3rem;">Want more skills?</div>
+      <div style="color:var(--text-dim); font-size:.9rem;">Request a new skill, suggest an improvement, or submit a community contribution.</div>
+    </div>
+    <div style="display:flex; gap:.6rem; flex-wrap:wrap;">
+      <a href="https://github.com/jac007x/CheatCodes-Skill-Library/issues/new?template=skill_request.yml" class="action-btn action-primary" target="_blank">🌟 Request a skill</a>
+      <a href="https://github.com/jac007x/CheatCodes-Skill-Library/issues/new?template=skill_recommendation.yml" class="action-btn action-secondary" target="_blank">💡 Suggest improvement</a>
+      <a href="https://github.com/jac007x/CheatCodes-Skill-Library/issues/new?template=community_contribution.yml" class="action-btn action-secondary" target="_blank">👥 Community contribution</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── Skill detail modal ────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <div class="modal-header" id="modalHeader">
+      <div class="modal-emoji" id="modalEmoji"></div>
+      <div>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-cat"  id="modalCat"></div>
+      </div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-actions" id="modalActions"></div>
+  </div>
+</div>
+
+<footer>
+  <p>
+    <a href="https://github.com/jac007x/CheatCodes-Skill-Library" target="_blank">⚡ CheatCodes Skill Library</a> —
+    <a href="https://github.com/jac007x/CheatCodes-Skill-Library/blob/main/CONTRIBUTING.md" target="_blank">Contribute</a> ·
+    <a href="https://github.com/jac007x/CheatCodes-Skill-Library/blob/main/ROADMAP.md" target="_blank">Roadmap</a> ·
+    MIT License
+  </p>
+</footer>
+
+<script>
+// ── Embedded skill data ────────────────────────────────────────────────────
+const SKILLS = [
+  {
+    id: "task-planner",
+    category: "productivity",
+    emoji: "📋",
+    name: "Task Planner",
+    tagline: "Break any goal into clear, prioritised steps",
+    description: "Tell it your goal and get a full, phased action plan with priorities, effort estimates, and dependencies. Great for projects big and small.",
+    status: "stable",
+    goodFor: ["Projects", "Planning", "Teams", "Solo work"],
+    versions: [
+      {
+        id: "v1",
+        label: "v1 — Stable ✅",
+        status: "stable",
+        note: "Simple, reliable task breakdown. Safe for everyday use.",
+        placeholders: [
+          { key: "GOAL",        label: "What is your goal or project?",                    hint: "e.g. 'Launch a new website', 'Plan a team offsite'", multiline: false },
+          { key: "TEAM SIZE",   label: "Who is involved?",                                 hint: "e.g. 'just me', '4-person team (1 PM, 2 engineers, 1 designer)'", multiline: false },
+          { key: "TIMELINE",    label: "What is your deadline or time available?",         hint: "e.g. '2 weeks', 'by the end of the month', 'flexible'", multiline: false },
+          { key: "CONSTRAINTS", label: "Any limitations or constraints?",                  hint: "e.g. 'no budget for ads', 'must use Google Sheets' — or leave blank", multiline: false },
+        ],
+        prompt: `You are a strategic project planner. Your job is to break down the following goal into a clear, prioritised, actionable task list.
+
+Goal: [GOAL]
+Team: [TEAM SIZE]
+Timeline: [TIMELINE]
+Constraints: [CONSTRAINTS]
+
+Please produce:
+1. A brief restatement of the goal and success criteria.
+2. A phased task breakdown (Phase 1, Phase 2, …) where each phase has a clear outcome.
+3. Within each phase, list individual tasks with: task name, description (1–2 sentences), estimated effort, priority (Critical / High / Medium / Low), and dependencies.
+4. A final summary table sorted by priority.
+
+Format the output in clean Markdown.`
+      },
+      {
+        id: "v2-beta",
+        label: "v2-beta — Beta ⚠️",
+        status: "beta",
+        note: "Adds parallel tracks and dependency graphs. Try it and share feedback!",
+        placeholders: [
+          { key: "GOAL",        label: "What is your goal or project?",       hint: "Be as specific as you can", multiline: false },
+          { key: "TEAM",        label: "Team size and roles",                  hint: "e.g. '1 PM, 2 engineers, 1 designer'", multiline: false },
+          { key: "TIMELINE",    label: "Target completion date or duration",   hint: "e.g. '8 weeks', 'Q2 2025'", multiline: false },
+          { key: "CONSTRAINTS", label: "Hard constraints",                     hint: "Budget, tools, integrations — or 'none'", multiline: false },
+        ],
+        prompt: `You are an expert project planner specialising in parallel execution.
+
+Goal: [GOAL]
+Team: [TEAM]
+Timeline: [TIMELINE]
+Constraints: [CONSTRAINTS]
+
+Produce the following in Markdown:
+
+## 1. Goal & Success Criteria
+## 2. Parallel Tracks
+Identify independent workstreams. For each: track name, task list with effort ranges, priorities, dependencies.
+## 3. Dependency Graph
+Text-based: TaskA → TaskB → TaskC
+## 4. Milestone Summary
+3–5 milestones with target dates.
+## 5. Risk Register
+Top 3 risks with likelihood, impact, and mitigation.`
+      }
+    ]
+  },
+  {
+    id: "code-reviewer",
+    category: "automation",
+    emoji: "🔍",
+    name: "Code Reviewer",
+    tagline: "Get an expert code review in seconds",
+    description: "Paste any code or diff and get a structured review with bug severity, security issues, and clear fix suggestions — ready to paste into a PR.",
+    status: "stable",
+    goodFor: ["Developers", "Code quality", "Pull requests", "Security"],
+    versions: [
+      {
+        id: "v1",
+        label: "v1 — Stable ✅",
+        status: "stable",
+        note: "Comprehensive review with severity ratings and a security checklist.",
+        placeholders: [
+          { key: "LANGUAGE / FRAMEWORK", label: "Language and framework",  hint: "e.g. 'Python / FastAPI', 'JavaScript / React', 'SQL'", multiline: false },
+          { key: "REVIEW FOCUS",        label: "What to focus on",         hint: "e.g. 'correctness, security', 'performance', or 'all'", multiline: false },
+          { key: "CODE OR DIFF",        label: "Paste your code or diff",  hint: "Paste as much as you need reviewed", multiline: true  },
+        ],
+        prompt: `You are an expert software engineer conducting a thorough code review.
+
+Language / Framework: [LANGUAGE / FRAMEWORK]
+Review Focus: [REVIEW FOCUS]
+
+Code / Diff:
+[CODE OR DIFF]
+
+Produce the following in Markdown:
+
+## Summary
+One paragraph overview of the code and your overall assessment.
+
+## Issues Found
+| Severity | File / Line | Issue | Suggestion |
+|----------|-------------|-------|------------|
+(🔴 Critical, 🟠 Major, 🟡 Minor, 🔵 Suggestion)
+
+## Security Checklist
+- [ ] No hardcoded secrets
+- [ ] Input validation present
+- [ ] No injection vectors
+- [ ] Sensitive data handled safely
+
+## Test Coverage Assessment
+
+## Overall Recommendation
+APPROVE / REQUEST CHANGES / NEEDS DISCUSSION — and why.`
+      }
+    ]
+  },
+  {
+    id: "meeting-summarizer",
+    category: "communication",
+    emoji: "📝",
+    name: "Meeting Summarizer",
+    tagline: "Turn messy notes into a clean action plan",
+    description: "Paste your raw meeting transcript or bullet points and get a structured summary with decisions, action items (with owners), and a shareable TL;DR.",
+    status: "stable",
+    goodFor: ["Teams", "Managers", "Async work", "Any meeting type"],
+    versions: [
+      {
+        id: "v1",
+        label: "v1 — Stable ✅",
+        status: "stable",
+        note: "Works with transcripts, bullet notes, or rough scribbles.",
+        placeholders: [
+          { key: "MEETING TYPE",          label: "Type of meeting",        hint: "e.g. 'sprint planning', 'standup', 'decision meeting', 'brainstorm'", multiline: false },
+          { key: "PARTICIPANTS",          label: "Who was there?",          hint: "e.g. 'Alice (PM), Bob (Eng), Carol (Design)'", multiline: false },
+          { key: "DATE",                  label: "When was the meeting?",   hint: "e.g. '2024-03-15' or 'today'", multiline: false },
+          { key: "NOTES OR TRANSCRIPT",   label: "Paste your notes",        hint: "Raw transcript, bullet points, or however you captured it", multiline: true },
+        ],
+        prompt: `You are an expert meeting facilitator and note-taker.
+
+Meeting Type: [MEETING TYPE]
+Participants: [PARTICIPANTS]
+Date: [DATE]
+
+Raw Notes / Transcript:
+[NOTES OR TRANSCRIPT]
+
+Produce the following in Markdown:
+
+## TL;DR
+2–3 sentences capturing the most important outcome.
+
+## Decisions Made
+Bullet list of concrete decisions.
+
+## Action Items
+| # | Task | Owner | Due Date | Notes |
+|---|------|-------|----------|-------|
+
+## Open Questions / Parking Lot
+
+## Key Discussion Points
+3–5 bullet points.
+
+## Next Steps`
+      }
+    ]
+  },
+  {
+    id: "data-analyzer",
+    category: "data",
+    emoji: "📊",
+    name: "Data Analyzer",
+    tagline: "Get insights from any dataset",
+    description: "Describe your data or paste a CSV sample and ask a business question. Get back key findings, anomalies, trends, and the exact charts to build.",
+    status: "stable",
+    goodFor: ["Analysts", "Business teams", "CSV data", "Reporting"],
+    versions: [
+      {
+        id: "v1",
+        label: "v1 — Stable ✅",
+        status: "stable",
+        note: "Works with any tabular data. Describe it or paste up to ~50 rows.",
+        placeholders: [
+          { key: "BUSINESS QUESTION",  label: "What do you want to learn?",           hint: "e.g. 'Which products are underperforming?', 'Why did sales drop in Q3?'", multiline: false },
+          { key: "DATASET DESCRIPTION",label: "Describe your dataset",                hint: "Rows, columns, time range, source (e.g. 'Monthly sales by product, Jan–Dec 2023')", multiline: false },
+          { key: "SAMPLE DATA",        label: "Paste your data (CSV format)",         hint: "Header row + up to 50 representative rows", multiline: true },
+        ],
+        prompt: `You are a senior data analyst.
+
+Business Question: [BUSINESS QUESTION]
+Dataset Description: [DATASET DESCRIPTION]
+
+Sample Data:
+[SAMPLE DATA]
+
+Produce the following in Markdown:
+
+## Dataset Overview
+Row/column count, data types, missing values.
+
+## Summary Statistics
+Key stats for numeric columns.
+
+## Key Findings
+5 most important insights answering the business question.
+
+## Anomalies & Outliers
+
+## Trends & Correlations
+
+## Recommended Visualisations
+List 3–5 charts (type, axes, insight revealed).
+
+## Recommended Next Steps`
+      }
+    ]
+  }
+];
+
+// ── Category metadata ──────────────────────────────────────────────────────
+const CATEGORIES = {
+  productivity: { label: "Productivity",   emoji: "🚀" },
+  automation:   { label: "Automation",     emoji: "⚙️" },
+  communication:{ label: "Communication",  emoji: "💬" },
+  data:         { label: "Data",           emoji: "📊" },
+};
+
+// ── State ──────────────────────────────────────────────────────────────────
+let activeFilter = "all";
+let searchQuery  = "";
+let currentSkill = null;
+let currentVersion = null;
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+function statusBadge(status) {
+  if (status === "stable") return '<span class="badge badge-stable">✅ Stable</span>';
+  if (status === "beta")   return '<span class="badge badge-beta">⚠️ Beta</span>';
+  return `<span class="badge">${status}</span>`;
+}
+
+function escape(s) {
+  return String(s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;");
+}
+
+// ── Build filter pills ─────────────────────────────────────────────────────
+function buildFilterBar() {
+  const bar = document.getElementById("filterBar");
+  const cats = [...new Set(SKILLS.map(s => s.category))];
+  cats.forEach(cat => {
+    const meta = CATEGORIES[cat] || { label: cat, emoji: "📁" };
+    const btn = document.createElement("button");
+    btn.className = "pill";
+    btn.dataset.cat = cat;
+    btn.textContent = `${meta.emoji} ${meta.label}`;
+    btn.addEventListener("click", () => setFilter(cat));
+    bar.appendChild(btn);
+  });
+}
+
+function setFilter(cat) {
+  activeFilter = cat;
+  document.querySelectorAll(".pill").forEach(p => p.classList.toggle("active", p.dataset.cat === cat));
+  renderGrid();
+}
+
+// ── Search ─────────────────────────────────────────────────────────────────
+document.getElementById("search").addEventListener("input", e => {
+  searchQuery = e.target.value.trim().toLowerCase();
+  renderGrid();
+});
+
+// ── Score for search ───────────────────────────────────────────────────────
+const STOP = new Set(["a","an","the","and","or","for","to","in","of","is","it","i","my","me","do","how","can","with","that"]);
+function scoreSkill(skill, words) {
+  if (!words.length) return 1;
+  let score = 0;
+  const nameLine = (skill.name + " " + skill.tagline).toLowerCase();
+  const full = [skill.name, skill.tagline, skill.description, skill.category, ...(skill.goodFor||[])].join(" ").toLowerCase();
+  words.forEach(w => {
+    const inName = nameLine.split(w).length - 1;
+    const inFull = full.split(w).length - 1;
+    score += inName * 3 + inFull;
+  });
+  return score;
+}
+
+// ── Render grid ────────────────────────────────────────────────────────────
+function renderGrid() {
+  const grid = document.getElementById("skillGrid");
+  grid.innerHTML = "";
+  const words = searchQuery.split(/\s+/).filter(w => w.length > 1 && !STOP.has(w));
+
+  let filtered = SKILLS.filter(s => {
+    if (activeFilter !== "all" && s.category !== activeFilter) return false;
+    if (words.length > 0) return scoreSkill(s, words) > 0;
+    return true;
+  });
+
+  if (words.length > 0) {
+    filtered = filtered.map(s => [s, scoreSkill(s, words)]).sort((a,b)=>b[1]-a[1]).map(([s])=>s);
+  }
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="no-results">
+      <div class="big">🔍</div>
+      <p>No skills match "<strong>${escape(searchQuery)}</strong>"</p>
+      <p style="margin-top:.5rem;font-size:.9rem;">
+        <a href="https://github.com/jac007x/CheatCodes-Skill-Library/issues/new?template=skill_request.yml" target="_blank">
+          Request this skill →
+        </a>
+      </p>
+    </div>`;
+    return;
+  }
+
+  filtered.forEach(skill => {
+    const card = document.createElement("div");
+    card.className = "skill-card";
+    card.innerHTML = `
+      <div class="card-header">
+        <span class="card-emoji">${skill.emoji}</span>
+        <div>
+          <div class="card-title">${escape(skill.name)}</div>
+          <div class="card-cat">${escape(skill.category)}</div>
+        </div>
+      </div>
+      <div class="card-desc">${escape(skill.tagline)}</div>
+      <div class="card-footer">
+        ${statusBadge(skill.status)}
+        ${(skill.goodFor||[]).slice(0,2).map(t=>`<span class="tag">${escape(t)}</span>`).join("")}
+      </div>
+    `;
+    card.addEventListener("click", () => openModal(skill));
+    grid.appendChild(card);
+  });
+}
+
+// ── Modal ──────────────────────────────────────────────────────────────────
+function openModal(skill) {
+  currentSkill = skill;
+  currentVersion = skill.versions[0];
+
+  document.getElementById("modalEmoji").textContent = skill.emoji;
+  document.getElementById("modalTitle").textContent = skill.name;
+  document.getElementById("modalCat").textContent = (CATEGORIES[skill.category]?.emoji || "📁") + " " + skill.category;
+
+  renderModalBody();
+
+  document.getElementById("modalActions").innerHTML = `
+    <a href="https://github.com/jac007x/CheatCodes-Skill-Library/tree/main/skills/${skill.category}/${skill.id}"
+       target="_blank" class="action-btn action-secondary">📖 View on GitHub</a>
+    <a href="https://github.com/jac007x/CheatCodes-Skill-Library/issues/new?template=skill_recommendation.yml"
+       target="_blank" class="action-btn action-secondary">💡 Suggest improvement</a>
+  `;
+
+  document.getElementById("modalOverlay").classList.add("open");
+  document.getElementById("modal").scrollTop = 0;
+}
+
+function renderModalBody() {
+  const skill = currentSkill;
+  const body = document.getElementById("modalBody");
+
+  body.innerHTML = `
+    <p class="modal-desc">${escape(skill.description)}</p>
+
+    <div class="section-title">Good for</div>
+    <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.2rem;">
+      ${(skill.goodFor||[]).map(t=>`<span class="tag">${escape(t)}</span>`).join("")}
+    </div>
+
+    <div class="section-title">Choose a version</div>
+    <div class="version-list" id="versionList">
+      ${skill.versions.map(v => `
+        <div class="version-item ${v.id === currentVersion.id ? 'selected':''}"
+             data-vid="${v.id}" onclick="selectVersion('${v.id}')">
+          <div style="flex:1">
+            <div class="version-label">${escape(v.label)}</div>
+            <div class="version-note">${escape(v.note)}</div>
+          </div>
+          ${statusBadge(v.status)}
+        </div>
+      `).join("")}
+    </div>
+
+    <div id="wizardArea"></div>
+  `;
+
+  renderWizard();
+}
+
+function selectVersion(vid) {
+  currentVersion = currentSkill.versions.find(v => v.id === vid);
+  document.querySelectorAll(".version-item").forEach(el => {
+    el.classList.toggle("selected", el.dataset.vid === vid);
+  });
+  renderWizard();
+}
+
+// ── Wizard ─────────────────────────────────────────────────────────────────
+function renderWizard() {
+  const ver = currentVersion;
+  const area = document.getElementById("wizardArea");
+  if (!area) return;
+
+  let betaWarning = "";
+  if (ver.status === "beta") {
+    betaWarning = `<div class="beta-warning" style="margin-bottom:1.2rem;">
+      <strong>⚠️ Beta version</strong>
+      This version has new features that are still being tested. Results may vary.
+      Please <a href="https://github.com/jac007x/CheatCodes-Skill-Library/issues/new" target="_blank">share feedback</a> after trying it.
+    </div>`;
+  }
+
+  const fields = ver.placeholders.map((p, i) => `
+    <div class="field-group">
+      <label class="field-label" for="field_${i}">${escape(p.label)}</label>
+      <div class="field-hint">${escape(p.hint)}</div>
+      ${p.multiline
+        ? `<textarea class="field-input" id="field_${i}" data-key="${escape(p.key)}" rows="4" placeholder="${escape(p.hint)}"></textarea>`
+        : `<input  class="field-input" id="field_${i}" data-key="${escape(p.key)}" type="text" placeholder="${escape(p.hint)}" />`
+      }
+    </div>
+  `).join("");
+
+  area.innerHTML = `
+    <div style="margin-top:1.4rem;">
+      <div class="section-title">🚀 Use this skill — fill in your details</div>
+      ${betaWarning}
+      <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.2rem;">
+        ${fields}
+      </div>
+      <div class="btn-row">
+        <button class="copy-btn" id="buildBtn" onclick="buildPrompt()">✨ Build &amp; Copy Prompt</button>
+        <button class="btn-ghost" onclick="clearFields()">Clear</button>
+      </div>
+      <div id="promptResult" style="margin-top:1.2rem;display:none;">
+        <div class="section-title">Your completed prompt — copy and paste into your AI assistant</div>
+        <div class="prompt-box" id="promptText"></div>
+        <div class="btn-row" style="margin-top:.8rem;">
+          <button class="copy-btn" id="copyBtn2" onclick="copyResult()">📋 Copy to clipboard</button>
+          <button class="btn-ghost" onclick="downloadPrompt()">💾 Save as file</button>
+        </div>
+        <p style="margin-top:.7rem;font-size:.82rem;color:var(--text-muted);">
+          Paste into <strong>ChatGPT</strong>, <strong>Claude</strong>, <strong>Microsoft Copilot</strong>, or any AI assistant.
+        </p>
+      </div>
+    </div>
+  `;
+}
+
+function buildPrompt() {
+  const ver = currentVersion;
+  let prompt = ver.prompt;
+
+  ver.placeholders.forEach((p, i) => {
+    const el = document.getElementById(`field_${i}`);
+    const val = el ? el.value.trim() : "";
+    prompt = prompt.split(`[${p.key}]`).join(val || `[${p.key}]`);
+  });
+
+  document.getElementById("promptText").textContent = prompt;
+  document.getElementById("promptResult").style.display = "block";
+  document.getElementById("modal").scrollTop = 9999;
+
+  // Auto-copy
+  copyToClipboard(prompt, "buildBtn", "✨ Build & Copy Prompt");
+}
+
+function copyResult() {
+  const text = document.getElementById("promptText").textContent;
+  copyToClipboard(text, "copyBtn2", "📋 Copy to clipboard");
+}
+
+function copyToClipboard(text, btnId, originalLabel) {
+  if (!navigator.clipboard) {
+    fallbackCopy(text);
+    return;
+  }
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(btnId);
+    if (btn) {
+      btn.textContent = "✅ Copied!";
+      btn.classList.add("copied");
+      setTimeout(() => { btn.textContent = originalLabel; btn.classList.remove("copied"); }, 2500);
+    }
+  }).catch(() => fallbackCopy(text));
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand("copy");
+  document.body.removeChild(ta);
+}
+
+function clearFields() {
+  currentVersion.placeholders.forEach((_, i) => {
+    const el = document.getElementById(`field_${i}`);
+    if (el) el.value = "";
+  });
+  document.getElementById("promptResult").style.display = "none";
+}
+
+function downloadPrompt() {
+  const text = document.getElementById("promptText").textContent;
+  const blob = new Blob([text], { type: "text/plain" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${currentSkill.id}-${currentVersion.id}-prompt.txt`;
+  a.click();
+}
+
+// ── Modal close ────────────────────────────────────────────────────────────
+document.getElementById("modalClose").addEventListener("click", closeModal);
+document.getElementById("modalOverlay").addEventListener("click", e => {
+  if (e.target === document.getElementById("modalOverlay")) closeModal();
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+function closeModal() {
+  document.getElementById("modalOverlay").classList.remove("open");
+  currentSkill = null; currentVersion = null;
+}
+
+// ── Init ───────────────────────────────────────────────────────────────────
+buildFilterBar();
+renderGrid();
+</script>
+</body>
+</html>

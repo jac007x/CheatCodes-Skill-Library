@@ -10,6 +10,8 @@ jobs:
   validate-skills:
     name: Validate skill manifests and structure
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout repository

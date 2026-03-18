@@ -19,8 +19,8 @@ long_description: |
 
 author: "jac007x"
 maintainers: ["jac007x"]
-created: "2024-01-01"
-updated: "2024-03-01"
+created: "2026-03-18"
+updated: "2026-03-18"
 license: "MIT"
 
 min_requirements:
@@ -45,14 +45,14 @@ examples:
 
 changelog:
   - version: "2.0.0"
-    date: "2024-03-01"
+    date: "2026-03-18"
     status: "beta"
     changes:
       - "Added parallel track planning"
       - "Added dependency graph output"
       - "Improved effort estimation accuracy"
   - version: "1.0.0"
-    date: "2024-01-01"
+    date: "2026-03-18"
     status: "stable"
     changes:
       - "Initial stable release"
