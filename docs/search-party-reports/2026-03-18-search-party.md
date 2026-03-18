@@ -17,7 +17,10 @@ Scanned 6 primary sources for skills relevant to People function and general pro
 - ✅ GitHub Employee Engagement repos
 - ✅ LangChain Tools ecosystem
 
-**Results**: 18 candidates identified, 8 recommended for curation
+**Results**:
+- 6 skills recommended for curation
+- 2 existing skills to document
+- 2 high-priority skills to BUILD (Calendar, Email)
 
 ---
 
@@ -307,23 +310,21 @@ Scanned 6 primary sources for skills relevant to People function and general pro
 
 | # | Candidate | Source | Score | Decision |
 |---|-----------|--------|-------|----------|
-| 1 | People API Agent | Wibey | 4.5 | ✅ Curate |
-| 2 | Horilla HR Platform | GitHub | 4.25 | ✅ Fork modules |
-| 3 | Exit Narrative Generator | GitHub | 4.0 | ✅ Curate |
-| 4 | PDF Processing | Anthropic | 5.0 | ✅ Curate |
-| 5 | PowerPoint Reading | Anthropic | 5.0 | ✅ Curate |
-| 6 | Form Extraction | Anthropic | 5.0 | ✅ Curate |
-| 7 | Memory/Knowledge Graph | MCP | 4.5 | ✅ Curate |
-| 8 | Unstructured Parser | LangChain | 4.75 | ✅ Curate |
-| 9 | Confluence Agent | Wibey | 5.0 | 📝 Document |
-| 10 | JIRA Agent | Wibey | 5.0 | 📝 Document |
-| 11 | HR Dashboard (Tableau) | GitHub | 3.5 | ⏸️ Defer |
-| 12 | Sequential Thinking | MCP | 4.0 | ⏸️ Defer |
-| 13 | BigQuery MCP | Wibey | 3.75 | ⏸️ Assess |
-| 14 | PointD-Pal | GitHub | 3.5 | ⏸️ Patterns |
-| 15 | HR Dashboard (Power BI) | GitHub | 3.0 | ❌ Pass |
-| 16 | Private GPT | GitHub | 2.75 | ❌ Pass |
-| 17 | Alignify | GitHub | 2.75 | ❌ Pass |
+| 1 | PDF Processing | Anthropic | 5.0 | ✅ Curate |
+| 2 | PowerPoint Reading | Anthropic | 5.0 | ✅ Curate |
+| 3 | Form Extraction | Anthropic | 5.0 | ✅ Curate |
+| 4 | Unstructured Parser | LangChain | 4.75 | ✅ Curate |
+| 5 | People API Agent | Wibey | 4.5 | ✅ Curate |
+| 6 | Memory/Knowledge Graph | MCP | 4.5 | ✅ Curate |
+| 7 | Confluence Agent | Wibey | 5.0 | 📝 Document usage |
+| 8 | JIRA Agent | Wibey | 5.0 | 📝 Document usage |
+| 9 | MS Graph (Calendar/Email) | Wibey | - | 🔨 **BUILD** (High Priority) |
+| 10 | Sequential Thinking | MCP | 4.0 | ⏸️ Defer |
+| 11 | BigQuery MCP | Wibey | 3.75 | ⏸️ Assess |
+
+**Removed from consideration:**
+- Horilla HR Platform - Full platform overkill, patterns not unique
+- Exit Narrative Generator - Too academic/niche for practical use
 
 ---
 
@@ -350,11 +351,43 @@ Scanned 6 primary sources for skills relevant to People function and general pro
 
 | Gap | Priority | Notes |
 |-----|----------|-------|
+| **Calendar/Scheduling** | 🔴 HIGH | MS Graph available - needs skill wrapper |
+| **Email automation** | 🔴 HIGH | Outlook integration critical for People workflows |
 | **Survey/Pulse tools** | High | No good candidates found |
-| **Calendar/Scheduling** | Medium | MS Graph available but not documented |
-| **Email automation** | Medium | Outlook integration needed |
-| **Learning/Training** | Low | No candidates found |
+| **Learning/Training** | Medium | No candidates found |
 | **Performance review** | Medium | Could build custom |
+
+### Priority Skills to Build
+
+#### 1. Calendar Skill (HIGH)
+- Meeting scheduling and availability
+- Calendar analytics (time in meetings, patterns)
+- Recurring meeting management
+- Integration with MS Graph API
+
+#### 2. Email Skill (HIGH)
+- Email drafting and templates
+- Inbox triage and summarization
+- Follow-up tracking
+- Bulk communication for People workflows
+
+---
+
+## Code Puppy Learnings to Incorporate
+
+> *@jac007x has Code Puppy running calendar/email automation. Capture learnings here.*
+
+### What's Working Well
+- [ ] TODO: Document successful patterns
+
+### Pain Points / Gotchas
+- [ ] TODO: Document issues encountered
+
+### Feature Ideas
+- [ ] TODO: List desired capabilities
+
+### Architecture Notes
+- [ ] TODO: How is it structured? What can we reuse?
 
 ---
 
