@@ -1,0 +1,44 @@
+name: confluence-people
+version: 1.0.0
+description: Confluence knowledge management patterns for People function
+author: jac007x
+source: curated
+source_url: wibey://agents/confluence
+curation_date: 2026-03-18
+
+tags:
+  - confluence
+  - knowledge-management
+  - documentation
+  - people
+  - hr
+  - policies
+  - search
+
+status: active
+
+capabilities:
+  - search_content
+  - find_policies
+  - locate_processes
+  - find_templates
+  - search_meeting_notes
+
+use_cases:
+  - Policy lookup
+  - Onboarding documentation
+  - Process documentation
+  - Meeting notes search
+  - Template discovery
+
+dependencies:
+  agents:
+    - confluence  # Wibey Confluence Agent
+
+common_spaces:
+  - HR-Policies
+  - People-Ops
+  - Onboarding
+  - L&D
+  - Benefits
+  - People-Team

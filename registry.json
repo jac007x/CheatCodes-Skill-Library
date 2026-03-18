@@ -61,6 +61,78 @@
         "skills": ["msgraph"],
         "auth": ["microsoft-365"]
       }
+    },
+    {
+      "id": "document-processing",
+      "name": "Document Processing",
+      "version": "1.0.0",
+      "description": "PDF, PowerPoint, and Form extraction patterns for People workflows",
+      "author": "jac007x",
+      "source": "curated",
+      "source_urls": [
+        "https://github.com/anthropics/anthropic-cookbook",
+        "https://github.com/Unstructured-IO/unstructured"
+      ],
+      "curation_date": "2026-03-18",
+      "status": "active",
+      "path": "skills/document-processing",
+      "tags": ["pdf", "powerpoint", "forms", "ocr", "data-extraction", "people"],
+      "capabilities": [
+        "PDF text extraction",
+        "PDF summarization",
+        "PowerPoint analysis",
+        "Form data extraction",
+        "Chart interpretation"
+      ],
+      "dependencies": {
+        "python": ">=3.10",
+        "packages": ["anthropic"],
+        "optional": ["unstructured[all-docs]"]
+      }
+    },
+    {
+      "id": "confluence-people",
+      "name": "Confluence for People",
+      "version": "1.0.0",
+      "description": "Knowledge management patterns for People function - policies, processes, documentation",
+      "author": "jac007x",
+      "source": "curated",
+      "source_url": "wibey://agents/confluence",
+      "curation_date": "2026-03-18",
+      "status": "active",
+      "path": "skills/confluence-people",
+      "tags": ["confluence", "knowledge-management", "documentation", "people", "policies"],
+      "capabilities": [
+        "Policy lookup",
+        "Process documentation",
+        "Template discovery",
+        "Meeting notes search"
+      ],
+      "dependencies": {
+        "agents": ["confluence"]
+      }
+    },
+    {
+      "id": "jira-people",
+      "name": "JIRA for People",
+      "version": "1.0.0",
+      "description": "Work management patterns for People function - requests, initiatives, reporting",
+      "author": "jac007x",
+      "source": "curated",
+      "source_url": "wibey://agents/jira",
+      "curation_date": "2026-03-18",
+      "status": "active",
+      "path": "skills/jira-people",
+      "tags": ["jira", "work-management", "task-tracking", "people", "requests"],
+      "capabilities": [
+        "Request tracking",
+        "Initiative monitoring",
+        "Workload management",
+        "Reporting and metrics"
+      ],
+      "dependencies": {
+        "agents": ["jira"]
+      }
     }
   ],
   "categories": [
@@ -83,6 +155,16 @@
       "id": "productivity",
       "name": "Productivity",
       "description": "Skills for calendar, email, and workflow automation"
+    },
+    {
+      "id": "knowledge-management",
+      "name": "Knowledge Management",
+      "description": "Skills for documentation, wikis, and information retrieval"
+    },
+    {
+      "id": "work-management",
+      "name": "Work Management",
+      "description": "Skills for task tracking, project management, and workflows"
     }
   ],
   "source_types": {

@@ -1,0 +1,49 @@
+name: jira-people
+version: 1.0.0
+description: JIRA work management patterns for People function
+author: jac007x
+source: curated
+source_url: wibey://agents/jira
+curation_date: 2026-03-18
+
+tags:
+  - jira
+  - work-management
+  - task-tracking
+  - people
+  - hr
+  - requests
+  - projects
+
+status: active
+
+capabilities:
+  - search_issues
+  - create_tickets
+  - update_status
+  - query_workload
+  - generate_reports
+
+use_cases:
+  - Request tracking
+  - Initiative tracking
+  - Reporting and metrics
+  - Workload management
+  - Service request management
+
+dependencies:
+  agents:
+    - jira  # Wibey JIRA Agent
+
+ticket_types:
+  - Service Request
+  - Epic (Initiatives)
+  - Change Request
+  - Task
+
+components:
+  - People Ops
+  - Benefits
+  - Employee Relations
+  - L&D
+  - Policy
