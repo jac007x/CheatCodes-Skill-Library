@@ -9,6 +9,14 @@ A **skill** is a reusable, documented capability that AI agents can leverage to 
 - **Composable** - Building blocks that chain together
 - **Configurable** - Adaptable to different contexts and organizations
 
+### Skill Sources
+
+| Type | Badge | Description |
+|------|-------|-------------|
+| **Created** | 🛠️ | Built in-house from scratch |
+| **Curated** | 📚 | Discovered externally and adapted |
+| **Forked** | 🔱 | Forked from open source and customized |
+
 ## Library Structure
 
 ```
@@ -23,9 +31,9 @@ CheatCodes-Skill-Library/
 
 ## Available Skills
 
-| Skill | Description | Status |
-|-------|-------------|--------|
-| [mbr-engine](skills/mbr-engine/) | Monthly Business Review automation with org health metrics, feature detection, and PowerPoint generation | In Development |
+| Skill | Source | Description | Status |
+|-------|--------|-------------|--------|
+| [mbr-engine](skills/mbr-engine/) | 🛠️ Created | Monthly Business Review automation with org health metrics, feature detection, and PowerPoint generation | In Development |
 
 ## Quick Start
 
@@ -81,10 +89,21 @@ outputs:
 
 ## Contributing
 
+### Create a New Skill
 1. Fork the repository
 2. Create your skill in `skills/your-skill/`
 3. Add documentation
 4. Submit a PR
+
+### Curate an External Skill
+1. [Submit a curation request](../../issues/new?template=curate-skill.yml)
+2. We'll evaluate and adapt it
+3. Attribution is always maintained
+
+### Request a Search Party
+Need a tool we don't have? [Trigger a search party](../../issues/new?template=search-party.yml) to find external options.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/SKILL-DISCOVERY.md](docs/SKILL-DISCOVERY.md) for full guidelines.
 
 ## License
 

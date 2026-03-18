@@ -1,0 +1,86 @@
+name: "\U0001F50D Trigger Search Party"
+description: Request a focused search for skills in a specific area
+title: "[SEARCH] "
+labels: ["search-party", "discovery"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Search Party Request
+        Trigger a focused search for skills or tools in a specific area.
+
+  - type: input
+    id: focus_area
+    attributes:
+      label: Focus Area
+      description: What category or domain to search?
+      placeholder: "e.g., PDF manipulation, calendar integrations, data visualization"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to Solve
+      description: What gap are we trying to fill?
+      placeholder: "We need a way to..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: sources
+    attributes:
+      label: Sources to Search
+      description: Which sources should be checked?
+      options:
+        - label: Wibey Skills Registry
+        - label: MCP Servers Directory
+        - label: GitHub / Awesome Lists
+        - label: LangChain Tools
+        - label: Anthropic Cookbook
+        - label: npm / PyPI packages
+        - label: Internal Walmart tools
+
+  - type: textarea
+    id: keywords
+    attributes:
+      label: Search Keywords
+      description: Suggested search terms
+      placeholder: |
+        - "pdf parser"
+        - "document extraction"
+        - "text analysis"
+
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Must-Have Requirements
+      description: Non-negotiable features
+      placeholder: |
+        - Must handle large files (>100MB)
+        - Must have Python bindings
+
+  - type: textarea
+    id: nice_to_have
+    attributes:
+      label: Nice-to-Have Features
+      description: Preferred but not required
+      placeholder: |
+        - OCR support
+        - Async processing
+
+  - type: input
+    id: scout
+    attributes:
+      label: Volunteer Scout
+      description: Who will run this search? (GitHub username)
+      placeholder: "@jac007x"
+
+  - type: input
+    id: deadline
+    attributes:
+      label: Findings Due By
+      description: When should results be reported?
+      placeholder: "2026-03-25"
+    validations:
+      required: true

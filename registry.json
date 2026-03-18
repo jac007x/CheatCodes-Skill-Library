@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "updated": "2026-03-18",
   "skills": [
     {
@@ -8,6 +8,8 @@
       "version": "2.0.0",
       "description": "Monthly Business Review automation - extract org health metrics, detect patterns, generate PowerPoint presentations",
       "author": "jac007x",
+      "source": "created",
+      "source_url": null,
       "status": "in_development",
       "path": "skills/mbr-engine",
       "tags": ["hr-analytics", "reporting", "automation", "powerpoint", "org-health", "metrics"],
@@ -49,6 +51,52 @@
       "id": "data-extraction",
       "name": "Data Extraction",
       "description": "Skills for extracting structured data from various sources"
+    }
+  ],
+  "source_types": {
+    "created": {
+      "description": "Skills built in-house from scratch",
+      "badge": "🛠️ Created"
+    },
+    "curated": {
+      "description": "Skills discovered from external resources and adapted",
+      "badge": "📚 Curated"
+    },
+    "forked": {
+      "description": "Skills forked from open source and customized",
+      "badge": "🔱 Forked"
+    }
+  },
+  "curation_sources": [
+    {
+      "id": "github-awesome-lists",
+      "name": "GitHub Awesome Lists",
+      "url": "https://github.com/topics/awesome",
+      "description": "Curated lists of tools and resources"
+    },
+    {
+      "id": "wibey-registry",
+      "name": "Wibey Skills Registry",
+      "url": "https://wibey.walmart.com/skills",
+      "description": "Official Wibey skill marketplace"
+    },
+    {
+      "id": "mcp-servers",
+      "name": "MCP Servers Directory",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "description": "Model Context Protocol servers and tools"
+    },
+    {
+      "id": "langchain-tools",
+      "name": "LangChain Tools",
+      "url": "https://python.langchain.com/docs/integrations/tools",
+      "description": "LangChain ecosystem tools and integrations"
+    },
+    {
+      "id": "anthropic-cookbook",
+      "name": "Anthropic Cookbook",
+      "url": "https://github.com/anthropics/anthropic-cookbook",
+      "description": "Official Anthropic patterns and recipes"
     }
   ]
 }

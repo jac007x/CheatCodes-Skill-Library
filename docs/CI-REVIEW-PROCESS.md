@@ -43,6 +43,19 @@ Regular reviews ensure the skills library stays:
    - Adjust priorities
    - Update timelines
 
+### Monthly Search Party (1-2 hours)
+**When**: Second week of each month (after skill review)
+**Who**: Any contributor (volunteer scout)
+
+**Purpose**: Discover skills from external sources for curation
+
+**Workflow**:
+1. **Source Scan** (30 min) - Check primary discovery sources
+2. **Quick Evaluation** (30 min) - Score candidates
+3. **Document Candidates** (30 min) - Create issues for passing candidates
+
+See [SKILL-DISCOVERY.md](./SKILL-DISCOVERY.md) for full process.
+
 ### Quarterly Retrospective (2 hours)
 **When**: End of each quarter
 **Who**: All contributors

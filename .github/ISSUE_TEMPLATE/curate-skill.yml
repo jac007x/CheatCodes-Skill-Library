@@ -1,0 +1,120 @@
+name: "\U0001F4DA Curate External Skill"
+description: Suggest a skill discovered from an external source for curation
+title: "[CURATE] "
+labels: ["curation", "evaluation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Suggest a Skill for Curation
+        Found a useful tool or skill externally? Document it here for evaluation.
+
+  - type: input
+    id: skill_name
+    attributes:
+      label: Skill/Tool Name
+      description: What is the name of the skill or tool?
+      placeholder: "e.g., Anthropic PDF Parser"
+    validations:
+      required: true
+
+  - type: input
+    id: source_url
+    attributes:
+      label: Source URL
+      description: Link to the original source
+      placeholder: "https://github.com/org/repo"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: source_type
+    attributes:
+      label: Source Type
+      description: Where did you find this?
+      options:
+        - Wibey Registry
+        - MCP Servers Directory
+        - GitHub / Open Source
+        - LangChain Tools
+        - Anthropic Cookbook
+        - Awesome Lists
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What does it do?
+      description: Briefly describe the skill's functionality
+      placeholder: "This tool allows you to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: How would we use it?
+      description: What problem would this solve for us?
+      placeholder: "We could use this to..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: license
+    attributes:
+      label: License
+      description: What license is it released under?
+      options:
+        - MIT
+        - Apache 2.0
+        - BSD
+        - GPL
+        - Other / Unknown
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: quick_eval
+    attributes:
+      label: Quick Evaluation
+      description: Initial assessment
+      options:
+        - label: Actively maintained (commits in last 6 months)
+        - label: Has documentation
+        - label: Has tests
+        - label: No obvious security concerns
+        - label: Fits our skill library scope
+
+  - type: dropdown
+    id: adaptation_effort
+    attributes:
+      label: Estimated Adaptation Effort
+      description: How much work to integrate?
+      options:
+        - Low (< 4 hours) - Minor config/wrapper
+        - Medium (4-16 hours) - Significant customization
+        - High (16-40 hours) - Major rewrite needed
+        - Very High (40+ hours) - Consider creating instead
+    validations:
+      required: true
+
+  - type: textarea
+    id: modifications
+    attributes:
+      label: Modifications Needed
+      description: What would we need to change?
+      placeholder: |
+        - Update configuration format
+        - Add error handling
+        - Integrate with our auth system
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Other options you evaluated
+      placeholder: |
+        - Tool X: Too complex
+        - Tool Y: Poor documentation
