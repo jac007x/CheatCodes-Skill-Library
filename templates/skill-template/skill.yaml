@@ -1,0 +1,79 @@
+# Skill Metadata Template
+# Copy this file and fill in your skill details
+
+name: skill-name
+version: 1.0.0
+description: Brief description of what this skill does
+author: your-name
+created: YYYY-MM-DD
+status: draft  # draft, in_development, beta, stable, deprecated
+
+# Categorization
+tags:
+  - category1
+  - category2
+
+# Dependencies
+requires:
+  python: ">=3.10"
+  packages:
+    - package1>=1.0
+    - package2>=2.0
+
+# Input specification
+inputs:
+  - name: input_file
+    type: file
+    format: xlsx  # csv, json, xlsx, etc.
+    description: Description of input
+    required: true
+
+  - name: config_option
+    type: string
+    description: Optional configuration
+    required: false
+    default: "default_value"
+
+# Output specification
+outputs:
+  - name: result
+    type: object
+    description: Main output object
+
+  - name: report_file
+    type: file
+    format: pdf
+    description: Generated report
+
+# Configuration options
+config:
+  - name: setting1
+    description: Description of setting
+    type: string
+    default: "default"
+
+  - name: setting2
+    description: Another setting
+    type: integer
+    default: 10
+
+# Workflows (if skill has multiple modes)
+workflows:
+  - name: default
+    description: Default workflow
+    steps:
+      - step1
+      - step2
+      - step3
+
+# Portability settings
+portability:
+  supports_custom_config: true
+  schema_contribution: true
+  requires_onboarding: false
+
+# Testing
+tests:
+  unit_tests: tests/
+  integration_tests: tests/integration/
+  fixtures: tests/fixtures/

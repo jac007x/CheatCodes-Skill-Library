@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-03-18",
+  "skills": [
+    {
+      "id": "mbr-engine",
+      "name": "MBR Engine",
+      "version": "2.0.0",
+      "description": "Monthly Business Review automation - extract org health metrics, detect patterns, generate PowerPoint presentations",
+      "author": "jac007x",
+      "status": "in_development",
+      "path": "skills/mbr-engine",
+      "tags": ["hr-analytics", "reporting", "automation", "powerpoint", "org-health", "metrics"],
+      "sub_skills": [
+        {
+          "id": "threshold-governance",
+          "name": "Threshold Governance",
+          "description": "Metric threshold management with quarterly reviews and calibration"
+        },
+        {
+          "id": "org-portability",
+          "name": "Org Portability",
+          "description": "Portable org configuration for extending MBR to new organizations"
+        },
+        {
+          "id": "org-onboarding",
+          "name": "Org Onboarding",
+          "description": "Guided workflow for adding new organizations"
+        }
+      ],
+      "dependencies": {
+        "python": ">=3.10",
+        "packages": ["pandas>=2.0", "openpyxl>=3.1", "python-pptx>=0.6.21"]
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "hr-analytics",
+      "name": "HR Analytics",
+      "description": "Skills for human resources data analysis and reporting"
+    },
+    {
+      "id": "reporting",
+      "name": "Reporting & Automation",
+      "description": "Skills for generating reports and automating workflows"
+    },
+    {
+      "id": "data-extraction",
+      "name": "Data Extraction",
+      "description": "Skills for extracting structured data from various sources"
+    }
+  ]
+}
