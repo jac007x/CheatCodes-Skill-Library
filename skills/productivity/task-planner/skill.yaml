@@ -1,0 +1,63 @@
+name: "task-planner"
+display_name: "Task Planner"
+version: "2.0.0"
+status: "beta"
+
+category: "productivity"
+tags: [planning, tasks, prioritization, gtd, workflow]
+
+description: |
+  Breaks down a goal or project into clear, prioritized, actionable tasks.
+
+long_description: |
+  Given a high-level goal or project description, Task Planner decomposes it
+  into a structured, prioritized task list. It identifies dependencies between
+  tasks, estimates effort, and organizes work into phases so teams can move
+  fast without losing the big picture.
+
+  v2 adds support for parallel track planning and dependency graphs.
+
+author: "jac007x"
+maintainers: ["jac007x"]
+created: "2026-03-18"
+updated: "2026-03-18"
+license: "MIT"
+
+min_requirements:
+  tools: []
+  platforms: [linux, macos, windows]
+
+dependencies: []
+
+usage: |
+  1. Copy the prompt from v2/prompt.md into your AI assistant.
+  2. Describe your project or goal when prompted.
+  3. Review the generated task breakdown.
+  4. Export to your task manager of choice.
+
+examples:
+  - title: "Plan a product launch"
+    description: "Decompose a SaaS product launch into phases and tasks."
+    code: |
+      Goal: Launch a new SaaS analytics dashboard in 8 weeks.
+      Team size: 4 (1 PM, 2 engineers, 1 designer)
+      Constraints: No budget for paid ads, must integrate with Slack.
+
+changelog:
+  - version: "2.0.0"
+    date: "2026-03-18"
+    status: "beta"
+    changes:
+      - "Added parallel track planning"
+      - "Added dependency graph output"
+      - "Improved effort estimation accuracy"
+  - version: "1.0.0"
+    date: "2026-03-18"
+    status: "stable"
+    changes:
+      - "Initial stable release"
+
+community:
+  replacements: []
+  variations: []
+  feedback_issue: ""

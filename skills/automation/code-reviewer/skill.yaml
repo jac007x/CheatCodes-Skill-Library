@@ -1,0 +1,55 @@
+name: "code-reviewer"
+display_name: "Code Reviewer"
+version: "1.0.0"
+status: "stable"
+
+category: "automation"
+tags: [code-review, quality, pull-request, feedback, engineering]
+
+description: |
+  Performs an automated, structured code review of a diff or file set,
+  surfacing bugs, style issues, security risks, and improvement suggestions.
+
+long_description: |
+  Code Reviewer applies a consistent, opinionated review lens to any code
+  change. It checks for correctness, security anti-patterns, readability,
+  test coverage, and adherence to common best practices. Output is a
+  structured review comment list that can be pasted directly into a PR.
+
+author: "jac007x"
+maintainers: ["jac007x"]
+created: "2026-03-18"
+updated: "2026-03-18"
+license: "MIT"
+
+min_requirements:
+  tools: []
+  platforms: [linux, macos, windows]
+
+dependencies: []
+
+usage: |
+  1. Copy the prompt from v1/prompt.md into your AI assistant.
+  2. Paste the diff or code files you want reviewed.
+  3. Optionally specify the language, framework, and review focus.
+  4. Review the structured output and apply comments to your PR.
+
+examples:
+  - title: "Review a Python function"
+    description: "Ask the skill to review a single Python function for quality issues."
+    code: |
+      Language: Python
+      Focus: correctness, security
+      Code: <paste your diff here>
+
+changelog:
+  - version: "1.0.0"
+    date: "2026-03-18"
+    status: "stable"
+    changes:
+      - "Initial stable release"
+
+community:
+  replacements: []
+  variations: []
+  feedback_issue: ""

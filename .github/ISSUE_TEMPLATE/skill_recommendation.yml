@@ -1,0 +1,91 @@
+name: Skill Recommendation
+description: Suggest an improvement to an existing skill
+title: "[Recommendation] <skill-name> — <short description>"
+labels: ["skill-recommendation", "triage"]
+assignees: ["jac007x"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 💡 Skill Improvement Recommendation
+        Help us make the CheatCodes Skill Library even better!
+
+  - type: input
+    id: skill_path
+    attributes:
+      label: Skill
+      description: Path to the skill you want to improve (e.g., `productivity/task-planner`)
+      placeholder: "category/skill-name"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Which version are you recommending changes for?
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: improvement_type
+    attributes:
+      label: Type of Improvement
+      options:
+        - Better prompt / output quality
+        - New feature / capability
+        - Better documentation / examples
+        - Performance / efficiency
+        - Broader applicability / flexibility
+        - Bug fix
+        - Security improvement
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_behaviour
+    attributes:
+      label: Current Behaviour
+      description: What does the skill currently do that you want to improve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_improvement
+    attributes:
+      label: Proposed Improvement
+      description: Describe your proposed change in detail. Be as specific as possible.
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Before / After Example
+      description: If possible, show the output before and after your proposed change.
+      placeholder: |
+        Before: ...
+        After: ...
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impact
+      description: How much would this improvement benefit users?
+      options:
+        - Low — minor quality improvement
+        - Medium — meaningfully better output
+        - High — significantly expands usefulness
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I'm willing to draft the updated prompt
+        - label: I'm willing to test a beta version

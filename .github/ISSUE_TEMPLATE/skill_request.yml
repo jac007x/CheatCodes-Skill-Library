@@ -1,0 +1,97 @@
+name: Skill Request
+description: Request a new skill to be added to the CheatCodes Skill Library
+title: "[Skill Request] <skill-name>"
+labels: ["skill-request", "triage"]
+assignees: ["jac007x"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🌟 New Skill Request
+        Thank you for helping grow the CheatCodes Skill Library!
+        Please fill out as much detail as possible so we can build the best version of this skill.
+
+  - type: input
+    id: skill_name
+    attributes:
+      label: Skill Name
+      description: A short, kebab-case name for the skill (e.g., `email-drafter`, `sql-optimizer`)
+      placeholder: "my-skill-name"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Which category best fits this skill?
+      options:
+        - productivity
+        - automation
+        - communication
+        - data
+        - devops
+        - security
+        - custom (describe in notes)
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Use Case
+      description: What problem does this skill solve? Describe the scenario where you'd use it.
+      placeholder: "I need to quickly... so that I can..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_output
+    attributes:
+      label: Expected Output
+      description: What should the skill produce? Describe the ideal output format and content.
+      placeholder: "The skill should produce a Markdown document with..."
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example Inputs & Outputs
+      description: Provide 1–2 concrete examples of inputs and ideal outputs.
+      placeholder: |
+        Input: ...
+        Output: ...
+
+  - type: textarea
+    id: existing_alternatives
+    attributes:
+      label: Existing Alternatives
+      description: Are there existing tools, prompts, or skills that partially cover this? What gaps remain?
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How urgently do you need this skill?
+      options:
+        - Low — nice to have
+        - Medium — would use regularly
+        - High — blocking work
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Would you be willing to help?
+      options:
+        - label: I'm willing to draft a v1 prompt for this skill
+        - label: I'm willing to test a beta version and give feedback
+        - label: I can provide sample data or examples
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Anything else that would help us build the best version of this skill?
