@@ -1,9 +1,12 @@
 name: mbr-engine
-version: 2.0.0
+display_name: "MBR Engine"
+version: "2.0.0"
 description: Monthly Business Review automation - extract org health metrics, detect patterns, generate PowerPoint presentations
 author: jac007x
-created: 2026-03-18
-status: in_development
+created: "2026-03-18"
+updated: "2026-03-18"
+status: beta
+category: hr-analytics
 
 tags:
   - hr-analytics
@@ -190,3 +193,17 @@ portability:
   supports_custom_schemas: true
   onboarding_required: true
   schema_contribution: true
+
+
+# Versioning
+changelog:
+  - version: "2.0.0"
+    date: "2026-03-18"
+    status: beta
+    changes:
+      - "Full multi-org MBR automation with threshold governance and portability"
+  - version: "1.0.0"
+    date: "2026-01-01"
+    status: archived
+    changes:
+      - "Initial MBR Engine — basic headcount and attrition extraction"

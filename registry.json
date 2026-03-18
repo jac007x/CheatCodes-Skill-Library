@@ -1,7 +1,51 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "updated": "2026-03-18",
   "skills": [
+    {
+      "id": "task-planner",
+      "name": "Task Planner",
+      "version": "2.0.0",
+      "description": "Break down goals into prioritised, actionable tasks with phased plans and dependency tracking",
+      "author": "jac007x",
+      "status": "stable",
+      "path": "skills/productivity/task-planner",
+      "tags": ["productivity", "planning", "tasks", "projects"],
+      "versions": ["v1", "v2-beta"]
+    },
+    {
+      "id": "code-reviewer",
+      "name": "Code Reviewer",
+      "version": "1.0.0",
+      "description": "Automated structured code review with severity ratings and security checklist",
+      "author": "jac007x",
+      "status": "stable",
+      "path": "skills/automation/code-reviewer",
+      "tags": ["automation", "code-quality", "security", "pull-requests"],
+      "versions": ["v1"]
+    },
+    {
+      "id": "meeting-summarizer",
+      "name": "Meeting Summarizer",
+      "version": "1.0.0",
+      "description": "Convert meeting notes into decisions, action items with owners, and a shareable TL;DR",
+      "author": "jac007x",
+      "status": "stable",
+      "path": "skills/communication/meeting-summarizer",
+      "tags": ["communication", "meetings", "async", "summaries"],
+      "versions": ["v1"]
+    },
+    {
+      "id": "data-analyzer",
+      "name": "Data Analyzer",
+      "version": "1.0.0",
+      "description": "Dataset insights, anomaly detection, and visualisation recommendations from tabular data",
+      "author": "jac007x",
+      "status": "stable",
+      "path": "skills/data/data-analyzer",
+      "tags": ["data", "analytics", "insights", "csv"],
+      "versions": ["v1"]
+    },
     {
       "id": "mbr-engine",
       "name": "MBR Engine",
@@ -36,6 +80,26 @@
   ],
   "categories": [
     {
+      "id": "productivity",
+      "name": "Productivity",
+      "description": "Skills for planning, organisation, focus, and GTD workflows"
+    },
+    {
+      "id": "automation",
+      "name": "Automation",
+      "description": "Skills for code automation, workflows, bots, and CI/CD"
+    },
+    {
+      "id": "communication",
+      "name": "Communication",
+      "description": "Skills for meetings, writing, and async updates"
+    },
+    {
+      "id": "data",
+      "name": "Data Analytics",
+      "description": "Skills for data analysis, insights, and visualisation"
+    },
+    {
       "id": "hr-analytics",
       "name": "HR Analytics",
       "description": "Skills for human resources data analysis and reporting"
@@ -44,11 +108,6 @@
       "id": "reporting",
       "name": "Reporting & Automation",
       "description": "Skills for generating reports and automating workflows"
-    },
-    {
-      "id": "data-extraction",
-      "name": "Data Extraction",
-      "description": "Skills for extracting structured data from various sources"
     }
   ]
 }

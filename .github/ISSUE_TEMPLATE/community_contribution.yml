@@ -1,0 +1,86 @@
+name: Community Contribution
+description: Submit a community-fortified version or org-specific variation of an existing skill
+title: "[Community] <skill-name> — <variant-name>"
+labels: ["community-contribution", "triage"]
+assignees: ["jac007x"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 👥 Community Contribution
+        Submit a community-fortified version (v2.0+) or an org-specific variation of an existing skill.
+        
+        **Two types of contributions:**
+        - **Replacement candidate:** A stronger, more flexible version intended to become the new official skill.
+        - **Org-specific variation:** A customised version tailored for a specific org, workflow, or stack.
+
+  - type: input
+    id: base_skill
+    attributes:
+      label: Base Skill
+      description: Path to the existing skill this is based on (e.g., `productivity/task-planner`)
+      placeholder: "category/skill-name"
+    validations:
+      required: true
+
+  - type: input
+    id: variant_name
+    attributes:
+      label: Variant / Contribution Name
+      description: A short name for your contribution (e.g., `task-planner-agile`, `code-reviewer-security-focused`)
+      placeholder: "skill-name-variant"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: contribution_type
+    attributes:
+      label: Contribution Type
+      options:
+        - Replacement candidate (intended to become the new official version)
+        - Org-specific variation / skin
+        - Extended / composited skill (combines multiple skills)
+    validations:
+      required: true
+
+  - type: textarea
+    id: improvements
+    attributes:
+      label: What Makes This Better / Different
+      description: |
+        Explain what this contribution does better or differently from the base skill.
+        For replacement candidates: why is this more capable, flexible, or portable?
+        For variations: what org/workflow/stack is it tailored for?
+    validations:
+      required: true
+
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Prompt / Skill Content
+      description: Paste your full prompt or skill content here.
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples
+      description: Provide at least one before/after example showing the improvement.
+      placeholder: |
+        Input: ...
+        Base skill output: ...
+        This contribution's output: ...
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Submission Checklist
+      options:
+        - label: I have tested this contribution with at least 3 different inputs
+          required: true
+        - label: I have compared the output to the base skill
+          required: true
+        - label: I am willing to maintain this variation if accepted

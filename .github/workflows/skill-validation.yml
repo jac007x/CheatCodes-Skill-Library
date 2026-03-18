@@ -1,0 +1,35 @@
+name: Skill Validation
+
+on:
+  pull_request:
+    paths:
+      - "skills/**"
+      - "templates/**"
+
+jobs:
+  validate-skills:
+    name: Validate skill manifests and structure
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Validate changed skill manifests
+        run: python scripts/validate_skills.py --changed-only
+
+      - name: Post validation summary
+        if: always()
+        run: |
+          echo "### Skill Validation Results" >> $GITHUB_STEP_SUMMARY
+          python scripts/validate_skills.py --changed-only --summary >> $GITHUB_STEP_SUMMARY 2>&1 || true

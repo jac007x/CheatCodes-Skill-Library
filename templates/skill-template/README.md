@@ -1,113 +1,81 @@
-# [Skill Name]
+# <Human Readable Skill Name>
 
-**Brief description of what this skill does.**
+> **Status:** `beta` | **Version:** `1.0.0` | **Category:** `<category>`
 
 ## Overview
 
-Explain the purpose and value of this skill:
-- What problem does it solve?
-- Who is the target user?
-- What are the key capabilities?
+Brief description of the skill and the problem it solves.
 
-## Architecture
-
-```
-┌─────────────────────────────────────────┐
-│           [SKILL NAME]                  │
-├─────────────────────────────────────────┤
-│                                         │
-│  ┌──────────┐    ┌──────────┐          │
-│  │  Input   │───▶│ Process  │          │
-│  └──────────┘    └──────────┘          │
-│                       │                 │
-│                       ▼                 │
-│                 ┌──────────┐           │
-│                 │  Output  │           │
-│                 └──────────┘           │
-│                                         │
-└─────────────────────────────────────────┘
-```
+---
 
 ## Quick Start
 
-```python
-# Example usage code
-from skill_name import MainClass
-
-# Initialize
-skill = MainClass(config=...)
-
-# Run
-result = skill.run(input_data)
-
-# Output
-print(result)
+```bash
+# Clone just this skill into your working directory
+bash <(curl -fsSL https://raw.githubusercontent.com/jac007x/CheatCodes-Skill-Library/main/scripts/clone-skill.sh) <category>/<skill-name>
 ```
+
+---
+
+## Usage
+
+Describe how to use the skill, step by step.
+
+### Prerequisites
+
+List any tools, access, or setup required before using this skill.
+
+### Steps
+
+1. Step one
+2. Step two
+3. Step three
+
+---
+
+## Examples
+
+### Example 1 — Basic Usage
+
+```
+# paste example here
+```
+
+**Expected output:**
+
+```
+# expected result
+```
+
+---
 
 ## Configuration
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `param1` | string | `"default"` | Description of param1 |
-| `param2` | int | `10` | Description of param2 |
+| `param1`  | string | `""` | Description of parameter |
+| `param2`  | bool   | `false` | Description of parameter |
 
-## Inputs
+---
 
-| Input | Type | Required | Description |
-|-------|------|----------|-------------|
-| `input_file` | file | Yes | Description of input file |
-| `options` | dict | No | Optional configuration |
+## Versioning & Changelog
 
-## Outputs
+| Version | Status | Date | Notes |
+|---------|--------|------|-------|
+| `1.0.0` | beta   | YYYY-MM-DD | Initial release |
 
-| Output | Type | Description |
-|--------|------|-------------|
-| `result` | object | Description of result |
-| `report` | file | Generated report file |
+---
 
-## Examples
+## Contributing & Feedback
 
-### Basic Usage
+Found a bug or have a suggestion?
+- 🐛 [Report a bug](../../issues/new?template=bug_report.yml)
+- 💡 [Recommend an improvement](../../issues/new?template=skill_recommendation.yml)
+- 🌟 [Request a new skill](../../issues/new?template=skill_request.yml)
+- 👥 [Submit a community variation](../../issues/new?template=community_contribution.yml)
 
-```python
-# Basic example
-```
+---
 
-### Advanced Usage
+## License
 
-```python
-# Advanced example with configuration
-```
-
-## Dependencies
-
-- Python >= 3.10
-- package1 >= 1.0
-- package2 >= 2.0
-
-## File Structure
-
-```
-skill-name/
-├── README.md           # This file
-├── skill.yaml          # Skill metadata
-├── __init__.py         # Main exports
-├── core.py             # Core logic
-├── utils.py            # Utilities
-└── tests/              # Tests
-    └── test_core.py
-```
-
-## Related Skills
-
-- [Related Skill 1](../related-skill-1/) - Description
-- [Related Skill 2](../related-skill-2/) - Description
-
-## Status
-
-**Status** - Brief status note.
-
-## Changelog
-
-### v1.0.0 (YYYY-MM-DD)
-- Initial release
+MIT — see [LICENSE](../../LICENSE)

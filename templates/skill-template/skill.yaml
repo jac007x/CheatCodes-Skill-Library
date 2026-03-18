@@ -1,79 +1,63 @@
-# Skill Metadata Template
-# Copy this file and fill in your skill details
+# CheatCodes Skill Manifest
+# ─────────────────────────────────────────────────────────────────────────────
+# Replace every <placeholder> value before submitting a new skill.
+# Full schema documentation: docs/skill-manifest-schema.md
+# ─────────────────────────────────────────────────────────────────────────────
 
-name: skill-name
-version: 1.0.0
-description: Brief description of what this skill does
-author: your-name
-created: YYYY-MM-DD
-status: draft  # draft, in_development, beta, stable, deprecated
+# ── Identity ─────────────────────────────────────────────────────────────────
+name: "<skill-name>"                    # kebab-case, unique within category
+display_name: "<Human Readable Name>"
+version: "1.0.0"                        # semver  (MAJOR.MINOR.PATCH)
+status: "beta"                          # beta | stable | deprecated | archived
 
-# Categorization
-tags:
-  - category1
-  - category2
+# ── Taxonomy ─────────────────────────────────────────────────────────────────
+category: "<category>"                  # productivity | automation | communication | data | devops | security | custom
+tags: []                                # free-form keywords for search / discovery
 
-# Dependencies
-requires:
-  python: ">=3.10"
-  packages:
-    - package1>=1.0
-    - package2>=2.0
+# ── Description ──────────────────────────────────────────────────────────────
+description: |
+  One-sentence summary of what this skill does.
 
-# Input specification
-inputs:
-  - name: input_file
-    type: file
-    format: xlsx  # csv, json, xlsx, etc.
-    description: Description of input
-    required: true
+long_description: |
+  A more detailed description that explains the skill's purpose, what problem
+  it solves, how it works, and any important caveats.
 
-  - name: config_option
-    type: string
-    description: Optional configuration
-    required: false
-    default: "default_value"
+# ── Authorship ───────────────────────────────────────────────────────────────
+author: "<github-username>"
+maintainers: []                         # list of GitHub usernames
+created: "<YYYY-MM-DD>"
+updated: "<YYYY-MM-DD>"
+license: "MIT"
 
-# Output specification
-outputs:
-  - name: result
-    type: object
-    description: Main output object
+# ── Requirements & Dependencies ──────────────────────────────────────────────
+min_requirements:
+  # tools: [python>=3.9, node>=18]       # optional runtime requirements
+  # platforms: [linux, macos, windows]
 
-  - name: report_file
-    type: file
-    format: pdf
-    description: Generated report
+dependencies: []                        # other CheatCodes skills this skill builds on
+# - skill: productivity/task-planner
+#   version: ">=1.0.0"
 
-# Configuration options
-config:
-  - name: setting1
-    description: Description of setting
-    type: string
-    default: "default"
+# ── Usage ────────────────────────────────────────────────────────────────────
+usage: |
+  Step-by-step instructions on how to use the skill.
 
-  - name: setting2
-    description: Another setting
-    type: integer
-    default: 10
+examples:
+  - title: "Basic example"
+    description: "Describe what this example demonstrates."
+    code: |
+      # paste example here
 
-# Workflows (if skill has multiple modes)
-workflows:
-  - name: default
-    description: Default workflow
-    steps:
-      - step1
-      - step2
-      - step3
+# ── Versioning ───────────────────────────────────────────────────────────────
+changelog:
+  - version: "1.0.0"
+    date: "<YYYY-MM-DD>"
+    status: "beta"
+    changes:
+      - "Initial release"
 
-# Portability settings
-portability:
-  supports_custom_config: true
-  schema_contribution: true
-  requires_onboarding: false
-
-# Testing
-tests:
-  unit_tests: tests/
-  integration_tests: tests/integration/
-  fixtures: tests/fixtures/
+# ── Community ────────────────────────────────────────────────────────────────
+community:
+  replacements: []       # skills this is designed to replace/upgrade
+  variations: []         # org-specific skins or variants derived from this skill
+  feedback_issue: ""     # GitHub issue number collecting beta feedback
