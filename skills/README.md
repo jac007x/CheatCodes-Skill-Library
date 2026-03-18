@@ -25,7 +25,7 @@ prompt, manifest, documentation, and a quick-clone command.
 | [code-reviewer](automation/code-reviewer/) | automation | ✅ stable | 1.0.0 | Automated structured code review with severity ratings |
 | [meeting-summarizer](communication/meeting-summarizer/) | communication | ✅ stable | 1.0.0 | Convert meeting notes into decisions + action items |
 | [data-analyzer](data/data-analyzer/) | data | ✅ stable | 1.0.0 | Dataset insights, anomalies, and visualisation recommendations |
-| [mbr-engine](mbr-engine/) | hr-analytics | 🔧 in development | 2.0.0 | Monthly Business Review automation with org health metrics and PowerPoint generation |
+| [mbr-engine](mbr-engine/) | hr-analytics | ⚠️ beta | 2.0.0 | Monthly Business Review automation with org health metrics and PowerPoint generation |
 
 ---
 

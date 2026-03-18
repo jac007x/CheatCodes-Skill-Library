@@ -52,7 +52,7 @@
       "version": "2.0.0",
       "description": "Monthly Business Review automation - extract org health metrics, detect patterns, generate PowerPoint presentations",
       "author": "jac007x",
-      "status": "in_development",
+      "status": "beta",
       "path": "skills/mbr-engine",
       "tags": ["hr-analytics", "reporting", "automation", "powerpoint", "org-health", "metrics"],
       "sub_skills": [

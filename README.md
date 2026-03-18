@@ -50,7 +50,7 @@ curl -fsSL https://raw.githubusercontent.com/jac007x/CheatCodes-Skill-Library/ma
 | [🔍 Code Reviewer](skills/automation/code-reviewer/) | automation | ✅ stable | Structured code review with severity ratings and security checklist |
 | [📝 Meeting Summarizer](skills/communication/meeting-summarizer/) | communication | ✅ stable | Convert raw notes into decisions, action items, and TL;DR |
 | [📊 Data Analyzer](skills/data/data-analyzer/) | data | ✅ stable | Dataset insights, anomaly detection, and visualisation recommendations |
-| [📈 MBR Engine](skills/mbr-engine/) | hr-analytics | 🔧 in development | Monthly Business Review automation with org health metrics and PowerPoint generation |
+| [📈 MBR Engine](skills/mbr-engine/) | hr-analytics | ⚠️ beta | Monthly Business Review automation with org health metrics and PowerPoint generation |
 
 👉 **Full index:** [skills/README.md](skills/README.md)
 

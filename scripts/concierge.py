@@ -282,14 +282,14 @@ CATALOG: dict = {
                 "a PowerPoint MBR presentation. Covers headcount, attrition, recognition, "
                 "and org health scoring."
             ),
-            "status": "in_development",
+            "status": "beta",
             "latest_version": "v2",
             "beta_version": None,
             "good_for": ["HR leaders", "People analytics", "Org reporting", "PowerPoint"],
             "versions": {
                 "v2": {
-                    "label": "v2 — In Development 🔧",
-                    "status": "in_development",
+                    "label": "v2 — Beta ⚠️",
+                    "status": "beta",
                     "note": "Full automation skill — see skills/mbr-engine/ for implementation details.",
                     "placeholders": {
                         "ORG NAME": "Organisation name (e.g. 'Engineering', 'Sales EMEA')",
