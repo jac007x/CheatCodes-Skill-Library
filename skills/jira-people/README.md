@@ -258,6 +258,43 @@ Description: |
 
 ---
 
+## Compliance
+
+### Walmart AI Compliance Status: ✅ Compliant
+
+| Requirement | Status | Notes |
+|-------------|--------|-------|
+| **Approved AI Services** | ✅ | Uses Wibey (Walmart-approved) |
+| **Data Governance** | ✅ | Accesses internal JIRA only |
+| **PII Handling** | ✅ | Low PII risk - work items |
+| **External Access** | ✅ | Internal Walmart system only |
+| **Authentication** | ✅ | Uses Walmart SSO |
+
+### Data Handling
+
+- Input: JQL queries to internal JIRA
+- Processing: Wibey agent queries JIRA API
+- Output: Ticket data and summaries
+- Storage: No persistent storage
+
+### Risk Level: Low
+
+Internal work tracking with:
+- Walmart authentication
+- Internal JIRA projects only
+- No external data access
+
+### Best Practices
+
+- ✅ Query work items and project status
+- ✅ Create/update tickets as needed
+- ❌ Don't include PII in ticket descriptions
+- ❌ Don't query Employee Relations cases without authorization
+
+See [COMPLIANCE.md](../../docs/COMPLIANCE.md) for full framework.
+
+---
+
 ## Attribution
 
 - **Original**: Wibey JIRA Agent

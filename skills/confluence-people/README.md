@@ -180,6 +180,43 @@ confluence search "org changes" --author "john.smith"
 
 ---
 
+## Compliance
+
+### Walmart AI Compliance Status: ✅ Compliant
+
+| Requirement | Status | Notes |
+|-------------|--------|-------|
+| **Approved AI Services** | ✅ | Uses Wibey (Walmart-approved) |
+| **Data Governance** | ✅ | Searches internal Confluence only |
+| **PII Handling** | ✅ | Low PII risk - documentation content |
+| **External Access** | ✅ | Internal Walmart system only |
+| **Authentication** | ✅ | Uses Walmart SSO |
+
+### Data Handling
+
+- Input: Search queries to internal Confluence
+- Processing: Wibey agent searches internal content
+- Output: Documentation snippets and links
+- Storage: No persistent storage
+
+### Risk Level: Low
+
+Internal documentation search with:
+- Walmart authentication
+- Internal content only
+- No external data access
+
+### Best Practices
+
+- ✅ Search for documentation, not PII
+- ✅ Verify content is current before relying on it
+- ❌ Don't search for compensation/salary data
+- ❌ Don't share Confluence links externally
+
+See [COMPLIANCE.md](../../docs/COMPLIANCE.md) for full framework.
+
+---
+
 ## Attribution
 
 - **Original**: Wibey Confluence Agent

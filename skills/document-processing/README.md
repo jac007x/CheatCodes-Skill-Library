@@ -388,6 +388,54 @@ def aggregate_surveys(form_images: list) -> dict:
 
 ---
 
+## Compliance
+
+### Walmart AI Compliance Status: ✅ Compliant with Controls
+
+| Requirement | Status | Notes |
+|-------------|--------|-------|
+| **Approved AI Services** | ✅ | Uses Wibey/Claude (Walmart-approved) |
+| **Data Governance** | ✅ | Processes internal documents only |
+| **PII Handling** | ⚠️ | Documents may contain PII - see controls |
+| **External Access** | ✅ | No external data transmission |
+| **Local Processing** | ✅ | All extraction done locally |
+
+### PII Controls
+
+Documents (PDFs, forms, presentations) may contain PII.
+
+**Required Controls:**
+- ✅ Process only internal Walmart documents
+- ✅ Use Wibey CLI (Walmart-approved AI)
+- ✅ Do NOT upload sensitive docs to external services
+- ✅ De-identify extracted data before sharing
+- ✅ Follow DG-01-ST-02 for PII handling
+
+**Data Handling:**
+- Input: Local document files (PDF, PPTX, forms)
+- Processing: Via Wibey/Claude API (Walmart-approved)
+- Output: Extracted text/data displayed locally
+- Storage: No persistent storage unless explicitly saved
+
+### Risk Level: Medium
+
+Document processing requires:
+- Verify documents are internal/approved
+- Don't process highly sensitive docs (compensation, legal)
+- Review extracted content before sharing
+
+### Sensitive Documents - DO NOT Process
+
+- ❌ Compensation/salary documents
+- ❌ Legal contracts (without Legal approval)
+- ❌ Medical/HIPAA documents
+- ❌ Investigation reports
+- ❌ Documents marked Confidential/Restricted
+
+See [COMPLIANCE.md](../../docs/COMPLIANCE.md) for full framework.
+
+---
+
 ## Attribution
 
 - **PDF/Vision Patterns**: Anthropic Cookbook

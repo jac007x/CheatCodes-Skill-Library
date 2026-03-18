@@ -245,6 +245,53 @@ python-pptx>=0.6.21
 - [org-portability](./portability.md) - Extending to new organizations
 - [org-onboarding](./onboarding.md) - New org setup guide
 
+## Compliance
+
+### Walmart AI Compliance Status: ✅ Compliant with Controls
+
+| Requirement | Status | Notes |
+|-------------|--------|-------|
+| **Approved AI Services** | ✅ | Uses Wibey/Claude (Walmart-approved) |
+| **Data Governance** | ✅ | Processes internal HR data only |
+| **PII Handling** | ⚠️ | Contains employee data - see controls below |
+| **External Access** | ✅ | No external data transmission |
+| **Audit Logging** | ✅ | Built into persistence layer |
+
+### PII Controls
+
+This skill processes HR data that may contain PII (names, employee IDs, org assignments).
+
+**Required Controls:**
+- ✅ Process only in Walmart-approved environments
+- ✅ Use Wibey CLI (no external AI services)
+- ✅ Output files stored locally, not transmitted externally
+- ✅ De-identify before sharing outputs broadly
+- ✅ Follow DG-01-ST-02 de-identification standard
+
+**Data Handling:**
+- Input: HR roster files (internal Walmart data)
+- Processing: Local extraction and analysis
+- Output: PPTX files for internal distribution only
+- Storage: Local + `~/.mbr-engine/` for persistence
+
+### Risk Level: Medium
+
+HR data processing requires:
+- Manager review of outputs
+- Restricted distribution of MBR decks
+- No sharing with external parties
+
+### Before Production Use
+
+- [ ] Submit use case to GenAI Enablement team
+- [ ] Complete sandbox testing
+- [ ] Document data access patterns
+- [ ] Get manager approval for HR data processing
+
+See [COMPLIANCE.md](../../docs/COMPLIANCE.md) for full framework.
+
+---
+
 ## Status
 
 **In Development** - Core extraction and threshold governance complete. PPTX builder and full workflow integration in progress.

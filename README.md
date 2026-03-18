@@ -109,6 +109,24 @@ Need a tool we don't have? [Trigger a search party](../../issues/new?template=se
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/SKILL-DISCOVERY.md](docs/SKILL-DISCOVERY.md) for full guidelines.
 
+## Compliance
+
+All skills comply with **Walmart's Ethical AI principles** and **AI-01-02 standards**.
+
+| Skill | Risk Level | PII Handling | Status |
+|-------|------------|--------------|--------|
+| mbr-engine | Medium | ⚠️ HR data | ✅ Compliant with controls |
+| msgraph-people | Low | ⚠️ Email/calendar | ✅ Compliant |
+| document-processing | Medium | ⚠️ Possible | ✅ Compliant with controls |
+| confluence-people | Low | ✅ Low risk | ✅ Compliant |
+| jira-people | Low | ✅ Low risk | ✅ Compliant |
+
+See [docs/COMPLIANCE.md](docs/COMPLIANCE.md) for:
+- Full compliance framework
+- PII handling guidelines
+- Risk level definitions
+- New skill checklist
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.

@@ -277,6 +277,45 @@ This skill can complement the MBR Engine:
 
 ---
 
+## Compliance
+
+### Walmart AI Compliance Status: ✅ Compliant
+
+| Requirement | Status | Notes |
+|-------------|--------|-------|
+| **Approved AI Services** | ✅ | Uses Wibey (Walmart-approved) |
+| **Data Governance** | ✅ | Accesses M365 via approved MS Graph API |
+| **PII Handling** | ⚠️ | Email/calendar may contain PII - see controls |
+| **External Access** | ✅ | M365 is Walmart-approved external service |
+| **Authentication** | ✅ | Uses AAD OAuth (Walmart identity) |
+
+### PII Controls
+
+This skill accesses email and calendar which may contain PII.
+
+**Controls:**
+- ✅ Uses Walmart AAD authentication
+- ✅ Accesses only user's own M365 data
+- ✅ No data sent to external AI services
+- ✅ Email content processed locally via Wibey
+
+**Data Handling:**
+- Input: M365 calendar/email via MS Graph API
+- Processing: Local via Wibey CLI
+- Output: Displayed locally or sent via M365
+- Storage: No persistent storage of email content
+
+### Risk Level: Low
+
+M365 integration uses:
+- Walmart-approved authentication
+- User's own data scope
+- No external AI processing
+
+See [COMPLIANCE.md](../../docs/COMPLIANCE.md) for full framework.
+
+---
+
 ## Attribution
 
 - **Original Skill**: Wibey `msgraph` skill
