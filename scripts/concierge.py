@@ -286,6 +286,192 @@ CATEGORY_EMOJI = {
 REPO_ISSUES_URL = "https://github.com/jac007x/CheatCodes-Skill-Library/issues/new"
 
 
+# ── Auto-load skills from disk ────────────────────────────────────────────────
+# When running inside a clone of the repo, the concierge reads every
+# skill.yaml + version prompt.md from disk and merges them into CATALOG.
+# This means new skills appear automatically without editing this file.
+# Falls back silently to the hardcoded CATALOG when pyyaml is absent or
+# SKILLS_DIR doesn't exist (e.g. the curl one-liner use-case).
+
+def _extract_prompt_text(md_content: str) -> str:
+    """Return the text inside the first ``` code fence of a prompt.md file."""
+    lines = md_content.split("\n")
+    in_fence = False
+    result: list[str] = []
+    fence_seen = 0
+    for line in lines:
+        if line.strip().startswith("```"):
+            fence_seen += 1
+            if fence_seen == 1:
+                in_fence = True
+                continue
+            elif fence_seen == 2:
+                break
+        if in_fence:
+            result.append(line)
+    return "\n".join(result) if result else md_content.strip()
+
+
+def _load_versions_from_disk(skill_dir: Path, manifest: dict) -> dict:
+    """Build a versions dict from on-disk version folders (v1/, v2-beta/, …)."""
+    versions: dict = {}
+    changelog: list = manifest.get("changelog") or []
+
+    version_dirs = sorted(
+        (d for d in skill_dir.iterdir() if d.is_dir() and re.match(r"^v\d", d.name)),
+        key=lambda d: d.name,
+    )
+    for version_dir in version_dirs:
+        prompt_file = version_dir / "prompt.md"
+        if not prompt_file.exists():
+            continue
+
+        ver_name = version_dir.name
+        ver_status = "beta" if "beta" in ver_name.lower() else "stable"
+
+        # Pick a short note from the changelog
+        note = f"See {ver_name}/prompt.md for full details"
+        for entry in (changelog if isinstance(changelog, list) else []):
+            if str(entry.get("status", "")) == ver_status:
+                changes = entry.get("changes") or []
+                if changes:
+                    note = str(changes[0])[:120]
+                break
+
+        try:
+            md_content = prompt_file.read_text(encoding="utf-8")
+        except OSError:
+            continue
+
+        prompt_text = _extract_prompt_text(md_content)
+        if not prompt_text:
+            continue
+
+        # Extract [PLACEHOLDER] keys from the prompt (UPPERCASE, may include spaces/slashes)
+        seen_keys: set = set()
+        placeholders: dict = {}
+        for key in re.findall(r"\[([A-Z][A-Z0-9 /]+)\]", prompt_text):
+            if key not in seen_keys:
+                seen_keys.add(key)
+                placeholders[key] = f"Your {key.lower().replace('/', ' or ')}"
+
+        label_emoji = "✅" if ver_status == "stable" else "⚠️"
+        versions[ver_name] = {
+            "label": f"{ver_name} — {ver_status.title()} {label_emoji}",
+            "status": ver_status,
+            "note": note,
+            "placeholders": placeholders,
+            "prompt": prompt_text,
+        }
+    return versions
+
+
+def _merge_skills_from_disk() -> None:
+    """
+    Merge on-disk skills into the in-memory CATALOG.
+
+    For skills already in the hardcoded CATALOG:
+      - Refreshes metadata (name, tagline, description, status, tags) from skill.yaml
+      - Preserves the richer placeholder hint text from the hardcoded entries
+      - Adds any new version folders not already present
+
+    For skills NOT in the hardcoded CATALOG (newly added to disk):
+      - Builds the full entry from skill.yaml + prompt.md files
+      - Adds to the correct CATALOG category
+
+    Exits silently if pyyaml is unavailable or SKILLS_DIR does not exist.
+    """
+    if not SKILLS_DIR.exists():
+        return
+
+    try:
+        import yaml as _yaml  # type: ignore
+    except ImportError:
+        return  # pyyaml not installed — use hardcoded catalog
+
+    for manifest_path in sorted(SKILLS_DIR.rglob("skill.yaml")):
+        skill_dir = manifest_path.parent
+        category = skill_dir.parent.name
+
+        try:
+            with open(manifest_path, encoding="utf-8") as fh:
+                manifest: dict = _yaml.safe_load(fh) or {}
+        except Exception:
+            continue
+
+        skill_id = manifest.get("name", "")
+        if not skill_id:
+            continue
+
+        versions = _load_versions_from_disk(skill_dir, manifest)
+        if not versions:
+            continue
+
+        # Find existing hardcoded entry for this skill
+        existing_skill: Optional[dict] = None
+        if category in CATALOG:
+            for s in CATALOG[category]:
+                if s["id"] == skill_id:
+                    existing_skill = s
+                    break
+
+        if existing_skill is not None:
+            # Refresh metadata while preserving rich placeholder hints
+            dn = manifest.get("display_name") or ""
+            if dn:
+                existing_skill["name"] = dn
+            desc = (manifest.get("description") or "").strip()
+            if desc:
+                existing_skill["tagline"] = desc.split(".")[0].strip()[:80]
+            long_desc = (manifest.get("long_description") or "").strip()
+            if long_desc:
+                existing_skill["description"] = long_desc
+            status = manifest.get("status") or ""
+            if status:
+                existing_skill["status"] = status
+            tags = manifest.get("tags") or []
+            if tags:
+                existing_skill["good_for"] = [
+                    t.replace("-", " ").title() for t in tags[:4]
+                ]
+            # Add on-disk versions not yet in the hardcoded dict
+            for vid, vdata in versions.items():
+                if vid not in existing_skill["versions"]:
+                    existing_skill["versions"][vid] = vdata
+        else:
+            # Entirely new skill — build from disk
+            tags = manifest.get("tags") or []
+            desc = (manifest.get("description") or "").strip()
+            long_desc = (manifest.get("long_description") or "").strip()
+            emoji_map = {
+                "productivity": "📋", "automation": "⚙️", "communication": "📝",
+                "data": "📊", "devops": "🔧", "security": "🔒", "custom": "🎨",
+            }
+            new_skill = {
+                "id": skill_id,
+                "name": manifest.get("display_name") or skill_id.replace("-", " ").title(),
+                "emoji": emoji_map.get(category, "📁"),
+                "tagline": desc.split(".")[0].strip()[:80] if desc else skill_id,
+                "description": long_desc or desc or skill_id,
+                "status": manifest.get("status") or "stable",
+                "latest_version": next(
+                    (v for v in versions if versions[v]["status"] == "stable"),
+                    next(iter(versions)),
+                ),
+                "beta_version": next(
+                    (v for v in versions if "beta" in v or versions[v]["status"] == "beta"),
+                    None,
+                ),
+                "good_for": [t.replace("-", " ").title() for t in tags[:4]],
+                "versions": versions,
+            }
+            CATALOG.setdefault(category, []).append(new_skill)
+
+
+# Run at import time — always up to date when running inside the repo
+_merge_skills_from_disk()
+
+
 # ── Terminal helpers ───────────────────────────────────────────────────────────
 
 def clear_screen() -> None:
@@ -506,10 +692,11 @@ def main_menu() -> str:
         ("📥  Clone a skill to your computer", "Save a skill locally so you can use it offline"),
         ("🆕  Request a new skill", "Tell us what skill you need and we'll build it"),
         ("💡  Recommend an improvement", "Have an idea to make a skill better?"),
+        ("🤖  View library health check", "See what the automated crew found in its last review"),
         ("❓  What is this? How does it work?", "New here? Start here for a quick tour"),
     ]
     choice = menu("What would you like to do?", options, back_label="Quit")
-    actions = ["browse", "search", "favorites", "clone", "request", "recommend", "help"]
+    actions = ["browse", "search", "favorites", "clone", "request", "recommend", "crew", "help"]
     return actions[choice] if choice >= 0 else "quit"
 
 
@@ -991,6 +1178,104 @@ def screen_recommend() -> None:
     pause()
 
 
+def screen_crew_review() -> None:
+    """Run the automated review crew and show a summary of findings."""
+    clear_screen()
+    banner()
+    print(f"\n  🤖  {bold('Automated Review Crew')}")
+    hr()
+    print_wrapped(
+        "The CheatCodes Review Crew scours the skill library every week and "
+        "surfaces issues, gaps, and quality improvements. It consists of three "
+        "specialist agents:",
+        indent=4,
+    )
+    print()
+    print(f"    {cyan('🏛️  Librarian')} — checks every skill for structural health")
+    print(f"    {cyan('🔭  Scout')}     — finds coverage gaps and adoption opportunities")
+    print(f"    {cyan('🎯  Coach')}     — reviews prompt quality and suggests improvements")
+    print()
+
+    # Prefer crew.py, fall back to audit.py
+    crew_script = SCRIPT_DIR / "crew.py"
+    audit_script = SCRIPT_DIR / "audit.py"
+    script_to_run = (
+        crew_script if crew_script.exists() else
+        audit_script if audit_script.exists() else
+        None
+    )
+
+    if script_to_run is None:
+        print(yellow("  ℹ️  No review script found in this installation."))
+        print_wrapped(
+            "To run the full crew review, clone the repository and run: "
+            "python scripts/crew.py",
+            indent=6,
+        )
+        pause()
+        return
+
+    agent_name = "Crew" if script_to_run == crew_script else "Audit"
+    print(f"  {dim(f'Running {agent_name} review — this takes a few seconds…')}")
+    print()
+
+    try:
+        result = subprocess.run(
+            [sys.executable, str(script_to_run)],
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        output = (result.stdout or "") + (result.stderr or "")
+    except Exception as exc:
+        output = f"Error running review: {exc}"
+
+    # Extract and show the key headline metrics
+    summary_lines: list[str] = []
+    for line in output.split("\n"):
+        clean = line.replace("**", "").replace("`", "").strip()
+        if any(kw in clean for kw in [
+            "Health Score", "Total Skills", "Critical Issues",
+            "Warnings", "Suggestions", "Gap Analysis", "No critical",
+            "No warnings", "No suggestions",
+        ]):
+            summary_lines.append(clean)
+        if len(summary_lines) >= 10:
+            break
+
+    if summary_lines:
+        hr("·")
+        print(f"  {bold('Summary')}")
+        hr("·")
+        for line in summary_lines:
+            if line:
+                print(f"  {line}")
+    else:
+        hr("·")
+        for line in output.split("\n")[:15]:
+            if line.strip():
+                print(f"  {line}")
+
+    print()
+    view_full = ask("View the full report in your terminal? (yes/no)", default="no")
+    if view_full.lower() in ("yes", "y"):
+        clear_screen()
+        for line in output.split("\n"):
+            print(f"  {line}")
+
+    print()
+    save = ask("Save the full report to a file? (yes/no)", default="no")
+    if save.lower() in ("yes", "y"):
+        fname = ask("File name", default="crew-report.md")
+        try:
+            Path(fname).write_text(output)
+            print(green(f"  ✅  Saved to {fname}"))
+        except Exception as exc:
+            print(red(f"  Could not save: {exc}"))
+
+    pause("Press Enter to return to the main menu…")
+
+
 def _open_browser(url: str) -> None:
     """Try to open URL in the system browser."""
     try:
@@ -1042,6 +1327,8 @@ def main() -> None:
             screen_request()
         elif action == "recommend":
             screen_recommend()
+        elif action == "crew":
+            screen_crew_review()
         elif action == "help":
             screen_help()
         elif action == "quit":

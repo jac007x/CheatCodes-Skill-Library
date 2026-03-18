@@ -124,16 +124,82 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide.
 
 ## ⚙️ Automation & CI
 
-The library runs on autopilot so quality stays high even as it scales:
+### 🧑‍✈️ Concierge — your guided skill navigator
+
+The **concierge** is the recommended way for any user — especially beginners — to
+interact with the library. It requires no technical knowledge.
+
+```bash
+# Requires Python 3.8+ (no extra packages) and git
+git clone https://github.com/jac007x/CheatCodes-Skill-Library.git
+cd CheatCodes-Skill-Library
+python scripts/concierge.py
+```
+
+**One-liner — no clone needed:**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/jac007x/CheatCodes-Skill-Library/main/scripts/concierge.py | python -
+```
+
+What the concierge does for you:
+
+| Feature | How it helps |
+|---------|-------------|
+| **Browse by category** | Lists every skill grouped by what it does |
+| **Keyword search** | Type what you want; it finds the best match |
+| **Guided launch wizard** | Asks you questions, fills in the prompt, copies it to your clipboard |
+| **Version picker** | Choose stable or beta; shows warnings for beta usage |
+| **Favourites** | Save skills you use often for instant re-launch |
+| **Clone a skill** | Gives you the exact terminal command to save a skill locally |
+| **Library health check** | Runs the review crew and shows you a summary |
+| **Request / Recommend** | Opens the right GitHub issue form in one click |
+
+The concierge also **auto-loads any new skills** added to `skills/` — you never
+need to update the code to see new skills.
+
+---
+
+### 🤖 Automated Review Crew — the library's sentient quality team
+
+Three specialist agents run **every Monday at 8am UTC** and post their findings as
+a GitHub issue for the maintainer's 2–3× weekly review session.
+
+```bash
+# Run the crew manually at any time
+python scripts/crew.py
+
+# Run a single agent
+python scripts/crew.py --agent librarian   # structural health only
+python scripts/crew.py --agent scout       # gap analysis only
+python scripts/crew.py --agent coach       # prompt quality only
+
+# Write the report to a file
+python scripts/crew.py --output report.md
+```
+
+| Agent | Role | What it finds |
+|-------|------|---------------|
+| 🏛️ **Librarian** | Structural health | Missing required fields, stale skills, invalid status/version values, missing README or prompt files, changelog format issues |
+| 🔭 **Scout** | Coverage & adoption | Missing categories, skill patterns not yet in the library, 15 curated adoption candidates sourced from the wider AI prompting community |
+| 🎯 **Coach** | Prompt quality | Prompts missing structure, role-setting, placeholders; skills that could benefit from a beta version; discoverability improvements |
+
+The **Coordinator** assembles all three agents' findings into a single prioritised
+roadmap report with a maintainer review checklist. Results are posted as a GitHub
+issue labelled `audit · roadmap · automated`.
+
+The library health score (0–100) gives a quick signal of overall quality.
+Critical issues cost 10 points each; warnings cost 3 points.
+
+---
+
+### Other workflows
 
 | Workflow | When it runs | What it does |
 |----------|-------------|--------------|
 | **Skill Validation** | Every PR touching `skills/` | Validates manifests, structure, and required files |
-| **Weekly Audit** | Every Monday at 8am UTC | Generates a health report + roadmap suggestions as a GitHub issue |
+| **Crew Review** | Every Monday at 8am UTC | Runs all three crew agents and posts findings as a GitHub issue |
 | **Skill Release** | Manual trigger | Version-bumps a skill, creates a git tag, and publishes a GitHub release |
-
-The audit report is reviewed 2–3 times a week and used to drive the roadmap.
-Results are posted as a GitHub issue with a checklist for approving/rejecting items.
 
 ---
 

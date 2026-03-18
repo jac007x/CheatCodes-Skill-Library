@@ -1,4 +1,4 @@
-name: Skill Library Audit
+name: Skill Library Crew Review
 
 on:
   schedule:
@@ -7,15 +7,15 @@ on:
   workflow_dispatch:
     inputs:
       post_issue:
-        description: "Post audit results as a GitHub issue"
+        description: "Post crew report as a GitHub issue"
         required: false
         default: "true"
         type: choice
         options: ["true", "false"]
 
 jobs:
-  audit:
-    name: Audit skill library and generate roadmap suggestions
+  crew-review:
+    name: Run automated review crew (Librarian · Scout · Coach)
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -33,25 +33,25 @@ jobs:
       - name: Install dependencies
         run: pip install pyyaml
 
-      - name: Run library audit
-        id: audit
+      - name: Run crew review
+        id: crew
         run: |
-          python scripts/audit.py --output /tmp/audit_report.md
-          echo "report_path=/tmp/audit_report.md" >> $GITHUB_OUTPUT
+          python scripts/crew.py --output /tmp/crew_report.md
+          echo "report_path=/tmp/crew_report.md" >> $GITHUB_OUTPUT
 
-      - name: Upload audit report as artifact
+      - name: Upload crew report as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: skill-audit-report-${{ github.run_number }}
-          path: /tmp/audit_report.md
+          name: crew-review-report-${{ github.run_number }}
+          path: /tmp/crew_report.md
           retention-days: 90
 
-      - name: Post audit as GitHub issue
+      - name: Post crew report as GitHub issue
         if: ${{ github.event_name == 'schedule' || inputs.post_issue == 'true' }}
         uses: peter-evans/create-issue-from-file@v5
         with:
-          title: "📋 Weekly Skill Library Audit — ${{ github.run_number }}"
-          content-filepath: /tmp/audit_report.md
+          title: "🤖 Weekly Crew Review — ${{ github.run_number }}"
+          content-filepath: /tmp/crew_report.md
           labels: |
             audit
             roadmap
@@ -59,4 +59,4 @@ jobs:
           assignees: jac007x
 
       - name: Add summary to workflow
-        run: cat /tmp/audit_report.md >> $GITHUB_STEP_SUMMARY
+        run: cat /tmp/crew_report.md >> $GITHUB_STEP_SUMMARY
