@@ -1,6 +1,12 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "updated": "2026-03-18",
+  "compliance_framework": {
+    "policies": ["AI-01-02", "DG-01-ST-02", "Ethical AI Principles"],
+    "last_review": "2026-03-18",
+    "next_review": "2026-06-18",
+    "reviewer": "jac007x"
+  },
   "skills": [
     {
       "id": "mbr-engine",
@@ -13,6 +19,10 @@
       "status": "in_development",
       "path": "skills/mbr-engine",
       "tags": ["hr-analytics", "reporting", "automation", "powerpoint", "org-health", "metrics"],
+      "model_recommendation": "sonnet",
+      "risk_level": "medium",
+      "compliance_status": "compliant",
+      "compliance_review_date": "2026-03-18",
       "sub_skills": [
         {
           "id": "threshold-governance",
@@ -48,6 +58,10 @@
       "status": "active",
       "path": "skills/msgraph-people",
       "tags": ["calendar", "email", "outlook", "teams", "people", "hr", "productivity", "scheduling"],
+      "model_recommendation": "haiku",
+      "risk_level": "low",
+      "compliance_status": "compliant",
+      "compliance_review_date": "2026-03-18",
       "capabilities": [
         "1:1 scheduling",
         "skip-level meetings",
@@ -77,6 +91,10 @@
       "status": "active",
       "path": "skills/document-processing",
       "tags": ["pdf", "powerpoint", "forms", "ocr", "data-extraction", "people"],
+      "model_recommendation": "sonnet",
+      "risk_level": "medium",
+      "compliance_status": "compliant",
+      "compliance_review_date": "2026-03-18",
       "capabilities": [
         "PDF text extraction",
         "PDF summarization",
@@ -102,6 +120,10 @@
       "status": "active",
       "path": "skills/confluence-people",
       "tags": ["confluence", "knowledge-management", "documentation", "people", "policies"],
+      "model_recommendation": "haiku",
+      "risk_level": "low",
+      "compliance_status": "compliant",
+      "compliance_review_date": "2026-03-18",
       "capabilities": [
         "Policy lookup",
         "Process documentation",
@@ -124,6 +146,10 @@
       "status": "active",
       "path": "skills/jira-people",
       "tags": ["jira", "work-management", "task-tracking", "people", "requests"],
+      "model_recommendation": "haiku",
+      "risk_level": "low",
+      "compliance_status": "compliant",
+      "compliance_review_date": "2026-03-18",
       "capabilities": [
         "Request tracking",
         "Initiative monitoring",

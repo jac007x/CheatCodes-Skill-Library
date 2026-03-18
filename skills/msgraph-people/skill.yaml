@@ -6,6 +6,25 @@ source: curated
 source_skill: msgraph (Wibey)
 curation_date: 2026-03-18
 
+# Compliance
+compliance:
+  review_date: 2026-03-18
+  reviewer: jac007x
+  policies:
+    - AI-01-02
+    - Ethical AI Principles
+  status: compliant
+  risk_level: low
+  pii_handling: true  # Email/calendar may contain PII
+  next_review: 2026-06-18
+
+# Model Recommendation
+model_recommendation: haiku
+model_rationale: >
+  API calls, simple formatting, and email drafting are straightforward tasks.
+  Haiku is sufficient and more cost-effective. Only escalate to Sonnet for
+  complex email composition or meeting analytics.
+
 tags:
   - calendar
   - email

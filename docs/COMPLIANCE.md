@@ -1,155 +1,234 @@
 # Walmart AI Compliance Framework
 
-All skills in this library must comply with Walmart's Ethical AI principles and AI governance standards.
+> **⚠️ SUBMISSION REQUIREMENT**: All skills submitted to this library MUST be compliant with the policies listed below. Non-compliant skills will not be accepted. Use the [Skill Validation Checker](#skill-validation-checker) to verify compliance before submission.
 
 ---
 
-## Compliance Requirements
+## Applicable Policies
 
-### 1. Ethical AI Principles
+| Policy | Name | Last Reviewed | Status |
+|--------|------|---------------|--------|
+| **AI-01-02** | AI Governance Standard | 2026-03-18 | ✅ Active |
+| **DG-01-ST-02** | De-Identification Standard | 2026-03-18 | ✅ Active |
+| **Ethical AI Principles** | Using Gen AI at Walmart | 2026-03-18 | ✅ Active |
 
-| Principle | Requirement | How We Comply |
-|-----------|-------------|---------------|
-| **Data Governance** | No sensitive data to external AI; unbiased data; no copyright infringement | Skills use Walmart-approved AI services only; no external data transmission |
-| **Ethical Usage** | Comply with regulations; mitigate bias; controlled experiments | Skills include bias warnings; recommend sandbox testing |
-| **Cost Control** | Monitor costs; clear goals; leverage open-source | Skills document cost implications; use efficient patterns |
-| **Vendor Flexibility** | Avoid lock-in to single vendor | Skills designed to work with multiple LLM providers |
-| **Stay Current** | Adapt to new practices and regulations | Regular skill reviews; version updates |
-| **Collaboration** | Share best practices across teams | Open skill library; documentation |
-
-### 2. AI-01-02 Technical Standards
-
-| Standard | Requirement | How We Comply |
-|----------|-------------|---------------|
-| **Approved Services** | Use only Walmart-approved AI (Azure OpenAI, Vertex, Walmart LLM Gateway) | Skills specify approved service requirements |
-| **Encryption** | Data encrypted in transit and at rest | Use HTTPS; leverage platform encryption |
-| **RBAC** | Role-based access controls | Skills document access requirements |
-| **Audit Logging** | Log all AI interactions | Skills include logging guidance |
-| **Prompt Security** | Block banned content; enforce disallow lists | No hardcoded prompts with sensitive content |
-| **PII Protection** | No PII in model training; de-identify per DG-01-ST-02 | Skills warn about PII handling; provide de-identification guidance |
-| **Access Controls** | AAD principals; managed identities | Skills use Walmart auth patterns |
-
-### 3. Governance Requirements
-
-| Requirement | Status |
-|-------------|--------|
-| Use Case Submission | Required before production deployment |
-| Sandbox Testing | Recommended for all skills |
-| Legal Review | Required for sensitive/regulated data |
-| InfoSec Review | Required for external data access |
+**Policy Sources**:
+- [Ethical AI Policy](https://one.walmart.com/content/uswire/en_us/work1/global-governance/technology-and-data-compliance/ethical-ai.html)
+- [AI-01-02 Standards](https://one.walmart.com/content/uswire/en_us/work1/policies/non-people-policies/tdc/standards/ai-01-02.html)
+- [Using Gen AI at Walmart](https://dx.walmart.com/guides/dx/Using-Gen-AI-at-Walmart-D5d3ku0m53h)
+- [Generative AI KB](https://walmartglobal.service-now.com/nav_to.do?uri=%2Fkb_view.do%3Fsysparm_article%3DKB1140910)
 
 ---
 
-## Skill Compliance Status
+## Skill Compliance Review Status
 
-| Skill | Data Risk | PII Risk | External Access | Compliance Status |
-|-------|-----------|----------|-----------------|-------------------|
-| mbr-engine | Medium | ⚠️ Yes (HR data) | No | ✅ Compliant with controls |
-| msgraph-people | Low | ⚠️ Yes (email/calendar) | Yes (M365) | ✅ Compliant - uses approved M365 |
-| document-processing | Medium | ⚠️ Possible | No | ✅ Compliant with controls |
-| confluence-people | Low | Low | No (internal) | ✅ Compliant |
-| jira-people | Low | Low | No (internal) | ✅ Compliant |
+All skills in this library have been reviewed against applicable policies.
+
+| Skill | Review Date | Reviewer | Policies Checked | Model Rec | Status |
+|-------|-------------|----------|------------------|-----------|--------|
+| mbr-engine | 2026-03-18 | @jac007x | AI-01-02, DG-01-ST-02, Ethical AI | Sonnet | ✅ COMPLIANT |
+| msgraph-people | 2026-03-18 | @jac007x | AI-01-02, Ethical AI | Haiku | ✅ COMPLIANT |
+| document-processing | 2026-03-18 | @jac007x | AI-01-02, DG-01-ST-02, Ethical AI | Sonnet | ✅ COMPLIANT |
+| confluence-people | 2026-03-18 | @jac007x | AI-01-02, Ethical AI | Haiku | ✅ COMPLIANT |
+| jira-people | 2026-03-18 | @jac007x | AI-01-02, Ethical AI | Haiku | ✅ COMPLIANT |
+
+### Review Attestation
+
+> I attest that each skill listed above has been reviewed against the applicable Walmart AI policies and complies with all requirements. Any identified risks have appropriate controls documented.
+>
+> **Reviewer**: @jac007x
+> **Date**: 2026-03-18
+> **Next Review**: 2026-06-18 (Quarterly)
 
 ---
 
-## Compliance Checklist for New Skills
+## Model Power Recommendations
 
-Before adding a skill to the library, verify:
+Skills should use the **minimum model power necessary** for the task. This saves tokens, reduces cost, and improves response time.
 
-### Data Handling
-- [ ] No sensitive data sent to external/unapproved AI services
-- [ ] PII handling documented with de-identification guidance
-- [ ] Data sources are Walmart-approved
-- [ ] No hardcoded credentials or secrets
+| Model Tier | Use When | Examples |
+|------------|----------|----------|
+| **🟢 Haiku** (or equivalent) | Simple lookups, search, formatting, basic extraction | Confluence search, JIRA queries, calendar checks, email listing |
+| **🟡 Sonnet** (or equivalent) | Analysis, pattern detection, moderate complexity, document processing | MBR analysis, PDF extraction, feature detection, form parsing |
+| **🔴 Opus** (or equivalent) | Strategic planning, complex reasoning, multi-step decisions, creative tasks | Architecture design, complex problem solving, executive summaries |
 
-### Security
-- [ ] Uses Walmart-approved authentication (AAD, managed identities)
-- [ ] Follows RBAC principles
-- [ ] Includes audit logging guidance
-- [ ] No banned content in prompts
+### Default Recommendation: Haiku
 
-### Governance
-- [ ] Use case documented
-- [ ] Risk level assessed (Low/Medium/High)
-- [ ] Legal/InfoSec review completed (if required)
-- [ ] Sandbox testing completed
+**Start with Haiku** and only escalate when:
+- Task requires nuanced analysis
+- Output quality is insufficient
+- Multi-step reasoning is needed
+- Document is complex/lengthy
 
-### Ethical AI
-- [ ] Bias risks documented and mitigated
-- [ ] Human oversight preserved for critical decisions
-- [ ] Output accuracy disclaimers included
-- [ ] Cost implications documented
+### Skill Model Assignments
+
+| Skill | Recommended Model | Rationale |
+|-------|-------------------|-----------|
+| **mbr-engine** | 🟡 Sonnet | Pattern detection, metric analysis, slide generation |
+| **msgraph-people** | 🟢 Haiku | API calls, simple formatting, email drafting |
+| **document-processing** | 🟡 Sonnet | PDF/PPTX analysis, chart interpretation |
+| **confluence-people** | 🟢 Haiku | Search queries, result formatting |
+| **jira-people** | 🟢 Haiku | JQL queries, ticket operations |
+
+---
+
+## Policy Requirements Summary
+
+### AI-01-02 Technical Standards
+
+| Requirement | Description | Verification |
+|-------------|-------------|--------------|
+| **Approved Services** | Use only Walmart-approved AI (Wibey, Azure OpenAI, Vertex, LLM Gateway) | ✅ Check skill dependencies |
+| **Encryption** | Data encrypted in transit and at rest | ✅ Uses HTTPS/platform encryption |
+| **RBAC** | Role-based access controls | ✅ Document access requirements |
+| **Audit Logging** | Log AI interactions | ✅ Include logging guidance |
+| **Prompt Security** | Block banned content | ✅ No sensitive content in prompts |
+| **PII Protection** | No PII in training; de-identify per DG-01-ST-02 | ✅ Document PII handling |
+
+### DG-01-ST-02 De-Identification Standard
+
+| Requirement | Description | Verification |
+|-------------|-------------|--------------|
+| **Data Classification** | Identify PII in data flows | ✅ Document data types |
+| **De-identification Methods** | Apply appropriate techniques | ✅ Specify when/how to de-identify |
+| **Logging Restrictions** | No PII in plain-text logs | ✅ Logging guidance included |
+| **Retention Limits** | Don't store beyond need | ✅ Storage documentation |
+
+### Ethical AI Principles
+
+| Principle | Requirement | Verification |
+|-----------|-------------|--------------|
+| **Data Governance** | No sensitive data to external AI | ✅ Check external access |
+| **Ethical Usage** | Mitigate bias; regulatory compliance | ✅ Bias warnings included |
+| **Cost Control** | Efficient model usage | ✅ Model recommendations |
+| **Human Oversight** | Human review for critical decisions | ✅ Review requirements documented |
+
+---
+
+## Skill Validation Checker
+
+Before submitting a skill, run the validation checker to verify compliance.
+
+### Usage
+
+```bash
+# From the skill library root
+python tools/validate_skill.py skills/your-skill/
+
+# Or validate all skills
+python tools/validate_skill.py --all
+```
+
+### What It Checks
+
+| Check | Description | Required |
+|-------|-------------|----------|
+| **skill.yaml exists** | Metadata file present | ✅ Yes |
+| **README.md exists** | Documentation present | ✅ Yes |
+| **Compliance section** | Compliance documented in README | ✅ Yes |
+| **Model recommendation** | Model tier specified | ✅ Yes |
+| **PII handling** | PII risks documented if applicable | ✅ Yes |
+| **No secrets** | No hardcoded credentials | ✅ Yes |
+| **Approved services** | Only Walmart-approved AI services | ✅ Yes |
+| **Risk level** | Risk assessment included | ✅ Yes |
+
+### Validation Output
+
+```
+✅ PASS: skill.yaml exists
+✅ PASS: README.md exists
+✅ PASS: Compliance section found
+✅ PASS: Model recommendation: Haiku
+✅ PASS: PII handling documented
+✅ PASS: No secrets detected
+✅ PASS: Uses approved services only
+✅ PASS: Risk level: Low
+
+═══════════════════════════════════════
+  VALIDATION RESULT: ✅ COMPLIANT
+  Ready for submission to library
+═══════════════════════════════════════
+```
+
+---
+
+## New Skill Submission Checklist
+
+All skills MUST complete this checklist before submission:
+
+### Required Documentation
+- [ ] `skill.yaml` with complete metadata
+- [ ] `README.md` with usage documentation
+- [ ] Compliance section in README
+- [ ] Model recommendation specified
+
+### Policy Compliance
+- [ ] **AI-01-02**: Uses only Walmart-approved AI services
+- [ ] **AI-01-02**: Authentication via AAD/managed identities
+- [ ] **DG-01-ST-02**: PII handling documented (if applicable)
+- [ ] **Ethical AI**: Bias risks documented and mitigated
+
+### Validation
+- [ ] Ran `validate_skill.py` - all checks pass
+- [ ] Tested in sandbox environment
+- [ ] Peer reviewed
+
+### Submission
+- [ ] Created PR with skill files
+- [ ] Filled out PR template
+- [ ] Requested review from library maintainer
 
 ---
 
 ## Risk Levels
 
-### Low Risk
-- Internal documentation search
+### 🟢 Low Risk
+- Internal search/lookup (Confluence, JIRA)
 - Public information retrieval
-- Non-sensitive data processing
+- Non-sensitive data formatting
 
-**Requirements**: Standard compliance checklist
+**Requirements**: Standard checklist
 
-### Medium Risk
+### 🟡 Medium Risk
 - HR data processing
-- Employee information handling
-- Document extraction with potential PII
+- Document extraction (possible PII)
+- Email/calendar access
 
-**Requirements**: Standard checklist + PII controls + manager review
+**Requirements**: Standard checklist + PII controls + model ≥ Sonnet for analysis
 
-### High Risk
+### 🔴 High Risk
 - Automated decisions affecting employees
-- Compensation or performance data
-- Legal or compliance documents
+- Compensation/performance data
+- Legal/compliance documents
 
-**Requirements**: Full review by Legal, InfoSec, and People leadership
-
----
-
-## PII Handling Guidelines
-
-When skills may process PII (names, employee IDs, performance data):
-
-### Do's
-- ✅ Process PII only in Walmart-approved environments
-- ✅ Apply de-identification when storing/logging
-- ✅ Limit PII access to authorized users
-- ✅ Document what PII is processed and why
-- ✅ Include data retention guidance
-
-### Don'ts
-- ❌ Send PII to external AI services
-- ❌ Log PII in plain text
-- ❌ Store PII beyond retention requirements
-- ❌ Share PII without authorization
-- ❌ Use PII for model training
+**Requirements**: Full review by Legal, InfoSec, People leadership
 
 ---
 
 ## Compliance Review Schedule
 
-| Review Type | Frequency | Owner |
-|-------------|-----------|-------|
-| Skill Compliance Audit | Quarterly | Skill Library Owner |
-| Policy Alignment Check | Semi-annually | InfoSec liaison |
-| New Skill Review | Per submission | Skill Reviewer |
-
----
-
-## References
-
-- [Using Gen AI at Walmart](https://dx.walmart.com/guides/dx/Using-Gen-AI-at-Walmart-D5d3ku0m53h)
-- [Generative AI KB Article](https://walmartglobal.service-now.com/nav_to.do?uri=%2Fkb_view.do%3Fsysparm_article%3DKB1140910)
-- Walmart De-Identification Standard DG-01-ST-02
-- AI-01-02 Standards (internal policy library)
+| Review Type | Frequency | Next Due | Owner |
+|-------------|-----------|----------|-------|
+| Skill Compliance Audit | Quarterly | 2026-06-18 | @jac007x |
+| Policy Alignment Check | Semi-annually | 2026-09-18 | InfoSec liaison |
+| New Skill Review | Per submission | Ongoing | Skill Reviewer |
 
 ---
 
 ## Contact
 
-For compliance questions:
-- **GenAI Enablement Team**: For technical guidance
-- **InfoSec**: For security reviews
-- **Legal**: For regulatory questions
-- **People Data Governance**: For HR data questions
+| Question Type | Contact |
+|---------------|---------|
+| Technical guidance | GenAI Enablement Team |
+| Security review | InfoSec |
+| Regulatory questions | Legal |
+| HR data questions | People Data Governance |
+
+---
+
+## Version History
+
+| Version | Date | Changes | Author |
+|---------|------|---------|--------|
+| 1.0 | 2026-03-18 | Initial compliance framework | @jac007x |
+| 1.1 | 2026-03-18 | Added model recommendations, validation checker, policy references | @jac007x |
