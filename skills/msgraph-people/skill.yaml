@@ -1,0 +1,110 @@
+name: msgraph-people
+version: 1.0.0
+description: MS Graph Calendar & Email workflows for People function
+author: jac007x
+source: curated
+source_skill: msgraph (Wibey)
+curation_date: 2026-03-18
+
+tags:
+  - calendar
+  - email
+  - outlook
+  - teams
+  - people
+  - hr
+  - productivity
+  - microsoft-365
+  - scheduling
+
+status: active
+
+requires:
+  skills:
+    - msgraph  # Wibey built-in skill
+  auth:
+    - microsoft-365
+
+capabilities:
+  calendar:
+    - check_availability
+    - create_meeting
+    - update_meeting
+    - delete_meeting
+    - list_meetings
+    - today_schedule
+    - teams_integration
+  email:
+    - send_email
+    - reply_email
+    - search_email
+    - list_inbox
+    - mark_read_unread
+    - flag_for_followup
+    - batch_delete
+  users:
+    - lookup_by_name
+    - search_directory
+
+workflows:
+  one_on_one_scheduling:
+    description: Schedule recurring 1:1 meetings
+    steps:
+      - check_availability
+      - create_meeting_with_teams
+    use_cases:
+      - Manager/report 1:1s
+      - Skip-level meetings
+      - Stakeholder syncs
+
+  team_communication:
+    description: Send templated emails to team
+    steps:
+      - compose_from_template
+      - preview_draft
+      - send_with_confirmation
+    templates:
+      - new_hire_welcome
+      - performance_review_reminder
+      - team_update_newsletter
+      - meeting_request
+      - exit_interview_scheduling
+
+  email_triage:
+    description: Process and organize inbox
+    steps:
+      - list_unread
+      - search_by_topic
+      - mark_read_or_flag
+      - batch_cleanup
+
+  meeting_prep:
+    description: Prepare for today's meetings
+    steps:
+      - list_today_meetings
+      - get_meeting_details
+      - review_attendees
+
+  follow_up_workflow:
+    description: Post-meeting follow-up
+    steps:
+      - reply_to_thread
+      - add_action_items
+      - send_with_confirmation
+
+people_function_use_cases:
+  - Onboarding coordination
+  - Performance review scheduling
+  - Skip-level meeting management
+  - Team communications
+  - Exit process coordination
+  - Recognition and feedback distribution
+  - MBR review scheduling
+  - Stakeholder updates
+
+integration:
+  mbr_engine:
+    - Email search for context
+    - Calendar for review scheduling
+    - Email for MBR distribution
+    - Reply tracking for follow-up

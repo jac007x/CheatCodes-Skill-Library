@@ -34,6 +34,33 @@
         "python": ">=3.10",
         "packages": ["pandas>=2.0", "openpyxl>=3.1", "python-pptx>=0.6.21"]
       }
+    },
+    {
+      "id": "msgraph-people",
+      "name": "MS Graph for People",
+      "version": "1.0.0",
+      "description": "Calendar & Email workflows for People function - scheduling, communications, meeting prep",
+      "author": "jac007x",
+      "source": "curated",
+      "source_url": "wibey://skills/msgraph",
+      "curator": "jac007x",
+      "curation_date": "2026-03-18",
+      "status": "active",
+      "path": "skills/msgraph-people",
+      "tags": ["calendar", "email", "outlook", "teams", "people", "hr", "productivity", "scheduling"],
+      "capabilities": [
+        "1:1 scheduling",
+        "skip-level meetings",
+        "email templates",
+        "inbox triage",
+        "meeting prep",
+        "follow-up workflows",
+        "availability checking"
+      ],
+      "dependencies": {
+        "skills": ["msgraph"],
+        "auth": ["microsoft-365"]
+      }
     }
   ],
   "categories": [
@@ -51,6 +78,11 @@
       "id": "data-extraction",
       "name": "Data Extraction",
       "description": "Skills for extracting structured data from various sources"
+    },
+    {
+      "id": "productivity",
+      "name": "Productivity",
+      "description": "Skills for calendar, email, and workflow automation"
     }
   ],
   "source_types": {

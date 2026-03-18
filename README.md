@@ -34,6 +34,7 @@ CheatCodes-Skill-Library/
 | Skill | Source | Description | Status |
 |-------|--------|-------------|--------|
 | [mbr-engine](skills/mbr-engine/) | 🛠️ Created | Monthly Business Review automation with org health metrics, feature detection, and PowerPoint generation | In Development |
+| [msgraph-people](skills/msgraph-people/) | 📚 Curated | Calendar & Email workflows for People function - 1:1 scheduling, email templates, meeting prep | Active |
 
 ## Quick Start
 
