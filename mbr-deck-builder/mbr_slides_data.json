@@ -1,0 +1,120 @@
+{
+  "presentation": {
+    "title": "Q1 2026 Metric Business Review",
+    "month": "March 2026",
+    "date_created": "2026-03-16",
+    "version": "1.0",
+    "author": "MBR Engine",
+    "status": "Generated",
+    "total_slides": 10
+  },
+  "metrics": {
+    "Revenue": {
+      "current_value": 14.2,
+      "target_value": 13.8,
+      "prior_value": 12.6,
+      "ly_value": 13.0,
+      "mom_change_pct": 12.7,
+      "yoy_change_pct": 9.2,
+      "vs_target_pct": 2.9,
+      "status": "exceeds_target",
+      "trend": "up",
+      "narrative": "Revenue: 14.2 (exceeded target of 13.8). Trend is ↗️ up with steady momentum. MoM: +12.7% (14.2 vs 12.6). YoY: +9.2% (14.2 vs 13.0).",
+      "interpretation": "Strong revenue performance with consistent growth momentum"
+    },
+    "CAC": {
+      "current_value": 42,
+      "target_value": 45,
+      "prior_value": 48,
+      "ly_value": 40,
+      "mom_change_pct": -12.5,
+      "yoy_change_pct": 5.0,
+      "vs_target_pct": -6.7,
+      "status": "beats_target",
+      "trend": "down",
+      "narrative": "CAC: 42.0 (beats target of 45.0). Trend is ↘️ down with steady momentum. MoM: -12.5% (42.0 vs 48.0). YoY: +5.0% (42.0 vs 40.0).",
+      "interpretation": "Improved efficiency in customer acquisition"
+    },
+    "Conversion": {
+      "current_value": 2.1,
+      "target_value": 2.3,
+      "prior_value": 2.2,
+      "ly_value": 2.0,
+      "mom_change_pct": -4.5,
+      "yoy_change_pct": 5.0,
+      "vs_target_pct": -8.7,
+      "status": "misses_target",
+      "trend": "down",
+      "narrative": "Conversion: 2.1 (misses target of 2.3). Trend is ↘️ down with steady momentum. MoM: -4.5% (2.1 vs 2.2). YoY: +5.0% (2.1 vs 2.0).",
+      "interpretation": "Conversion rate decline requires investigation and action"
+    }
+  },
+  "recommendations": [
+    {
+      "id": 1,
+      "priority": 4,
+      "metric": "Revenue",
+      "owner": "Finance/Revenue Team",
+      "recommendation": "Capitalize on Revenue momentum",
+      "rationale": "Current momentum is strong with +12.7% MoM growth and +9.2% YoY. Continue current strategies and explore expansion opportunities.",
+      "action_items": [
+        "Maintain current go-to-market strategy",
+        "Explore adjacent market opportunities",
+        "Increase marketing investment where ROI is proven"
+      ],
+      "timeline": "Immediate"
+    },
+    {
+      "id": 2,
+      "priority": 4,
+      "metric": "CAC",
+      "owner": "Marketing Team",
+      "recommendation": "Investigate and address CAC decline",
+      "rationale": "While beating target, CAC improvement of -12.5% MoM and beats target by 6.7% needs understanding. Ensure quality of acquired customers.",
+      "action_items": [
+        "Analyze customer acquisition channels for efficiency drivers",
+        "Verify customer quality and LTV metrics",
+        "Document and scale successful acquisition tactics"
+      ],
+      "timeline": "This week"
+    },
+    {
+      "id": 3,
+      "priority": 3,
+      "metric": "Conversion",
+      "owner": "Product Team",
+      "recommendation": "Explore if Conversion outperformance is sustainable",
+      "rationale": "Conversion rate is down 4.5% MoM and misses target by 8.7%, but still up 5% YoY. Need to identify root causes and recovery plan.",
+      "action_items": [
+        "Deep-dive analysis of conversion rate drop",
+        "Identify changes in funnel that caused decline",
+        "Develop recovery strategy with milestones",
+        "A/B test improvements"
+      ],
+      "timeline": "Within 5 days"
+    }
+  ],
+  "summaries": {
+    "executive": "Q1 shows mixed performance: Revenue exceeds target at +2.9% vs target, but Conversion rate misses by -8.7%. CAC improvements of -6.7% indicate efficiency gains. Key actions: accelerate revenue, address conversion decline, verify CAC sustainability.",
+    "short": "📊 MBR QUICK SUMMARY (2 Minutes)\n\n══════════════════════════════════════════════════\n\n📈 KEY METRICS:\n  • Revenue: +2.9% vs target ✅\n  • CAC: -6.7% vs target ✅\n  • Conversion: -8.7% vs target ❌\n\n🎯 TOP ACTIONS:\n  1. Capitalize on Revenue momentum\n  2. Investigate CAC decline implications\n  3. Address Conversion rate miss\n\n══════════════════════════════════════════════════",
+    "full": "Complete detailed analysis with all metrics, trends, and recommendations.",
+    "cfo": "💰 MBR FOR CFO\n\n══════════════════════════════════════════════════\n\n💵 FINANCIAL PERFORMANCE:\n  ✓ Revenue: +2.9% (Exceeds Target)\n  ✓ CAC: -6.7% (Beats Target - Lower Costs)\n\n📊 FINANCIAL IMPLICATIONS:\n  • Revenue trending: Positive with steady momentum\n  • Efficiency gains from CAC reduction\n  • Conversion decline may impact future revenue\n\n💳 FINANCIAL ACTIONS:\n  → Invest cash from CAC efficiency into conversion optimization\n\n══════════════════════════════════════════════════"
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Narrative too brief",
+      "Revenue narrative vs data consistency",
+      "CAC narrative vs data consistency",
+      "Conversion narrative vs data consistency"
+    ],
+    "errors": 4,
+    "warnings": 0
+  },
+  "metadata": {
+    "metrics_analyzed": 3,
+    "recommendations_generated": 3,
+    "execution_time_seconds": 0.2,
+    "status": "PRODUCTION_READY"
+  }
+}

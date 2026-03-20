@@ -1,0 +1,7 @@
+{
+  "name": "skill-universalizer",
+  "description": "Meta-skill for extracting, universalizing, and codifying reusable workflows from completed agent sessions. Analyzes a team-specific workflow, strips specifics, identifies parameterizable gaps, builds an intake step, and outputs a cross-platform SKILL.md.",
+  "version": "1.0.0",
+  "author": "jac007x",
+  "tags": ["meta-skill", "workflow-extraction", "universalization", "skill-building", "cross-platform", "human-in-the-loop", "refinement"]
+}

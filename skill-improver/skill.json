@@ -1,0 +1,7 @@
+{
+  "name": "skill-improver",
+  "description": "Continuous improvement meta-skill for the skill library. Passively observes session flow, friction signals, language patterns, and termination behavior during any skill run without asking users for feedback. Retrospectively analyzes signal logs to surface improvement proposals and library health. The user's silence is data. Premature closure is data. Frustration language is data.",
+  "version": "1.0.0",
+  "author": "jac007x",
+  "tags": ["meta-skill", "continuous-improvement", "signal-detection", "passive-observation", "skill-health", "friction-analysis", "cross-platform"]
+}

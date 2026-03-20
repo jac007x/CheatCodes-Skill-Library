@@ -1,0 +1,194 @@
+{
+  "name": "designer-orchestrator",
+  "display_name": "Designer Orchestrator 🎼",
+  "version": "1.0.0",
+  "type": "orchestrator",
+  "description": "Master design QA pipeline coordinator - runs all 4 design validation phases in sequence with automatic data passing and aggregated reporting.",
+  
+  "config": {
+    "implementation": "orchestrator.py",
+    "entry_point": "DesignerOrchestrator",
+    "timeout": 1800,
+    "max_retries": 1
+  },
+  
+  "phases": [
+    {
+      "id": 1,
+      "name": "Brand Compliance",
+      "skill": "design-system-validator",
+      "description": "Validate design against Walmart design system (colors, spacing, typography)",
+      "timeout": 300,
+      "required": true,
+      "inputs": {
+        "design_file": "string",
+        "palette": "walmart",
+        "check_spacing": true,
+        "check_typography": true
+      },
+      "outputs": {
+        "compliance_score": "number",
+        "violations": "array",
+        "design_debt_score": "number"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Composition Analysis",
+      "skill": "layout-composition-analyzer",
+      "description": "Analyze visual composition (balance, hierarchy, whitespace, reading flow)",
+      "timeout": 300,
+      "required": true,
+      "inputs": {
+        "design_file": "string (inherited from phase 1)",
+        "analyze_gestalt": true,
+        "calculate_whitespace": true
+      },
+      "outputs": {
+        "composition_score": "number",
+        "reading_pattern": "string",
+        "whitespace_percentage": "number",
+        "issues": "array"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Accessibility Audit",
+      "skill": "a11y-wcag-auditor",
+      "description": "WCAG 2.2 Level AA compliance check (contrast, readability, color-blindness)",
+      "timeout": 420,
+      "required": true,
+      "inputs": {
+        "design_file": "string",
+        "wcag_level": "AA",
+        "test_color_blindness": true,
+        "test_motor_affordances": true
+      },
+      "outputs": {
+        "wcag_compliance": "string",
+        "a11y_score": "number",
+        "violations": "array",
+        "color_blindness_safe": "boolean"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Code Generation",
+      "skill": "design-to-code-bridge",
+      "description": "Extract measurements and generate design tokens, CSS, HTML specs",
+      "timeout": 600,
+      "required": true,
+      "inputs": {
+        "design_file": "string",
+        "export_tokens": true,
+        "export_html": true,
+        "create_baseline": true
+      },
+      "outputs": {
+        "design_spec_json": "file",
+        "design_tokens_css": "file",
+        "component_specs": "array<file>",
+        "measurements_baseline": "file"
+      }
+    }
+  ],
+  
+  "data_flow": {
+    "description": "Data flows between phases automatically",
+    "phase_1_to_2": "Pass design_file, inherited measurements",
+    "phase_2_to_3": "Pass design_file, composition analysis results",
+    "phase_3_to_4": "Pass design_file, accessibility findings",
+    "all_phases_to_aggregate": "All results collected for unified report"
+  },
+  
+  "aggregation": {
+    "description": "Combine results from all 4 phases",
+    "overall_score": "Average of all phase scores",
+    "overall_status": "PASS | PASS_WITH_WARNINGS | FAIL",
+    "design_debt_total": "Sum of all design debt scores",
+    "findings": "Merged violations from all phases",
+    "deliverables": "Code specs from Phase 4"
+  },
+  
+  "handoff": {
+    "enabled": true,
+    "target_skill": "task-rabbit",
+    "when": "after all phases complete",
+    "passes": {
+      "audit_report": "Complete JSON report",
+      "findings": "All violations and warnings",
+      "design_debt": "Debt metrics and breakdown",
+      "code_artifacts": "Design tokens and specs"
+    }
+  },
+  
+  "output_artifacts": {
+    "audit_report.json": "Machine-readable complete audit report",
+    "audit_report.html": "Human-readable HTML report for browsers",
+    "design_spec.json": "Complete design specification",
+    "design_tokens.css": "CSS custom properties (design tokens)",
+    "components/*.html": "HTML component templates",
+    "measurements_baseline.json": "Baseline for visual regression testing"
+  },
+  
+  "integration_with_existing_skills": {
+    "pptx-expert": {
+      "usage": "Phase 1 uses PPTX parsing from pptx-expert",
+      "data_exchange": "Extract colors, fonts, spacing from PPTX"
+    },
+    "data-viz-expert": {
+      "usage": "Phase 1 validates charts against color palette",
+      "data_exchange": "Chart color validation rules"
+    },
+    "slide-analyzer": {
+      "usage": "Phase 2 leverages slide visual analysis",
+      "data_exchange": "Visual rendering, element detection"
+    },
+    "mbr-deck-builder": {
+      "usage": "Can be run on MBR deck outputs",
+      "data_exchange": "PPTX input, audit results for refinement"
+    },
+    "slide-creator": {
+      "usage": "Can audit generated HTML slideshows",
+      "data_exchange": "HTML input, validation results"
+    },
+    "share-puppy": {
+      "usage": "Publish audit reports",
+      "data_exchange": "audit_report.html → puppy.walmart.com"
+    },
+    "gui-cub": {
+      "usage": "Optional: automate remediation in PowerPoint",
+      "data_exchange": "Remediation tickets → UI automation"
+    }
+  },
+  
+  "metrics_tracked": {
+    "execution": {
+      "total_duration": "Time for all 4 phases",
+      "phase_durations": "Individual phase execution times",
+      "success_rate": "% of phases completed"
+    },
+    "quality": {
+      "overall_score": "0-100 composite score",
+      "violation_count": "Total findings",
+      "design_debt_score": "Debt metrics",
+      "compliance_status": "PASS/FAIL/WARN"
+    },
+    "artifacts": {
+      "files_generated": "Count of output files",
+      "tokens_exported": "Design tokens count",
+      "specs_created": "Component specs count"
+    }
+  },
+  
+  "cli_examples": {
+    "full_audit": "velcro invoke designer-orchestrator --file design.pptx --hand-off-to-task-rabbit",
+    "with_output_dir": "velcro invoke designer-orchestrator --file design.pptx --output ./results/",
+    "quick_check": "velcro invoke designer-orchestrator --file design.pptx --phases 1,3",
+    "json_output": "velcro invoke designer-orchestrator --file design.pptx --output-format json"
+  },
+  
+  "status": "production-ready",
+  "author": "code-puppy",
+  "created": "2026-03-16"
+}

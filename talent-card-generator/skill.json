@@ -1,0 +1,7 @@
+{
+  "name": "talent-card-generator",
+  "description": "Universalized pipeline for batch-generating personalized documents from data + templates. Maps data fields to template placeholders, populates one document per record, validates completeness, and outputs formatted documents (PPTX, DOCX, PDF, HTML).",
+  "version": "1.0.0",
+  "author": "jac007x",
+  "tags": ["document-generation", "template-population", "batch-processing", "talent-cards", "mail-merge", "cross-platform", "automation"]
+}

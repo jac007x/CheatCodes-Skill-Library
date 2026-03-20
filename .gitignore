@@ -1,0 +1,18 @@
+# Skill library git ignore
+# Don't commit signal logs (may contain session snippets)
+skill-improver/session_signals.jsonl
+skill-improver/library_health_latest.json
+
+# Don't commit raw data files that land here accidentally
+*.csv
+*.xlsx
+*.xls
+*.parquet
+
+# macOS noise
+.DS_Store
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo

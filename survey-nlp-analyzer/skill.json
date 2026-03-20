@@ -1,0 +1,7 @@
+{
+  "name": "survey-nlp-analyzer",
+  "description": "Universalized NLP pipeline for analyzing any large body of open-ended human text. Handles anonymous feedback, open-door cases, idea submissions, survey verbatims, customer forms, office hour transcripts, support tickets, and more. Runs topic modeling (NMF), sentiment analysis, fallback clustering, quote extraction, and dimensional breakdowns. Produces executive insights, heatmaps, and shareable reports.",
+  "version": "1.1.0",
+  "author": "jac007x",
+  "tags": ["nlp", "topic-modeling", "sentiment-analysis", "text-mining", "clustering", "open-text", "feedback-analysis", "cross-platform", "human-in-the-loop"]
+}

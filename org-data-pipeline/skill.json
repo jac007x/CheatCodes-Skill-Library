@@ -1,0 +1,7 @@
+{
+  "name": "org-data-pipeline",
+  "description": "Universalized pipeline for pulling, reconciling, slicing, and reporting organizational data. Handles ad-hoc and recurring requests from any source (PowerBI, BigQuery, Excel, Workday). Validates against a roster, cuts by org dimensions, generates formatted reports.",
+  "version": "1.0.0",
+  "author": "jac007x",
+  "tags": ["data-pipeline", "reporting", "org-analytics", "reconciliation", "heatmaps", "cross-platform", "automation"]
+}
