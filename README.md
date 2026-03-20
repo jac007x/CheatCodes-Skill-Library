@@ -182,6 +182,12 @@ See [docs/COMPLIANCE.md](docs/COMPLIANCE.md) for the full framework.
 
 ---
 
+## 🗺️ Roadmap
+
+See [ROADMAP.md](ROADMAP.md) for the universalization backlog, planned sessions, and completed work.
+
+---
+
 ## 📜 Version History
 
 | Date | What Changed |
