@@ -1,0 +1,73 @@
+name: session-memory
+version: 1.0.0
+description: Bootstrap a two-tier MEMORY.md system for instant Code Puppy session ramp-up. Creates a global ~/MEMORY.md and a per-project MEMORY.md with static/dynamic/rolling-log architecture that stays lean across thousands of sessions.
+author: jac007x
+source: created
+created_date: 2026-03-20
+
+compliance:
+  review_date: 2026-03-20
+  reviewer: jac007x
+  policies:
+    - AI-01-02
+    - Ethical AI Principles
+  status: compliant
+  risk_level: low
+  pii_handling: false
+  next_review: 2026-06-20
+
+model_recommendation: sonnet
+model_rationale: >
+  Requires deep project reconnaissance, contextual judgment about what's
+  worth documenting, and precise population of structured templates.
+  Haiku may miss nuance. Sonnet recommended.
+
+tags:
+  - productivity
+  - memory
+  - session-management
+  - context
+  - ramp-up
+  - documentation
+  - workflow
+  - ai-friendly
+
+status: active
+
+trigger_phrases:
+  - "set up memory for this project"
+  - "create a memory file"
+  - "add session memory"
+  - "I want you to remember this project"
+  - "reduce ramp-up time"
+  - "build a memory structure"
+  - "make a MEMORY.md"
+
+capabilities:
+  - Global ~/MEMORY.md creation and maintenance
+  - Per-project MEMORY.md creation and maintenance
+  - Project reconnaissance before writing
+  - Idempotent updates (won't blindly overwrite existing files)
+  - Line-cap enforcement for scalability
+  - Rolling session log management
+
+outputs:
+  - ~/MEMORY.md (global, ~150 lines)
+  - <project>/MEMORY.md (per-project, ~300 lines)
+
+requires:
+  tools:
+    - list_files
+    - read_file
+    - edit_file
+    - agent_run_shell_command  # for wc -l and git log recon
+  optional_agents: []
+
+scalability:
+  design: static/dynamic/rolling-log
+  global_line_cap: 150
+  project_line_cap: 300
+  session_log_max_entries: 10
+  note: >
+    Files never grow unboundedly. Dynamic sections are replaced (not appended).
+    Session log collapses old entries into a summary line at entry 11.

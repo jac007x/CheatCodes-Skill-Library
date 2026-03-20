@@ -46,8 +46,8 @@ CheatCodes-Skill-Library/
 **Skill format:** Each skill contains at minimum:
 - `SKILL.md` — The full skill: philosophy, intake variables, phases, code patterns, anti-patterns
 - `skill.json` — Metadata: name, version, author, tags, description
-
 ---
+>>>>>>> d7ccba3 (Add session-memory skill: two-tier MEMORY.md bootstrap, scalable to 10k+ sessions)
 
 ## 🧬 Meta-Skills (The Governance Layer)
 
@@ -103,6 +103,7 @@ These two skills manage the library itself.
 |-------|-------------|
 | [email-automation-pattern](email-automation-pattern/) | Email workflow automation patterns |
 | [task-rabbit](task-rabbit/) | Task management, audit documentation, and remediation tracking |
+| [session-memory](skills/session-memory/) | Two-tier MEMORY.md system for instant AI session ramp-up — scalable to 10,000+ sessions |
 
 
 

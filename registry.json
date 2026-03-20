@@ -9,6 +9,35 @@
   },
   "skills": [
     {
+      "id": "session-memory",
+      "name": "Session Memory Bootstrap",
+      "version": "1.0.0",
+      "description": "Bootstrap a two-tier MEMORY.md system (global + per-project) for instant Code Puppy session ramp-up. Static/dynamic/rolling-log architecture stays lean across thousands of sessions.",
+      "author": "jac007x",
+      "source": "created",
+      "source_url": null,
+      "status": "active",
+      "path": "skills/session-memory",
+      "tags": ["productivity", "memory", "session-management", "context", "ramp-up", "documentation", "workflow", "ai-friendly"],
+      "model_recommendation": "sonnet",
+      "risk_level": "low",
+      "compliance_status": "compliant",
+      "compliance_review_date": "2026-03-20",
+      "capabilities": [
+        "Global ~/MEMORY.md creation and maintenance",
+        "Per-project MEMORY.md creation and maintenance",
+        "Project recon before writing",
+        "Idempotent updates (won't blindly overwrite)",
+        "Line-cap enforcement",
+        "Rolling 10-entry session log"
+      ],
+      "scalability": {
+        "global_line_cap": 150,
+        "project_line_cap": 300,
+        "session_log_max": 10
+      }
+    },
+    {
       "id": "mbr-engine",
       "name": "MBR Engine",
       "version": "2.0.0",
