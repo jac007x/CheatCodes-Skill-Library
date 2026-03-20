@@ -67,8 +67,8 @@ These two skills manage the library itself.
 
 | Skill | Version | What It Does | Platforms |
 |-------|---------|-------------|----------|
-| [survey-nlp-analyzer](survey-nlp-analyzer/) | 1.1.0 | Open-text insights pipeline: topic modeling (NMF), sentiment analysis (VADER), fallback clustering, quote extraction, dimensional heatmaps. Works on surveys, transcripts, feedback forms, open-door cases, idea boards, anything. | All |
-| [org-data-pipeline](org-data-pipeline/) | 1.0.0 | Pull → reconcile → cut by dimension → report → archive. Handles ad-hoc and recurring data requests from PowerBI, BigQuery, Excel, Workday. | All |
+| [survey-nlp-analyzer](survey-nlp-analyzer/) | 1.1.0 | Open-text insights pipeline: topic modeling (NMF), sentiment analysis (VADER), fallback clustering, quote extraction, dimensional heatmaps. Works on surveys, transcripts, feedback forms, internal submissions, idea boards, support tickets, and more. | All |
+| [org-data-pipeline](org-data-pipeline/) | 1.0.0 | Pull → reconcile → cut by dimension → report → archive. Handles ad-hoc and recurring data requests from PowerBI, BigQuery, Excel, and HRIS platforms. | All |
 | [powerbi-reports](powerbi-reports/) | 1.0.0 | PowerBI report generation and distribution patterns | All |
 
 ---
@@ -105,20 +105,6 @@ These two skills manage the library itself.
 | [task-rabbit](task-rabbit/) | Task management, audit documentation, and remediation tracking |
 
 
-
----
-
-## 📚 Curated Skills (Original Library)
-
-These skills live in the `skills/` subfolder and use the original skill format.
-
-| Skill | Source | What It Does |
-|-------|--------|--------------|
-| [mbr-engine](skills/mbr-engine/) | 🛠️ Created | MBR automation with Python pipeline |
-| [msgraph-people](skills/msgraph-people/) | 📚 Curated | Calendar & email workflows for People |
-| [document-processing](skills/document-processing/) | 📚 Curated | PDF, PPTX, and form extraction |
-| [confluence-people](skills/confluence-people/) | 📚 Curated | Knowledge management for People |
-| [jira-people](skills/jira-people/) | 📚 Curated | Work management for People |
 
 ---
 
@@ -181,7 +167,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines.
 
 ## 🛡️ Compliance
 
-All skills comply with **Walmart's Ethical AI principles** and **AI-01-02 standards**.
+All skills comply with **Walmart's Ethical AI principles and data governance standards**.
 PII handling is documented per skill. Raw data files are excluded from git.
 
 | Category | Risk Level | PII Handling |
