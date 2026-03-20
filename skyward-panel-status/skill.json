@@ -1,7 +1,0 @@
-{
-  "name": "skyward-panel-status",
-  "description": "Check F+ Tech Panel feedback status from Skyward and update tracking spreadsheets. Uses QA Kitten for browser/API access and openpyxl for Excel updates. Supports bulk status checks via Skyward API.",
-  "version": "1.0.0",
-  "author": "jac007x",
-  "tags": ["skyward", "tech-panel", "f-plus", "promotion", "panelist", "feedback", "qa-kitten", "browser-automation", "excel", "status-tracking"]
-}

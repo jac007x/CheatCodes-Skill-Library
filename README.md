@@ -104,18 +104,7 @@ These two skills manage the library itself.
 | [email-automation-pattern](email-automation-pattern/) | Email workflow automation patterns |
 | [task-rabbit](task-rabbit/) | Task management, audit documentation, and remediation tracking |
 
----
 
-## 🚧 Pre-Universalization — Team-Specific Skills
-
-These skills were built for specific team workflows and haven't yet been through
-`skill-universalizer`. They work as-is for the teams that built them; they just
-carry team-specific context that hasn't been abstracted into intake variables yet.
-
-| Skill | What It Does | Next Step |
-|-------|-------------|----------|
-| [fplus-tech-panel](fplus-tech-panel/) | Tech panel nomination tracking, panelist email automation, calibration reporting | Run `skill-universalizer` → `review-cycle-manager` |
-| [skyward-panel-status](skyward-panel-status/) | Check tech panel feedback status from system API, update tracking spreadsheet | Merge into `review-cycle-manager` |
 
 ---
 
