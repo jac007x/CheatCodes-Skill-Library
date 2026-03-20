@@ -1,7 +1,7 @@
 # 🐶 CheatCodes Skill Library
 
-A living library of reusable AI agent skills built for and proven by the
-**DAX People Strategy & PMO team**, with a deployment target of Walmart Home Office.
+A living library of reusable AI agent skills built for People teams across
+Walmart, with a path to scale across Home Office and beyond.
 
 Skills work across platforms: **code-puppy, wibey, Codex, and any LLM**
 that can consume a Markdown system prompt.
@@ -106,16 +106,16 @@ These two skills manage the library itself.
 
 ---
 
-## 🧪 Proving Grounds — DAX People Team
+## 🚧 Pre-Universalization — Team-Specific Skills
 
-These skills were built for specific DAX People workflows and are on the
-path to universalization. They work as-is; they just carry more team-specific
-context than the universal skills above.
+These skills were built for specific team workflows and haven't yet been through
+`skill-universalizer`. They work as-is for the teams that built them; they just
+carry team-specific context that hasn't been abstracted into intake variables yet.
 
 | Skill | What It Does | Next Step |
 |-------|-------------|----------|
-| [fplus-tech-panel](fplus-tech-panel/) | F+ tech panel nomination tracking, panelist email automation, calibration reporting | Universalize → `review-cycle-manager` |
-| [skyward-panel-status](skyward-panel-status/) | Check tech panel feedback status from Skyward API, update tracking spreadsheet | Merge into `review-cycle-manager` |
+| [fplus-tech-panel](fplus-tech-panel/) | Tech panel nomination tracking, panelist email automation, calibration reporting | Run `skill-universalizer` → `review-cycle-manager` |
+| [skyward-panel-status](skyward-panel-status/) | Check tech panel feedback status from system API, update tracking spreadsheet | Merge into `review-cycle-manager` |
 
 ---
 
@@ -140,13 +140,13 @@ ready for Walmart Home Office scale:
 
 ```
 ┌───────────────────────────────────────────────┐
-│ 🧪 REFINE    Strategy & PMO           │
-│          Testing and refinement team     │
+│ 🧪 REFINE    Skill Owner               │
+│          The team that built it          │
 │          ↓                               │
-│ 🔬 PROVE     DAX People Team           │
-│          Proving grounds across orgs     │
+│ 🔬 PROVE     Peer Teams                │
+│          Validated across teams          │
 │          ↓                               │
-│ 🌐 SCALE     Walmart Home Office        │
+│ 🌐 SCALE     Enterprise / All Teams    │
 │          Universal, self-serve           │
 └───────────────────────────────────────────────┘
 ```

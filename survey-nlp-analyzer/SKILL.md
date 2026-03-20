@@ -539,6 +539,6 @@ open {{OUTPUT_DIR}}/{{PROJECT_NAME}}_report.html   # macOS
 
 | Stage | Team | What to validate |
 |-------|------|-------------------|
-| **Refine** | Strategy & PMO | Pipeline correctness, output quality, quote curation |
-| **Prove** | DAX People team | Cross-org cuts work, topic dictionary generalizes |
+| **Refine** | Skill Owner | Pipeline correctness, output quality, quote curation |
+| **Prove** | Peer Teams | Cross-org cuts work, topic dictionary generalizes |
 | **Scale** | Walmart Home Office | Handles 500K+ rows, all BU dimensions, self-serve |

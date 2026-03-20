@@ -287,6 +287,6 @@ invoke_agent('slide-deck', 'Create a deck from this data: {{summary_json}}')
 
 | Stage | Team | What to validate |
 |-------|------|-------------------|
-| **Refine** | Strategy & PMO | Reconciliation logic, metric definitions, output formatting |
-| **Prove** | DAX People team | Cross-org dimension cuts, data source integrations |
+| **Refine** | Skill Owner | Reconciliation logic, metric definitions, output formatting |
+| **Prove** | Peer Teams | Cross-org dimension cuts, data source integrations |
 | **Scale** | Walmart Home Office | Self-serve dashboard mode, recurring schedules, multi-source joins |

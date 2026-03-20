@@ -82,7 +82,7 @@ record to `~/.code_puppy/skills/skill-improver/session_signals.jsonl`.
   "skill_name": "survey-nlp-analyzer",
   "skill_version": "1.1.0",
   "timestamp": "2026-03-20T15:20:05Z",
-  "user_id": "jac007x",
+  "user_id": "your-user-id",
   "termination_type": "clean|abandoned|timeout|error",
   "last_phase_reached": "Phase 3",
   "phases_completed": ["intake", "Phase 1", "Phase 2"],
@@ -283,7 +283,7 @@ def analyze_signals(skill_name: str, signals_path: Path) -> list[FrictionPattern
     "after": "The columns in your data you want to compare across. Think: what question are you trying to answer? 'How does feedback differ by department?' = department column. 'How does it vary by region?' = region column. You can pick multiple."
   },
   "version_bump_type": "patch",
-  "deployment_stage_to_validate": "Strategy & PMO",
+  "deployment_stage_to_validate": "Skill Owner",
   "status": "pending_review"
 }
 ```
@@ -292,10 +292,10 @@ def analyze_signals(skill_name: str, signals_path: Path) -> list[FrictionPattern
 
 | Pattern | Version Bump | Who Validates |
 |---------|-------------|---------------|
-| Wording confusion in intake (1-2 fields) | `patch` x.x.1 | Strategy & PMO |
-| Phase logic produces wrong output | `patch` x.x.1 | Strategy & PMO |
-| Entire phase causes abandonment | `minor` x.1.x | DAX People team |
-| New source type not in Corpus Guide | `minor` x.1.x | DAX People team |
+| Wording confusion in intake (1-2 fields) | `patch` x.x.1 | Skill Owner |
+| Phase logic produces wrong output | `patch` x.x.1 | Skill Owner |
+| Entire phase causes abandonment | `minor` x.1.x | Peer Teams |
+| New source type not in Corpus Guide | `minor` x.1.x | Peer Teams |
 | Core pipeline assumption is wrong | `major` x+1.x.x | + skill-universalizer |
 | Cross-skill shared pattern found | New shared utility | All deployment stages |
 
@@ -453,6 +453,6 @@ it's a systemic problem, not a skill problem.
 
 | Stage | Team | What to validate |
 |-------|------|------------------|
-| **Refine** | Strategy & PMO | Signal schema correct, proposals actionable, not over-triggering |
-| **Prove** | DAX People team | Cross-session patterns surface correctly, health dashboard accurate |
+| **Refine** | Skill Owner | Signal schema correct, proposals actionable, not over-triggering |
+| **Prove** | Peer Teams | Cross-session patterns surface correctly, health dashboard accurate |
 | **Scale** | Walmart Home Office | Passive layer runs on all skills automatically, proposals route to right owners |

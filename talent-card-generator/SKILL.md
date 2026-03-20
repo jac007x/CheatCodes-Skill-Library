@@ -415,6 +415,6 @@ def consolidate_runs(paragraph):
 
 | Stage | Team | What to validate |
 |-------|------|-------------------|
-| **Refine** | Strategy & PMO | Template parsing, field mapping UX, run-splitting fix |
-| **Prove** | DAX People team | Multiple template types, validation rule coverage |
+| **Refine** | Skill Owner | Template parsing, field mapping UX, run-splitting fix |
+| **Prove** | Peer Teams | Multiple template types, validation rule coverage |
 | **Scale** | Walmart Home Office | Self-serve template upload, 500+ record batches, multi-format |

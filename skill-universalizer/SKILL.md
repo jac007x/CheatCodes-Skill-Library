@@ -288,7 +288,7 @@ Paste SKILL.md content as system prompt or conversation context
 | AES comment analysis | survey-nlp-analyzer | corpus, text col, dimensions |
 | Monthly HC reporting | org-data-pipeline | data source, metrics, cuts |
 | Talent card generation | talent-card-generator | template, data, field map |
-| F+ tech panel tracking | review-cycle-manager | platform, statuses, roster |
+| Tech review cycle tracking | review-cycle-manager | platform, statuses, roster |
 | Design QA pipeline | multi-skill-qa-orchestrator | skills, phases, thresholds |
 | MBR slide creation | data-story-deck-builder | data, template, audience |
 

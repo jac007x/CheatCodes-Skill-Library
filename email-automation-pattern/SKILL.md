@@ -306,7 +306,7 @@ tracking = {
 
 | Workflow | Categories | Source | Mailbox |
 |----------|------------|--------|--------|
-| F+ Tech Panel | Thank You, Reminder, New Assign | Skyward API | DAXPromoTeam |
+| Tech Review Panel | Thank You, Reminder, New Assign | System API | {{SENDER_TEAM}} |
 | Onboarding | Welcome, Day 1, Week 1 | Workday API | HR Shared |
 | Survey Follow-up | Thank You, Reminder, Final | Qualtrics | Research Team |
 | Event RSVP | Confirmed, Pending, Waitlist | Eventbrite | Events Team |
