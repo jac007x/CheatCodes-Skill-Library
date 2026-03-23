@@ -501,6 +501,44 @@ CORRECT PATTERNS:
 
 ---
 
+## 🔗 Integration: Inbox Intelligence Compendium
+
+This skill becomes significantly more powerful when paired with the
+[inbox-intelligence](../inbox-intelligence/) skill's **knowledge compendium**.
+
+### How They Connect
+
+The inbox-intelligence skill builds a persistent, cross-referenced knowledge
+base from your email and Teams messages. When meeting-prep-assistant can
+query that compendium, several phases get richer inputs:
+
+| Phase | Without Compendium | With Compendium |
+|-------|-------------------|-----------------|
+| **Phase 2** (Attendees) | Directory lookup + what you remember | Full interaction history, communication frequency, topic associations |
+| **Phase 3** (Relevant Notes) | Search note sources for related content | Compendium already has cross-referenced topics, decisions, commitments indexed |
+| **Phase 4** (Open Items) | Query task systems | Also surfaces commitments made in emails that never became tracked tasks |
+| **Phase 5** (Purpose Inference) | Infer from metadata and notes | Richer signal: recent email threads between attendees, escalation patterns, decision velocity |
+
+### How to Use Together
+
+1. Run `inbox-intelligence` on your inbox regularly (daily or before prep sessions)
+2. The compendium builds at `{{COMPENDIUM_PATH}}`
+3. When running `meeting-prep-assistant`, set `{{NOTE_SOURCES}}` to include `compendium`
+4. Phases 2-5 automatically query the compendium for richer context
+
+### What This Enables
+
+- **"Why was this meeting called?"** — The compendium knows what email threads
+  preceded the calendar invite
+- **"What will they ask me about?"** — Cross-reference attendee communication
+  patterns with open topics
+- **"What happened since our last meeting?"** — Compendium timeline shows every
+  relevant interaction, not just formal notes
+- **Prediction accuracy** — Phase 5 purpose inference improves dramatically
+  when the agent can see the communication trail that led to the meeting
+
+---
+
 ## Design Credit
 
 This skill's architecture was designed using the

@@ -547,6 +547,31 @@
       "category": "workflow-automation",
       "model_recommendation": "sonnet",
       "risk_level": "low"
+    },
+    {
+      "id": "inbox-intelligence",
+      "name": "Inbox Intelligence",
+      "version": "1.0.0",
+      "description": "Entropy-aware communications intelligence — rapid inbox triage, persistent knowledge compendium with cross-referenced topics, action-required lists, and self-improving classification. Takes 300 unread to zero-anxiety in under an hour. Compendium feeds downstream skills like meeting-prep-assistant.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "inbox-intelligence",
+      "tags": [
+        "workflow-automation",
+        "email",
+        "teams",
+        "inbox-triage",
+        "knowledge-management",
+        "compendium",
+        "entropy-aware",
+        "ANCT-designed",
+        "self-improving",
+        "cross-platform"
+      ],
+      "category": "workflow-automation",
+      "model_recommendation": "sonnet",
+      "risk_level": "medium"
     }
   ]
 }

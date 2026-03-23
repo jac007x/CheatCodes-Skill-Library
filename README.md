@@ -138,6 +138,7 @@ These skills govern the library and architect new workflows.
 | Skill | What It Does | Origin | Maturity |
 |-------|-------------|--------|----------|
 | [email-automation-pattern](email-automation-pattern/) | Email workflow automation patterns | 🛠️ | 🧪 Beta |
+| [inbox-intelligence](inbox-intelligence/) | Rapid inbox triage, knowledge compendium, action lists — 300 unread to zero-anxiety in an hour | 🛠️ | 🧪 Beta |
 | [meeting-prep-assistant](meeting-prep-assistant/) | Entropy-aware meeting prep: context, relationships, open items, purpose inference, adaptive briefs | 🛠️ | 🧪 Beta |
 | [task-rabbit](task-rabbit/) | Task management, audit documentation, and remediation tracking | 🛠️ | 🧪 Beta |
 | [session-memory](session-memory/) | Two-tier MEMORY.md system for instant AI session ramp-up | 🛠️ | 🧪 Beta |

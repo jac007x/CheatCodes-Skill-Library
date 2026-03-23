@@ -1,0 +1,33 @@
+# ==============================================================================
+# Inbox Intelligence — ANCT-designed communications triage & knowledge compendium
+# ==============================================================================
+
+# === Identity (Required) ===
+name: inbox-intelligence
+version: 1.0.0
+description: "Entropy-aware communications intelligence skill that rapidly triages email and Teams messages, separates signal from noise, builds a persistent knowledge compendium with cross-referenced topics, and produces action-required lists — designed to take 300 unread messages to zero-anxiety in under an hour. The compendium becomes a living knowledge base that any agent can query, grows smarter through self-improvement, and feeds downstream skills like meeting-prep-assistant."
+created: 2026-03-23
+
+# === Origin & Attribution (Required) ===
+origin: created
+author: jac007x
+
+# === Maturity (Required) ===
+maturity_status: beta
+
+# === Categorization (Required) ===
+tags:
+  - workflow-automation
+  - email
+  - teams
+  - inbox-triage
+  - knowledge-management
+  - compendium
+  - entropy-aware
+  - ANCT-designed
+  - self-improving
+  - cross-platform
+
+# === Model & Risk ===
+model_recommendation: sonnet
+risk_level: medium
