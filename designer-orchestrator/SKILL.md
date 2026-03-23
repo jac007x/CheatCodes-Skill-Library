@@ -100,7 +100,7 @@ Coordinates the complete design quality assurance workflow, running all design s
   "auto_remediation": false,
   "output_format": "html | json | markdown",
   "jira_project": "DESIGNQA",
-  "notify_on_complete": "designer@walmart.com"
+  "notify_on_complete": "designer@example.com"
 }
 ```
 
@@ -436,7 +436,7 @@ audit_results/
 
 ### Run Full Pipeline
 ```bash
-velcro design-orchestrator --file design.pptx --output report.html
+your-design-cli-tool design-orchestrator --file design.pptx --output report.html
 # ✓ Phase 1: Brand Compliance (92%)
 # ✓ Phase 2: Composition Analysis (85%)
 # ✓ Phase 3: Accessibility Audit (94%)
@@ -446,10 +446,10 @@ velcro design-orchestrator --file design.pptx --output report.html
 
 ### Run Specific Phases
 ```bash
-velcro design-orchestrator --file design.pptx --phases accessibility,code-bridge
+your-design-cli-tool design-orchestrator --file design.pptx --phases accessibility,code-bridge
 ```
 
 ### Generate Report Only
 ```bash
-velcro design-orchestrator --file design.pptx --report-only --format html
+your-design-cli-tool design-orchestrator --file design.pptx --report-only --format html
 ```

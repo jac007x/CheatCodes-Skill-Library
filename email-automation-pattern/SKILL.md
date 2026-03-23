@@ -181,7 +181,7 @@ BATCH_SIZE = 30  # Send in batches
 for batch in chunks(all_emails, BATCH_SIZE):
     for email in batch:
         send_mail(
-            from_mailbox="SVC-SharedMailbox@email.wal-mart.com",
+            from_mailbox="SVC-SharedMailbox@example.com",
             to=email.recipient,
             subject=email.subject,
             body=email.html_body,
@@ -205,7 +205,7 @@ for batch in chunks(all_emails, BATCH_SIZE):
 1. Add "📧 X emails sent on [timestamp]" banner
 2. Add "Sent" badges per recipient row
 3. Update tracking spreadsheet with timestamps
-4. Re-upload to share-puppy (auto-versions)
+4. Re-upload to publishing-agent (auto-versions)
 
 ```html
 <div class="alert">
@@ -219,13 +219,13 @@ for batch in chunks(all_emails, BATCH_SIZE):
 
 ## 🌐 Phase 6: Stakeholder Sharing
 
-**Publish to puppy.walmart.com**
+**Publish to your publishing platform**
 
 ```
-Agent: share-puppy
+Agent: publishing-agent
 File: /path/to/dashboard.html
-URL: https://puppy.walmart.com/sharing/[userid]/[dashboard-name]
-Access: business (Walmart associates)
+URL: https://{{PUBLISH_URL}}/sharing/[userid]/[dashboard-name]
+Access: business (authorized users)
 Versioning: Auto-increments on re-upload
 ```
 
@@ -320,7 +320,7 @@ tracking = {
 |-------|--------|
 | `msgraph` | Send emails, create drafts, access shared mailboxes |
 | `qa-kitten` | Scrape web sources (Skyward, etc.) |
-| `share-puppy` | Publish dashboards to puppy.walmart.com |
+| `publishing-agent` | Publish dashboards to your publishing platform |
 | `bigquery-explorer` | Pull data from BQ if needed |
 
 ---

@@ -179,10 +179,10 @@ Build a flat HTML file using:
 ### CSV Export
 Use `powerbi_export_dax_query_to_csv(dataset_id, dax_query, output_path)`
 
-### Share on puppy.walmart.com
-After building HTML, invoke the `share-puppy` sub-agent to share it:
+### Share on your publishing platform
+After building HTML, invoke the `publishing-agent` sub-agent to share it:
 ```
-invoke_agent('share-puppy', 'Share this HTML report: /path/to/report.html')
+invoke_agent('publishing-agent', 'Share this HTML report: /path/to/report.html')
 ```
 Then give the user a clickable CLI link.
 
@@ -203,7 +203,7 @@ invoke_agent('scheduler-agent', 'Schedule a daily report bundle at 8am:
 - Sales summary by region (last 7 days)
 - Top 10 stores by revenue
 - Inventory levels by category
-Build as HTML and share on puppy.walmart.com')
+Build as HTML and share on your publishing platform')
 ```
 
 ### Bundle Configuration Pattern
@@ -223,7 +223,7 @@ Run my weekly PowerBI bundle:
 2. Pull Top 10 Stores by Revenue YTD
 3. Pull Inventory Turns by Category for current month
 Build a single combined HTML report with all three sections.
-Share on puppy.walmart.com and give me the link.
+Share on your publishing platform and give me the link.
 ```
 
 ---

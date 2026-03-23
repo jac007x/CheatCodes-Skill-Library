@@ -1,271 +1,489 @@
 {
-  "version": "1.2.0",
-  "updated": "2026-03-18",
-  "compliance_framework": {
-    "policies": ["AI-01-02", "DG-01-ST-02", "Ethical AI Principles"],
-    "last_review": "2026-03-18",
-    "next_review": "2026-06-18",
+  "version": "2.0.0",
+  "updated": "2026-03-23",
+  "schema_version": "2.0.0",
+  "compliance_alignment": {
+    "principles": [
+      {
+        "id": "approved-services",
+        "name": "Approved Services",
+        "description": "Skills document which AI services they work with; never hardcode to a single vendor"
+      },
+      {
+        "id": "data-encryption",
+        "name": "Data Encryption",
+        "description": "Skills that handle data document encryption expectations"
+      },
+      {
+        "id": "pii-protection",
+        "name": "PII Protection",
+        "description": "Skills that may touch PII document de-identification controls"
+      },
+      {
+        "id": "human-oversight",
+        "name": "Human Oversight",
+        "description": "Every skill has human-in-the-loop checkpoints"
+      },
+      {
+        "id": "cost-efficiency",
+        "name": "Cost Efficiency",
+        "description": "Model recommendations use minimum necessary power"
+      },
+      {
+        "id": "bias-awareness",
+        "name": "Bias Awareness",
+        "description": "Skills that analyze text document bias considerations"
+      },
+      {
+        "id": "audit-logging",
+        "name": "Audit Logging",
+        "description": "Skills document what should be logged and what should not"
+      }
+    ],
+    "last_review": "2026-03-23",
+    "next_review": "2026-06-23",
     "reviewer": "jac007x"
   },
+  "source_types": {
+    "created": {
+      "description": "Skills built from scratch by the library maintainer",
+      "badge": "Created"
+    },
+    "curated": {
+      "description": "Skills discovered from external resources and adapted",
+      "badge": "Curated"
+    },
+    "forked": {
+      "description": "Skills forked from open source and customized",
+      "badge": "Forked"
+    },
+    "contributed": {
+      "description": "Skills submitted by community contributors",
+      "badge": "Contributed"
+    }
+  },
+  "categories": [
+    {
+      "id": "meta",
+      "name": "Meta-Skills",
+      "description": "Skills that operate on other skills — improvement, universalization, and library governance"
+    },
+    {
+      "id": "data-analytics",
+      "name": "Data & Analytics",
+      "description": "Skills for data pipelines, analysis, NLP, survey processing, and business intelligence"
+    },
+    {
+      "id": "document-generation",
+      "name": "Document Generation",
+      "description": "Skills for creating, populating, and managing presentations, reports, and batch documents"
+    },
+    {
+      "id": "design-frontend",
+      "name": "Design & Frontend",
+      "description": "Skills for design validation, accessibility auditing, layout analysis, and design-to-code workflows"
+    },
+    {
+      "id": "workflow-automation",
+      "name": "Workflow & Automation",
+      "description": "Skills for orchestrating multi-step workflows, email automation, task management, and session management"
+    }
+  ],
   "skills": [
+    {
+      "id": "a11y-wcag-auditor",
+      "name": "A11Y WCAG Auditor",
+      "version": "1.0.0",
+      "description": "WCAG 2.2 Level AA design auditor — color contrast, text readability, motion/animation safety, color-blindness testing, font sizing, spacing for dyslexia, keyboard navigation, screen reader optimization, and accessibility compliance scoring.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "a11y-wcag-auditor",
+      "tags": [
+        "accessibility",
+        "wcag",
+        "a11y",
+        "wcag2.2",
+        "inclusive-design",
+        "color-blindness",
+        "dyslexia"
+      ],
+      "category": "design-frontend",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "data-viz-expert",
+      "name": "Data Visualization Expert",
+      "version": "2.0.0",
+      "description": "Expert data visualization — chart selection via decision tree and matrix, Tufte principles, pre-attentive attributes, Gestalt design, semantic color mapping, Chart.js and matplotlib patterns, executive reporting charts, accessibility, and anti-patterns.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "data-viz-expert",
+      "tags": [
+        "data-visualization",
+        "charts",
+        "matplotlib",
+        "chart-js",
+        "analytics",
+        "design",
+        "accessibility",
+        "executive-reporting"
+      ],
+      "category": "data-analytics",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "design-system-validator",
+      "name": "Design System Validator",
+      "version": "1.0.0",
+      "description": "Design system compliance auditor — brand palette validation, component standards, spacing rules, shadow depth, border radius, responsive breakpoints, and design debt detection.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "design-system-validator",
+      "tags": [
+        "design-system",
+        "branding",
+        "design-compliance",
+        "component-standards",
+        "color-validation"
+      ],
+      "category": "design-frontend",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "design-to-code-bridge",
+      "name": "Design-to-Code Bridge",
+      "version": "1.0.0",
+      "description": "Design specification exporter — extract measurements, colors, typography specs, spacing values from designs and generate CSS/HTML/JSON specs. Converts PPTX/Figma exports to code-ready design tokens, component APIs, and visual regression baselines.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "design-to-code-bridge",
+      "tags": [
+        "design-to-code",
+        "design-tokens",
+        "css-generation",
+        "html-specs",
+        "design-specs",
+        "measurement-export"
+      ],
+      "category": "design-frontend",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "designer-orchestrator",
+      "name": "Designer Orchestrator",
+      "version": "1.0.0",
+      "description": "Master design workflow orchestrator — coordinates design skills through a 4-phase pipeline: design validation, composition audit, accessibility compliance, and code bridge. Produces QA reports, design debt tracking, and documentation handoff.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "designer-orchestrator",
+      "tags": [
+        "orchestration",
+        "design-workflow",
+        "qa-pipeline",
+        "multi-skill-coordination",
+        "design-governance"
+      ],
+      "category": "design-frontend",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "email-automation-pattern",
+      "name": "Email Automation Pattern",
+      "version": "1.0.0",
+      "description": "Bulletproof bulk email automation with browser preview dashboards, draft verification, batch sending, and stakeholder sharing. Reusable pattern for any email workflow.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "email-automation-pattern",
+      "tags": [
+        "email",
+        "automation",
+        "outlook",
+        "msgraph",
+        "dashboard",
+        "bulk-send",
+        "workflow"
+      ],
+      "category": "workflow-automation",
+      "model_recommendation": "sonnet",
+      "risk_level": "medium"
+    },
+    {
+      "id": "layout-composition-analyzer",
+      "name": "Layout & Composition Analyzer",
+      "version": "1.0.0",
+      "description": "Visual composition expertise — golden ratio, rule of thirds, balance, visual flow, whitespace, alignment grids, Gestalt principles, S-curve patterns, Z-pattern reading paths, focal points, and layout scoring.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "layout-composition-analyzer",
+      "tags": [
+        "layout",
+        "composition",
+        "visual-design",
+        "balance",
+        "whitespace",
+        "gestalt",
+        "design-principles"
+      ],
+      "category": "design-frontend",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "mbr-deck-builder",
+      "name": "MBR Deck Builder",
+      "version": "2.0.0",
+      "description": "End-to-end Monthly Business Review deck production orchestrator — data extraction, analysis, visualization, slide design, visual QA, and iterative refinement. Coordinates expert skills and agents into a unified 6-phase pipeline.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "mbr-deck-builder",
+      "tags": [
+        "mbr",
+        "monthly-business-review",
+        "presentation",
+        "data-analytics",
+        "visualization",
+        "orchestration",
+        "executive-reporting"
+      ],
+      "category": "document-generation",
+      "model_recommendation": "sonnet",
+      "risk_level": "medium"
+    },
+    {
+      "id": "org-data-pipeline",
+      "name": "Org Data Pipeline",
+      "version": "1.0.0",
+      "description": "Universalized pipeline for pulling, reconciling, slicing, and reporting organizational data. Handles ad-hoc and recurring requests: ingest from any source, validate against a roster, cut by org dimensions, generate formatted reports, and distribute.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "org-data-pipeline",
+      "tags": [
+        "data-pipeline",
+        "reporting",
+        "org-analytics",
+        "reconciliation",
+        "heatmaps",
+        "cross-platform",
+        "automation"
+      ],
+      "category": "data-analytics",
+      "model_recommendation": "sonnet",
+      "risk_level": "medium"
+    },
+    {
+      "id": "powerbi-reports",
+      "name": "PowerBI Reports",
+      "version": "1.1.0",
+      "description": "Pull reports, query data, apply filters, and schedule report bundles from PowerBI dashboards using natural language. Supports DAX queries, CSV/HTML exports, scheduled delivery, and interactive exploration of PowerBI workspaces.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "powerbi-reports",
+      "tags": [
+        "powerbi",
+        "reporting",
+        "data",
+        "analytics",
+        "scheduling",
+        "browser-automation"
+      ],
+      "category": "data-analytics",
+      "model_recommendation": "sonnet",
+      "risk_level": "medium"
+    },
+    {
+      "id": "pptx-expert",
+      "name": "PPTX Expert",
+      "version": "2.0.0",
+      "description": "Expert python-pptx mastery combined with executive slide design principles — charts, tables, shapes, layouts, McKinsey rules, typography hierarchy, brand compliance, conditional formatting, and presentation engine integration.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "pptx-expert",
+      "tags": [
+        "pptx",
+        "powerpoint",
+        "charts",
+        "tables",
+        "shapes",
+        "design",
+        "layout",
+        "typography",
+        "executive-reporting"
+      ],
+      "category": "document-generation",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "skill-improver",
+      "name": "Skill Improver",
+      "version": "1.0.0",
+      "description": "Continuous improvement meta-skill for the skill library. Passively observes session flow, friction signals, language patterns, and termination behavior during any skill run — without asking users for feedback. Retrospectively analyzes signal logs to surface improvement proposals, cross-skill patterns, and library health.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "skill-improver",
+      "tags": [
+        "meta-skill",
+        "continuous-improvement",
+        "signal-detection",
+        "passive-observation",
+        "skill-health",
+        "friction-analysis",
+        "cross-platform"
+      ],
+      "category": "meta",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "skill-universalizer",
+      "name": "Skill Universalizer",
+      "version": "1.0.0",
+      "description": "Meta-skill for extracting, universalizing, and codifying reusable workflows from completed agent sessions. Analyzes a team-specific workflow, strips specifics, identifies parameterizable gaps, builds an intake step, and outputs a cross-platform SKILL.md that works in any LLM agent.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "skill-universalizer",
+      "tags": [
+        "meta-skill",
+        "workflow-extraction",
+        "universalization",
+        "skill-building",
+        "cross-platform",
+        "human-in-the-loop",
+        "refinement"
+      ],
+      "category": "meta",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "slide-analyzer",
+      "name": "Slide Analyzer",
+      "version": "2.0.0",
+      "description": "Unified slide analysis — 7-dimension weighted scoring rubric for visual analysis, programmatic PPTX structural checks (20+ rules), Pillow preview rendering, WCAG accessibility auditing, and iterative improvement workflows.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "slide-analyzer",
+      "tags": [
+        "slide-analysis",
+        "pptx",
+        "visual-analysis",
+        "computer-vision",
+        "design-review",
+        "accessibility",
+        "powerpoint"
+      ],
+      "category": "design-frontend",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "survey-nlp-analyzer",
+      "name": "Survey NLP Analyzer",
+      "version": "1.1.0",
+      "description": "Universalized NLP pipeline for analyzing any large body of open-ended human text. Handles anonymous feedback, open-door cases, idea submissions, survey verbatims, customer forms, support tickets, and more. Runs topic modeling (NMF), sentiment analysis, fallback clustering, quote extraction, and dimensional breakdowns.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "survey-nlp-analyzer",
+      "tags": [
+        "nlp",
+        "topic-modeling",
+        "sentiment-analysis",
+        "text-mining",
+        "clustering",
+        "open-text",
+        "feedback-analysis",
+        "cross-platform",
+        "human-in-the-loop"
+      ],
+      "category": "data-analytics",
+      "model_recommendation": "sonnet",
+      "risk_level": "medium"
+    },
+    {
+      "id": "talent-card-generator",
+      "name": "Talent Card Generator",
+      "version": "1.0.0",
+      "description": "Universalized pipeline for batch-generating personalized documents from data and templates. Ingests a data source (Excel/CSV/API), maps fields to template placeholders, populates one document per record, validates for completeness, and outputs formatted documents (PPTX, DOCX, PDF, HTML).",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "talent-card-generator",
+      "tags": [
+        "document-generation",
+        "template-population",
+        "batch-processing",
+        "talent-cards",
+        "mail-merge",
+        "cross-platform",
+        "automation"
+      ],
+      "category": "document-generation",
+      "model_recommendation": "sonnet",
+      "risk_level": "medium"
+    },
+    {
+      "id": "task-rabbit",
+      "name": "Task Rabbit",
+      "version": "1.0.0",
+      "description": "Design audit task manager — owns documentation, identifies CI opportunities, tracks design debt, documents skill gaps, escalates to engineering, and manages remediation workflows. Acts as the executive assistant for design quality assurance.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "task-rabbit",
+      "tags": [
+        "task-management",
+        "documentation",
+        "ci-opportunities",
+        "design-debt-tracking",
+        "skill-gap-identification",
+        "workflow-orchestration"
+      ],
+      "category": "workflow-automation",
+      "model_recommendation": "haiku",
+      "risk_level": "low"
+    },
     {
       "id": "session-memory",
       "name": "Session Memory Bootstrap",
       "version": "1.0.0",
-      "description": "Bootstrap a two-tier MEMORY.md system (global + per-project) for instant Code Puppy session ramp-up. Static/dynamic/rolling-log architecture stays lean across thousands of sessions.",
+      "description": "Bootstrap a two-tier MEMORY.md system (global + per-project) for instant session ramp-up. Static/dynamic/rolling-log architecture stays lean across thousands of sessions.",
+      "origin": "created",
       "author": "jac007x",
-      "source": "created",
-      "source_url": null,
-      "status": "active",
-      "path": "skills/session-memory",
-      "tags": ["productivity", "memory", "session-management", "context", "ramp-up", "documentation", "workflow", "ai-friendly"],
+      "maturity_status": "beta",
+      "path": "session-memory",
+      "tags": [
+        "productivity",
+        "memory",
+        "session-management",
+        "context",
+        "ramp-up",
+        "documentation",
+        "workflow",
+        "ai-friendly"
+      ],
+      "category": "workflow-automation",
       "model_recommendation": "sonnet",
-      "risk_level": "low",
-      "compliance_status": "compliant",
-      "compliance_review_date": "2026-03-20",
-      "capabilities": [
-        "Global ~/MEMORY.md creation and maintenance",
-        "Per-project MEMORY.md creation and maintenance",
-        "Project recon before writing",
-        "Idempotent updates (won't blindly overwrite)",
-        "Line-cap enforcement",
-        "Rolling 10-entry session log"
-      ],
-      "scalability": {
-        "global_line_cap": 150,
-        "project_line_cap": 300,
-        "session_log_max": 10
-      }
-    },
-    {
-      "id": "mbr-engine",
-      "name": "MBR Engine",
-      "version": "2.0.0",
-      "description": "Monthly Business Review automation - extract org health metrics, detect patterns, generate PowerPoint presentations",
-      "author": "jac007x",
-      "source": "created",
-      "source_url": null,
-      "status": "in_development",
-      "path": "skills/mbr-engine",
-      "tags": ["hr-analytics", "reporting", "automation", "powerpoint", "org-health", "metrics"],
-      "model_recommendation": "sonnet",
-      "risk_level": "medium",
-      "compliance_status": "compliant",
-      "compliance_review_date": "2026-03-18",
-      "sub_skills": [
-        {
-          "id": "threshold-governance",
-          "name": "Threshold Governance",
-          "description": "Metric threshold management with quarterly reviews and calibration"
-        },
-        {
-          "id": "org-portability",
-          "name": "Org Portability",
-          "description": "Portable org configuration for extending MBR to new organizations"
-        },
-        {
-          "id": "org-onboarding",
-          "name": "Org Onboarding",
-          "description": "Guided workflow for adding new organizations"
-        }
-      ],
-      "dependencies": {
-        "python": ">=3.10",
-        "packages": ["pandas>=2.0", "openpyxl>=3.1", "python-pptx>=0.6.21"]
-      }
-    },
-    {
-      "id": "msgraph-people",
-      "name": "MS Graph for People",
-      "version": "1.0.0",
-      "description": "Calendar & Email workflows for People function - scheduling, communications, meeting prep",
-      "author": "jac007x",
-      "source": "curated",
-      "source_url": "wibey://skills/msgraph",
-      "curator": "jac007x",
-      "curation_date": "2026-03-18",
-      "status": "active",
-      "path": "skills/msgraph-people",
-      "tags": ["calendar", "email", "outlook", "teams", "people", "hr", "productivity", "scheduling"],
-      "model_recommendation": "haiku",
-      "risk_level": "low",
-      "compliance_status": "compliant",
-      "compliance_review_date": "2026-03-18",
-      "capabilities": [
-        "1:1 scheduling",
-        "skip-level meetings",
-        "email templates",
-        "inbox triage",
-        "meeting prep",
-        "follow-up workflows",
-        "availability checking"
-      ],
-      "dependencies": {
-        "skills": ["msgraph"],
-        "auth": ["microsoft-365"]
-      }
-    },
-    {
-      "id": "document-processing",
-      "name": "Document Processing",
-      "version": "1.0.0",
-      "description": "PDF, PowerPoint, and Form extraction patterns for People workflows",
-      "author": "jac007x",
-      "source": "curated",
-      "source_urls": [
-        "https://github.com/anthropics/anthropic-cookbook",
-        "https://github.com/Unstructured-IO/unstructured"
-      ],
-      "curation_date": "2026-03-18",
-      "status": "active",
-      "path": "skills/document-processing",
-      "tags": ["pdf", "powerpoint", "forms", "ocr", "data-extraction", "people"],
-      "model_recommendation": "sonnet",
-      "risk_level": "medium",
-      "compliance_status": "compliant",
-      "compliance_review_date": "2026-03-18",
-      "capabilities": [
-        "PDF text extraction",
-        "PDF summarization",
-        "PowerPoint analysis",
-        "Form data extraction",
-        "Chart interpretation"
-      ],
-      "dependencies": {
-        "python": ">=3.10",
-        "packages": ["anthropic"],
-        "optional": ["unstructured[all-docs]"]
-      }
-    },
-    {
-      "id": "confluence-people",
-      "name": "Confluence for People",
-      "version": "1.0.0",
-      "description": "Knowledge management patterns for People function - policies, processes, documentation",
-      "author": "jac007x",
-      "source": "curated",
-      "source_url": "wibey://agents/confluence",
-      "curation_date": "2026-03-18",
-      "status": "active",
-      "path": "skills/confluence-people",
-      "tags": ["confluence", "knowledge-management", "documentation", "people", "policies"],
-      "model_recommendation": "haiku",
-      "risk_level": "low",
-      "compliance_status": "compliant",
-      "compliance_review_date": "2026-03-18",
-      "capabilities": [
-        "Policy lookup",
-        "Process documentation",
-        "Template discovery",
-        "Meeting notes search"
-      ],
-      "dependencies": {
-        "agents": ["confluence"]
-      }
-    },
-    {
-      "id": "jira-people",
-      "name": "JIRA for People",
-      "version": "1.0.0",
-      "description": "Work management patterns for People function - requests, initiatives, reporting",
-      "author": "jac007x",
-      "source": "curated",
-      "source_url": "wibey://agents/jira",
-      "curation_date": "2026-03-18",
-      "status": "active",
-      "path": "skills/jira-people",
-      "tags": ["jira", "work-management", "task-tracking", "people", "requests"],
-      "model_recommendation": "haiku",
-      "risk_level": "low",
-      "compliance_status": "compliant",
-      "compliance_review_date": "2026-03-18",
-      "capabilities": [
-        "Request tracking",
-        "Initiative monitoring",
-        "Workload management",
-        "Reporting and metrics"
-      ],
-      "dependencies": {
-        "agents": ["jira"]
-      }
-    }
-  ],
-  "categories": [
-    {
-      "id": "hr-analytics",
-      "name": "HR Analytics",
-      "description": "Skills for human resources data analysis and reporting"
-    },
-    {
-      "id": "reporting",
-      "name": "Reporting & Automation",
-      "description": "Skills for generating reports and automating workflows"
-    },
-    {
-      "id": "data-extraction",
-      "name": "Data Extraction",
-      "description": "Skills for extracting structured data from various sources"
-    },
-    {
-      "id": "productivity",
-      "name": "Productivity",
-      "description": "Skills for calendar, email, and workflow automation"
-    },
-    {
-      "id": "knowledge-management",
-      "name": "Knowledge Management",
-      "description": "Skills for documentation, wikis, and information retrieval"
-    },
-    {
-      "id": "work-management",
-      "name": "Work Management",
-      "description": "Skills for task tracking, project management, and workflows"
-    }
-  ],
-  "source_types": {
-    "created": {
-      "description": "Skills built in-house from scratch",
-      "badge": "🛠️ Created"
-    },
-    "curated": {
-      "description": "Skills discovered from external resources and adapted",
-      "badge": "📚 Curated"
-    },
-    "forked": {
-      "description": "Skills forked from open source and customized",
-      "badge": "🔱 Forked"
-    }
-  },
-  "curation_sources": [
-    {
-      "id": "github-awesome-lists",
-      "name": "GitHub Awesome Lists",
-      "url": "https://github.com/topics/awesome",
-      "description": "Curated lists of tools and resources"
-    },
-    {
-      "id": "wibey-registry",
-      "name": "Wibey Skills Registry",
-      "url": "https://wibey.walmart.com/skills",
-      "description": "Official Wibey skill marketplace"
-    },
-    {
-      "id": "mcp-servers",
-      "name": "MCP Servers Directory",
-      "url": "https://github.com/modelcontextprotocol/servers",
-      "description": "Model Context Protocol servers and tools"
-    },
-    {
-      "id": "langchain-tools",
-      "name": "LangChain Tools",
-      "url": "https://python.langchain.com/docs/integrations/tools",
-      "description": "LangChain ecosystem tools and integrations"
-    },
-    {
-      "id": "anthropic-cookbook",
-      "name": "Anthropic Cookbook",
-      "url": "https://github.com/anthropics/anthropic-cookbook",
-      "description": "Official Anthropic patterns and recipes"
+      "risk_level": "low"
     }
   ]
 }

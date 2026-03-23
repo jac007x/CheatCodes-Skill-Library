@@ -182,7 +182,7 @@ _Last updated: <TODAY> by Code Puppy_
 [Any hard rules: line length caps, always use X instead of Y, etc.]
 
 ### Publishing
-[How/where they publish output — puppy.walmart.com, GitHub Pages, etc.]
+[How/where they publish output — your publishing platform, GitHub Pages, etc.]
 
 ### Communication Tools
 [How they handle email, Slack, Teams workflows.]

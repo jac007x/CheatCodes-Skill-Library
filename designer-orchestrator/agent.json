@@ -154,7 +154,7 @@
     },
     "share-puppy": {
       "usage": "Publish audit reports",
-      "data_exchange": "audit_report.html → puppy.walmart.com"
+      "data_exchange": "audit_report.html → your publishing platform"
     },
     "gui-cub": {
       "usage": "Optional: automate remediation in PowerPoint",

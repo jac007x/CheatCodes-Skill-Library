@@ -43,7 +43,7 @@ NODE_PATH="$HOME/.local/lib/node_modules" bun ~/.wibey/skills/msgraph/scripts/au
 ```bash
 # Check availability first
 bun ~/.wibey/skills/msgraph/scripts/calendar.ts availability \
-  --emails "manager@walmart.com,report@walmart.com" \
+  --emails "manager@example.com,report@example.com" \
   --start "2026-03-20T09:00:00" \
   --end "2026-03-20T17:00:00"
 
@@ -52,7 +52,7 @@ bun ~/.wibey/skills/msgraph/scripts/calendar.ts create \
   --subject "Weekly 1:1: [Manager] & [Report]" \
   --start "2026-03-20T14:00:00" \
   --end "2026-03-20T14:30:00" \
-  --attendees "report@walmart.com" \
+  --attendees "report@example.com" \
   --teams \
   --timezone "America/Chicago"
 ```
@@ -67,7 +67,7 @@ bun ~/.wibey/skills/msgraph/scripts/users.ts get-email --display-name "John Smit
 
 # Check mutual availability
 bun ~/.wibey/skills/msgraph/scripts/calendar.ts availability \
-  --emails "john.smith@walmart.com" \
+  --emails "john.smith@example.com" \
   --start "2026-03-20T08:00:00" \
   --end "2026-03-20T18:00:00"
 
@@ -76,7 +76,7 @@ bun ~/.wibey/skills/msgraph/scripts/calendar.ts create \
   --subject "Skip-Level: [Your Name] & John Smith" \
   --start "2026-03-20T10:00:00" \
   --end "2026-03-20T10:30:00" \
-  --attendees "john.smith@walmart.com" \
+  --attendees "john.smith@example.com" \
   --body "Informal check-in. What's on your mind?" \
   --teams \
   --timezone "America/Chicago"
@@ -89,7 +89,7 @@ bun ~/.wibey/skills/msgraph/scripts/calendar.ts create \
 ```bash
 # Send welcome email to new hire
 bun ~/.wibey/skills/msgraph/scripts/mail.ts send \
-  --to "newhire@walmart.com" \
+  --to "newhire@example.com" \
   --subject "Welcome to the Team!" \
   --body "Hi [Name],
 
@@ -99,7 +99,7 @@ Welcome to [Team]! Here's what to expect in your first week:
 2. Day 2-3: Meet the team (1:1s scheduled)
 3. Day 4-5: Shadow sessions
 
-Your buddy: [Buddy Name] ([buddy@walmart.com])
+Your buddy: [Buddy Name] ([buddy@example.com])
 
 Looking forward to working with you!
 
@@ -145,7 +145,7 @@ bun ~/.wibey/skills/msgraph/scripts/mail.ts flag MESSAGE_ID --status flagged
 ```bash
 # Check availability for multiple attendees
 bun ~/.wibey/skills/msgraph/scripts/calendar.ts availability \
-  --emails "person1@walmart.com,person2@walmart.com,person3@walmart.com" \
+  --emails "person1@example.com,person2@example.com,person3@example.com" \
   --start "2026-03-25T08:00:00" \
   --end "2026-03-25T18:00:00"
 
@@ -154,7 +154,7 @@ bun ~/.wibey/skills/msgraph/scripts/calendar.ts create \
   --subject "Q1 People Review Prep" \
   --start "2026-03-25T14:00:00" \
   --end "2026-03-25T15:00:00" \
-  --attendees "person1@walmart.com,person2@walmart.com,person3@walmart.com" \
+  --attendees "person1@example.com,person2@example.com,person3@example.com" \
   --location "Conference Room A / Teams" \
   --teams \
   --timezone "America/Chicago"

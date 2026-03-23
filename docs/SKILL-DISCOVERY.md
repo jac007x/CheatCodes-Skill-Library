@@ -41,7 +41,7 @@ This document defines how to systematically discover, evaluate, and curate skill
 
 | Source | URL | What to Look For |
 |--------|-----|------------------|
-| **Wibey Registry** | wibey.walmart.com/skills | Official Walmart skills |
+| **Your Organization's Skill Registry** | *(internal -- see your team's registry)* | Organization-specific skills |
 | **MCP Servers** | github.com/modelcontextprotocol/servers | Protocol-native tools |
 | **Anthropic Cookbook** | github.com/anthropics/anthropic-cookbook | Patterns & recipes |
 | **LangChain Tools** | python.langchain.com/docs/integrations/tools | AI agent tools |
@@ -54,7 +54,7 @@ This document defines how to systematically discover, evaluate, and curate skill
 | **Hacker News** | Trending AI/automation tools |
 | **Reddit r/LocalLLaMA** | Community tool discoveries |
 | **Product Hunt** | New developer tools |
-| **Internal Slack #ai-tools** | Team discoveries |
+| **Internal team channels** | Team discoveries |
 
 ---
 

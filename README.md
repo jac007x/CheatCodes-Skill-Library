@@ -1,19 +1,22 @@
-# 🐶 CheatCodes Skill Library
+# CheatCodes Skill Library
 
-A living library of reusable AI agent skills built for People teams across
-Walmart, with a path to scale across Home Office and beyond.
+A public, open collection of universalized AI agent skills — reusable workflows
+that any person, team, or organization can adopt, customize, and run on any
+platform that consumes Markdown.
 
-Skills work across platforms: **code-puppy, wibey, Codex, and any LLM**
-that can consume a Markdown system prompt.
+**Walmart-first, open-compatible:** Built to the quality bar of Walmart's AI
+governance principles, but every skill is genericized so anyone can use them.
+
+**License:** Apache 2.0
 
 ---
 
-## 🧠 What Is a Skill?
+## What Is a Skill?
 
-A **skill** is a universalized, parameterized workflow — not a script, not a one-off
-prompt. It captures the *pattern* of something that works, strips everything
-team-specific into labeled intake variables, and produces a reusable capability
-anyone can customize to their situation.
+A **skill** is a universalized, parameterized workflow — not a script, not a
+one-off prompt. It captures the *pattern* of something that works, strips
+everything context-specific into labeled intake variables, and produces a
+reusable capability anyone can customize.
 
 ```
 Workflow that worked once
@@ -24,176 +27,208 @@ Workflow that worked once
 ```
 
 ### The Intake Model
-Every skill has an **intake step** — a set of `{{VARIABLES}}` that are intentionally
-left blank. When you activate a skill, the agent collects your specific context
-(your file, your columns, your team structure) and fills those gaps. The universal
-logic never changes. Only your context does.
+
+Every skill has an **intake step** — a set of `{{VARIABLES}}` that are
+intentionally left blank. When you activate a skill, the agent collects your
+specific context and fills those gaps. The universal logic never changes.
+Only your context does.
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 
 ```
 CheatCodes-Skill-Library/
-├── {skill-name}/          # New-format skills (SKILL.md + skill.json)
-├── skills/                # Original-format skills (deeper structure)
-├── docs/                  # Compliance, discovery, contributing guides
-├── templates/             # Skill templates for new contributors
-├── registry.json          # Skill registry metadata
+├── {skill-name}/          # Universalized skills (SKILL.md + skill.yaml)
+├── templates/             # Skill template for new contributors
+├── tools/                 # Validation tools and pre-commit hooks
+├── docs/                  # Compliance alignment and discovery docs
+├── .github/               # CI workflows and issue templates
+├── DOCTRINE.md            # What this library is and believes (immutable)
+├── GOVERNANCE.md          # Rules, gates, and pipeline mechanics
+├── CONTRIBUTING.md        # How to contribute
+├── registry.json          # Central registry of all skills
 └── README.md
 ```
 
-**Skill format:** Each skill contains at minimum:
-- `SKILL.md` — The full skill: philosophy, intake variables, phases, code patterns, anti-patterns
-- `skill.json` — Metadata: name, version, author, tags, description
+**Every skill contains at minimum:**
+- `SKILL.md` — The full skill: philosophy, intake variables, phases, examples, anti-patterns
+- `skill.yaml` — Metadata: name, version, origin, author, maturity status, tags
+
 ---
->>>>>>> d7ccba3 (Add session-memory skill: two-tier MEMORY.md bootstrap, scalable to 10k+ sessions)
 
-## 🧬 Meta-Skills (The Governance Layer)
+## Skill Origin Types
 
-These two skills manage the library itself.
+Every skill declares where it came from. Credit is permanent.
 
-| Skill | Version | What It Does |
-|-------|---------|-------------|
-| [skill-universalizer](skill-universalizer/) | 1.0.0 | 6-phase process to extract any working workflow into a reusable, cross-platform skill |
-| [skill-improver](skill-improver/) | 1.0.0 | Passively observes session flow, friction, and termination behavior to surface improvement proposals — no user feedback required |
+| Badge | Origin | Meaning |
+|-------|--------|---------|
+| 🛠️ | **Created** | Built from scratch by the author |
+| 📚 | **Curated** | Adapted from an external source (always credited) |
+| 🔱 | **Forked** | Modified from an existing skill |
+| 🤝 | **Contributed** | Submitted by a community member |
+
+---
+
+## Skill Maturity
+
+Skills earn trust through real-world usage. No skill is born production-ready.
+
+| Badge | Status | Meaning |
+|-------|--------|---------|
+| 🧪 | **Beta** | Universalized and merged — functional but unproven at scale |
+| ✅ | **Stable** | Proven through 5+ uses, low abandonment, positive signals |
+| ⚠️ | **Deprecated** | Superseded or no longer maintained |
+
+See [GOVERNANCE.md](GOVERNANCE.md) for promotion criteria.
+
+---
+
+## Meta-Skills
+
+These skills manage the library itself.
+
+| Skill | What It Does | Maturity |
+|-------|-------------|----------|
+| [skill-universalizer](skill-universalizer/) | 6-phase process to extract any working workflow into a reusable skill | 🧪 Beta |
+| [skill-improver](skill-improver/) | Passively observes sessions, detects friction, proposes improvements | 🧪 Beta |
 
 > **skill-universalizer** creates skills. **skill-improver** makes them better over time.
-> The user's silence is data. Premature closure is data. Rage quits trigger critical proposals.
 
 ---
 
-## 📊 Universal Skills — Data & Analytics
+## Data & Analytics Skills
 
-| Skill | Version | What It Does | Platforms |
-|-------|---------|-------------|----------|
-| [survey-nlp-analyzer](survey-nlp-analyzer/) | 1.1.0 | Open-text insights pipeline: topic modeling (NMF), sentiment analysis (VADER), fallback clustering, quote extraction, dimensional heatmaps. Works on surveys, transcripts, feedback forms, internal submissions, idea boards, support tickets, and more. | All |
-| [org-data-pipeline](org-data-pipeline/) | 1.0.0 | Pull → reconcile → cut by dimension → report → archive. Handles ad-hoc and recurring data requests from PowerBI, BigQuery, Excel, and HRIS platforms. | All |
-| [powerbi-reports](powerbi-reports/) | 1.0.0 | PowerBI report generation and distribution patterns | All |
-
----
-
-## 📝 Universal Skills — Document Generation
-
-| Skill | Version | What It Does | Platforms |
-|-------|---------|-------------|----------|
-| [talent-card-generator](talent-card-generator/) | 1.0.0 | Batch document generation from data + templates. Maps fields, populates one doc per record, validates, audits. PPTX run-splitting fix included. Applies to talent cards, offer letters, performance reviews, onboarding packets. | All |
-| [pptx-expert](pptx-expert/) | 1.0.0 | PowerPoint generation, manipulation, and styling patterns | All |
-| [mbr-deck-builder](mbr-deck-builder/) | 2.0.0 | Monthly Business Review automation — org health metrics extraction, pattern detection, slide generation | All |
+| Skill | What It Does | Origin | Maturity |
+|-------|-------------|--------|----------|
+| [survey-nlp-analyzer](survey-nlp-analyzer/) | Open-text NLP pipeline: topic modeling, sentiment analysis, clustering, quote extraction | 🛠️ | 🧪 Beta |
+| [org-data-pipeline](org-data-pipeline/) | Pull → reconcile → slice → report organizational data | 🛠️ | 🧪 Beta |
+| [powerbi-reports](powerbi-reports/) | PowerBI report generation and distribution patterns | 🛠️ | 🧪 Beta |
+| [data-viz-expert](data-viz-expert/) | Data visualization best practices, chart selection, accessibility | 🛠️ | 🧪 Beta |
 
 ---
 
-## 🎨 Universal Skills — Design & Frontend
+## Document Generation Skills
 
-| Skill | What It Does |
-|-------|-------------|
-| [a11y-wcag-auditor](a11y-wcag-auditor/) | WCAG 2.2 Level AA accessibility auditing |
-| [data-viz-expert](data-viz-expert/) | Data visualization best practices and Chart.js patterns |
-| [design-system-validator](design-system-validator/) | Design system token and component compliance validation |
-| [design-to-code-bridge](design-to-code-bridge/) | Figma/design → production code translation |
-| [designer-orchestrator](designer-orchestrator/) | Multi-phase design QA pipeline coordinator |
-| [layout-composition-analyzer](layout-composition-analyzer/) | Layout and visual composition analysis |
-| [slide-analyzer](slide-analyzer/) | Slide deck structure and content analysis |
+| Skill | What It Does | Origin | Maturity |
+|-------|-------------|--------|----------|
+| [talent-card-generator](talent-card-generator/) | Batch document generation from data + templates (PPTX, DOCX, PDF) | 🛠️ | 🧪 Beta |
+| [pptx-expert](pptx-expert/) | PowerPoint generation, manipulation, and design patterns | 🛠️ | 🧪 Beta |
+| [mbr-deck-builder](mbr-deck-builder/) | Monthly Business Review automation — metrics, analysis, slides | 🛠️ | 🧪 Beta |
 
 ---
 
-## ⚙️ Universal Skills — Workflow & Automation
+## Design & Frontend Skills
 
-| Skill | What It Does |
-|-------|-------------|
-| [email-automation-pattern](email-automation-pattern/) | Email workflow automation patterns |
-| [task-rabbit](task-rabbit/) | Task management, audit documentation, and remediation tracking |
-| [session-memory](skills/session-memory/) | Two-tier MEMORY.md system for instant AI session ramp-up — scalable to 10,000+ sessions |
-
-
-
----
-
-## 🚀 Deployment Ladder
-
-Every skill moves through three validation stages before it's considered
-ready for Walmart Home Office scale:
-
-```
-┌───────────────────────────────────────────────┐
-│ 🧪 REFINE    Skill Owner               │
-│          The team that built it          │
-│          ↓                               │
-│ 🔬 PROVE     Peer Teams                │
-│          Validated across teams          │
-│          ↓                               │
-│ 🌐 SCALE     Enterprise / All Teams    │
-│          Universal, self-serve           │
-└───────────────────────────────────────────────┘
-```
+| Skill | What It Does | Origin | Maturity |
+|-------|-------------|--------|----------|
+| [a11y-wcag-auditor](a11y-wcag-auditor/) | WCAG 2.2 Level AA accessibility auditing | 🛠️ | 🧪 Beta |
+| [design-system-validator](design-system-validator/) | Design system token and component compliance validation | 🛠️ | 🧪 Beta |
+| [design-to-code-bridge](design-to-code-bridge/) | Design → production code translation | 🛠️ | 🧪 Beta |
+| [designer-orchestrator](designer-orchestrator/) | Multi-phase design QA pipeline coordinator | 🛠️ | 🧪 Beta |
+| [layout-composition-analyzer](layout-composition-analyzer/) | Layout and visual composition analysis | 🛠️ | 🧪 Beta |
+| [slide-analyzer](slide-analyzer/) | Slide deck structure and content analysis | 🛠️ | 🧪 Beta |
 
 ---
 
-## 🌐 Platform Compatibility
+## Workflow & Automation Skills
 
-All skills in SKILL.md format are plain Markdown — no proprietary syntax.
+| Skill | What It Does | Origin | Maturity |
+|-------|-------------|--------|----------|
+| [email-automation-pattern](email-automation-pattern/) | Email workflow automation patterns | 🛠️ | 🧪 Beta |
+| [task-rabbit](task-rabbit/) | Task management, audit documentation, and remediation tracking | 🛠️ | 🧪 Beta |
+| [session-memory](session-memory/) | Two-tier MEMORY.md system for instant AI session ramp-up | 🛠️ | 🧪 Beta |
+
+---
+
+## Platform Compatibility
+
+All skills are plain Markdown — no proprietary syntax. Any agent or LLM that
+reads Markdown can consume a skill.
 
 | Platform | How to Use |
 |----------|------------|
-| **code-puppy** | `/skill {skill-name}` |
-| **wibey** | Copy `SKILL.md` to `~/.wibey/skills/{skill-name}/` |
-| **Codex** | Paste `SKILL.md` content as system prompt prefix |
-| **ChatGPT / Claude / Gemini** | Paste `SKILL.md` into conversation as context |
+| **Any LLM** | Paste `SKILL.md` content as context or system prompt |
+| **Custom agents** | Load `SKILL.md` as the agent's instruction set |
+| **CLI tools** | Copy to the tool's skills directory |
+| **IDE extensions** | Reference `SKILL.md` in your agent configuration |
 
 ---
 
-## ➕ Adding a New Skill
+## Adding a New Skill
 
 ### From a workflow you built (recommended)
-1. Activate `skill-universalizer`
+1. Activate `skill-universalizer` in your private repo
 2. Walk through the 6-phase extraction process
 3. Human context review is mandatory — the agent proposes, you validate
-4. Commit with a meaningful message and version tag
+4. Run `python tools/validate_skill.py your-skill/` to check quality gates
+5. Submit a PR to this repo
 
 ### From scratch
 1. Copy `templates/skill-template/`
 2. Write `SKILL.md` following the standard sections
-3. Fill `skill.json` with metadata
+3. Fill `skill.yaml` with metadata (see [CONTRIBUTING.md](CONTRIBUTING.md))
 4. Add to `registry.json`
-5. Submit PR
+5. Submit a PR
 
 ### Curating an external skill
-1. [Submit a curation request](../../issues/new?template=curate-skill.yml)
-2. Evaluate, adapt, attribute
-3. Add `"source": "curated"` in `skill.json`
+1. Open a curation request issue
+2. Adapt the pattern into a universalized SKILL.md
+3. Set `origin: curated` with proper attribution
+4. Submit a PR
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines.
-
----
-
-## 🛡️ Compliance
-
-All skills comply with **Walmart's Ethical AI principles and data governance standards**.
-PII handling is documented per skill. Raw data files are excluded from git.
-
-| Category | Risk Level | PII Handling |
-|----------|------------|-------------|
-| NLP / text analysis skills | Medium | ⚠️ May contain survey verbatims — never commit raw data |
-| Document generation skills | Low–Medium | ⚠️ May contain HR data — validate before sharing output |
-| Design / frontend skills | Low | ✅ No PII |
-| Workflow / automation skills | Low | ✅ No PII in skill itself |
-| Meta-skills | Low | ⚠️ Signal logs may contain session snippets — gitignored |
-
-See [docs/COMPLIANCE.md](docs/COMPLIANCE.md) for the full framework.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide.
 
 ---
 
-## 🗺️ Roadmap
+## Quality & Governance
 
-See [ROADMAP.md](ROADMAP.md) for the universalization backlog, planned sessions, and completed work.
+This library enforces **tiered quality gates** on every contribution:
+
+- **Hard gates** (block merge): No PII, no secrets, no internal URLs, valid structure,
+  registered in registry, origin declared, attribution present
+- **Soft gates** (warnings): Compliance section, example applications, platform notes,
+  model recommendation, risk level
+
+**Two layers of enforcement:**
+- Pre-commit hook (local, fast)
+- GitHub Actions CI (PR validation)
+
+See [GOVERNANCE.md](GOVERNANCE.md) for the full quality framework.
 
 ---
 
-## 📜 Version History
+## The Self-Improving System
+
+The library gets better every time a skill is used:
+
+1. `skill-improver` passively observes sessions (friction, confusion, abandonment)
+2. Signals are logged privately (never in this repo)
+3. After enough sessions, improvement proposals are generated
+4. Human reviews and approves changes
+5. Skills are updated, version-bumped, and committed
+
+See [DOCTRINE.md](DOCTRINE.md) for the full philosophy.
+
+---
+
+## Key Documents
+
+| Document | Purpose |
+|----------|---------|
+| [DOCTRINE.md](DOCTRINE.md) | What this library is, what it believes, immutable principles |
+| [GOVERNANCE.md](GOVERNANCE.md) | Quality gates, validation rules, promotion pipeline, CI mechanics |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | How to contribute skills, improvements, or curations |
+| [docs/COMPLIANCE.md](docs/COMPLIANCE.md) | AI governance alignment principles |
+
+---
+
+## Version History
 
 | Date | What Changed |
 |------|--------------|
-| 2026-03-20 | Added 5 new skills: `survey-nlp-analyzer` v1.1.0, `org-data-pipeline`, `talent-card-generator`, `skill-universalizer`, `skill-improver`. Initialized git. Connected remote. |
-| 2026-03-18 | Added compliance framework, model recommendations, 3 curated People skills |
-| 2026-03-17 | Added design ecosystem skills (7 skills), MBR deck builder |
-| 2026-03-13 | Initial library structure, MBR engine, MS Graph for People |
+| 2026-03-23 | Doctrine alignment: DOCTRINE.md, GOVERNANCE.md, tiered quality gates, maturity lifecycle, Apache 2.0 |
+| 2026-03-20 | Added meta-skills, universalized 18 skills, initialized git |
+| 2026-03-18 | Added compliance framework, 3 curated skills |
+| 2026-03-17 | Added design ecosystem skills, MBR deck builder |
+| 2026-03-13 | Initial library structure |

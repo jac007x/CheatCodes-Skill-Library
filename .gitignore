@@ -1,18 +1,56 @@
-# Skill library git ignore
-# Don't commit signal logs (may contain session snippets)
+# =============================================================================
+# CheatCodes Skill Library — .gitignore
+# Aligned to DOCTRINE.md: zero PII, zero signals, zero pre-universalized content
+# =============================================================================
+
+# --- Signal logs (belong in private repo only) ---
+*.jsonl
+**/session_signals.jsonl
+**/library_health_latest.json
+**/proposals/*.json
 skill-improver/session_signals.jsonl
 skill-improver/library_health_latest.json
+skill-improver/proposals/
 
-# Don't commit raw data files that land here accidentally
+# --- Raw data files (never commit data) ---
 *.csv
 *.xlsx
 *.xls
 *.parquet
+*.tsv
+*.dat
 
-# macOS noise
+# --- Session artifacts ---
+session_*.md
+*.session
+session_log.*
+.session_*
+
+# --- macOS ---
 .DS_Store
+.AppleDouble
+.LSOverride
 
-# Python artifacts
+# --- Python ---
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- OS ---
+Thumbs.db
+ehthumbs.db
+Desktop.ini

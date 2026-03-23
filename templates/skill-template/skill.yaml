@@ -1,79 +1,80 @@
+# ==============================================================================
 # Skill Metadata Template
-# Copy this file and fill in your skill details
+# Copy this directory and fill in your skill details.
+# See GOVERNANCE.md for the full schema reference.
+# ==============================================================================
 
-name: skill-name
-version: 1.0.0
-description: Brief description of what this skill does
-author: your-name
-created: YYYY-MM-DD
-status: draft  # draft, in_development, beta, stable, deprecated
+# === Identity (Required) ===
+name: skill-name                      # kebab-case, unique across the registry
+version: 1.0.0                        # semver (major.minor.patch)
+description: "Brief description of what this skill does universally"
+created: 2026-01-01                   # Date skill was created (YYYY-MM-DD)
 
-# Categorization
+# === Origin & Attribution (Required) ===
+# origin must be one of: created, curated, forked, contributed
+origin: created
+author: your-github-handle            # Primary author
+
+# --- If origin: curated (uncomment and fill) ---
+# source_url: "https://..."           # Where you found the original pattern
+# source_attribution: "Adapted from [Project Name] by [Author]"
+# curator: your-handle                # Who adapted it for this library
+
+# --- If origin: forked (uncomment and fill) ---
+# forked_from: original-skill-name    # Skill this was forked from
+# fork_author: your-handle            # Who created the fork
+
+# --- If origin: contributed (uncomment and fill) ---
+# contributor: your-handle            # Who submitted the contribution
+# contributor_url: "https://..."      # Your profile or repo (optional)
+
+# === Maturity (Required) ===
+# New skills MUST enter as beta. See DOCTRINE.md.
+maturity_status: beta                 # beta | stable | deprecated
+
+# === Categorization (Required) ===
 tags:
-  - category1
-  - category2
+  - tag1
+  - tag2
+  - tag3
 
-# Dependencies
+# === Model & Risk (Recommended) ===
+model_recommendation: sonnet          # haiku | sonnet | opus
+risk_level: low                       # low | medium | high
+
+# === Dependencies (If Applicable) ===
 requires:
   python: ">=3.10"
   packages:
     - package1>=1.0
     - package2>=2.0
 
-# Input specification
+# === Inputs (If Applicable) ===
 inputs:
-  - name: input_file
-    type: file
-    format: xlsx  # csv, json, xlsx, etc.
-    description: Description of input
+  - name: input_name
+    type: file                        # file | string | int | list | dict | choice | bool
+    format: xlsx                      # csv, json, xlsx, pdf, etc.
+    description: "Description of this input"
     required: true
 
-  - name: config_option
-    type: string
-    description: Optional configuration
-    required: false
-    default: "default_value"
-
-# Output specification
+# === Outputs (If Applicable) ===
 outputs:
-  - name: result
-    type: object
-    description: Main output object
-
-  - name: report_file
+  - name: output_name
     type: file
     format: pdf
-    description: Generated report
+    description: "Description of this output"
 
-# Configuration options
-config:
-  - name: setting1
-    description: Description of setting
-    type: string
-    default: "default"
+# === Maturity Signals (Managed by skill-improver — do not edit manually) ===
+# maturity_signals:
+#   total_uses: 0
+#   clean_completions: 0
+#   abandonment_rate: 0.0
+#   positive_signals: 0
+#   last_used: null
+#   promoted_to_stable: null
 
-  - name: setting2
-    description: Another setting
-    type: integer
-    default: 10
-
-# Workflows (if skill has multiple modes)
-workflows:
-  - name: default
-    description: Default workflow
-    steps:
-      - step1
-      - step2
-      - step3
-
-# Portability settings
-portability:
-  supports_custom_config: true
-  schema_contribution: true
-  requires_onboarding: false
-
-# Testing
-tests:
-  unit_tests: tests/
-  integration_tests: tests/integration/
-  fixtures: tests/fixtures/
+# === Deprecation (Only if deprecated) ===
+# deprecated: true
+# deprecated_by: replacement-skill-name
+# deprecation_date: 2026-12-01
+# deprecation_reason: "Superseded by replacement-skill-name"

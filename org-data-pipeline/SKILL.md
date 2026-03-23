@@ -218,7 +218,7 @@ invoke_agent('slide-deck', 'Create a deck from this data: {{summary_json}}')
 
 ### Distribution Options
 - `open` — open HTML on Mac with `open /path/to/report.html`
-- `share-puppy` — publish to puppy.walmart.com
+- `your-publishing-agent` — publish to your publishing platform
 - `email` — send via msgraph agent
 - `teams` — post to Teams channel via msgraph agent
 

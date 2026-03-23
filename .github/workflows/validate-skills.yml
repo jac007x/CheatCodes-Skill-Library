@@ -1,0 +1,397 @@
+# =============================================================================
+# CheatCodes Skill Library -- CI Validation Pipeline
+# =============================================================================
+# Implements the quality-gate enforcement described in GOVERNANCE.md.
+#
+# Four jobs run in parallel on every PR targeting main (and on push to main):
+#   1. validate-skills   -- Hard + soft quality gates via validate_skill.py
+#   2. registry-sync     -- Bidirectional sync between directories and registry.json
+#   3. pii-deep-scan     -- Grep-based scan for emails, internal domains, secrets
+#   4. structure-check   -- Repo layout invariants (no pre-universalized content, etc.)
+# =============================================================================
+
+name: Validate Skills
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write          # Required to post soft-gate warning comments
+
+jobs:
+  # ===========================================================================
+  # Job 1: validate-skills
+  # ---------------------------------------------------------------------------
+  # Runs the full validation suite (hard gates + soft gates) against every
+  # skill directory.  Hard-gate failures block the PR; soft-gate warnings are
+  # posted as a PR comment for human acknowledgment.
+  # ===========================================================================
+  validate-skills:
+    name: Quality Gates (Hard + Soft)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10+
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install PyYAML
+
+      # -----------------------------------------------------------------------
+      # Run validate_skill.py --all and capture output.
+      # The script exits non-zero when any hard gate fails.
+      # We capture output regardless of exit code so we can post warnings.
+      # -----------------------------------------------------------------------
+      - name: Run skill validation
+        id: validate
+        run: |
+          set +e
+          OUTPUT=$(python tools/validate_skill.py --all 2>&1)
+          EXIT_CODE=$?
+          echo "$OUTPUT"
+
+          # Save full output for the comment step (use delimiter for multiline)
+          DELIMITER="$(openssl rand -hex 16)"
+          echo "output<<${DELIMITER}" >> "$GITHUB_OUTPUT"
+          echo "$OUTPUT"              >> "$GITHUB_OUTPUT"
+          echo "${DELIMITER}"         >> "$GITHUB_OUTPUT"
+
+          echo "exit_code=${EXIT_CODE}" >> "$GITHUB_OUTPUT"
+          exit $EXIT_CODE
+
+      # -----------------------------------------------------------------------
+      # Post soft-gate warnings as a PR comment so reviewers can acknowledge
+      # them.  Only runs on pull_request events (push has no PR to comment on).
+      # -----------------------------------------------------------------------
+      - name: Post soft-gate warnings as PR comment
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const output = `${{ steps.validate.outputs.output }}`;
+
+            // Extract lines containing WARN
+            const warnings = output
+              .split('\n')
+              .filter(line => line.includes('WARN'))
+              .map(line => line.replace(/\x1b\[[0-9;]*m/g, '').trim());
+
+            if (warnings.length === 0) {
+              core.info('No soft-gate warnings to report.');
+              return;
+            }
+
+            const body = [
+              '## Soft-Gate Warnings',
+              '',
+              'The following soft-gate warnings were detected. A reviewer must',
+              'acknowledge these before approving the PR.',
+              '',
+              ...warnings.map(w => `- ${w}`),
+              '',
+              '> _See [GOVERNANCE.md](../blob/main/GOVERNANCE.md) for gate definitions._',
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
+
+  # ===========================================================================
+  # Job 2: registry-sync
+  # ---------------------------------------------------------------------------
+  # Ensures bidirectional consistency between the filesystem and registry.json.
+  #   - Every root-level skill directory must appear in registry.json.
+  #   - Every registry.json entry must have a matching directory.
+  # Failures block the PR (hard gate H7 / Registry Rules).
+  # ===========================================================================
+  registry-sync:
+    name: Registry Sync Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10+
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install PyYAML
+
+      - name: Verify registry <-> directory sync
+        run: |
+          python3 -c "
+          import json, os, sys
+
+          REPO_ROOT = os.getcwd()
+
+          # -------------------------------------------------------------------
+          # Directories that are NOT skills (infrastructure / meta dirs)
+          # -------------------------------------------------------------------
+          EXCLUDED_DIRS = {
+              'docs', 'tools', 'templates', 'skills',
+              '.git', '.github', '__pycache__', 'node_modules',
+          }
+
+          # Collect root-level skill directories (contain SKILL.md)
+          skill_dirs = set()
+          for entry in sorted(os.listdir(REPO_ROOT)):
+              full = os.path.join(REPO_ROOT, entry)
+              if not os.path.isdir(full):
+                  continue
+              if entry.startswith('.') or entry in EXCLUDED_DIRS:
+                  continue
+              # A directory is a skill directory if it contains SKILL.md
+              if os.path.isfile(os.path.join(full, 'SKILL.md')):
+                  skill_dirs.add(entry)
+
+          # Collect registry entries
+          registry_path = os.path.join(REPO_ROOT, 'registry.json')
+          with open(registry_path) as f:
+              registry = json.load(f)
+
+          registry_ids = set()
+          for skill in registry.get('skills', []):
+              sid = skill.get('id') or skill.get('path', '').split('/')[-1]
+              registry_ids.add(sid)
+
+          # -------------------------------------------------------------------
+          # Bidirectional check
+          # -------------------------------------------------------------------
+          errors = []
+
+          dirs_not_in_registry = skill_dirs - registry_ids
+          registry_not_on_disk = registry_ids - skill_dirs
+
+          for d in sorted(dirs_not_in_registry):
+              errors.append(f'Directory \"{d}\" exists but is missing from registry.json')
+
+          for r in sorted(registry_not_on_disk):
+              errors.append(f'Registry entry \"{r}\" has no matching skill directory')
+
+          if errors:
+              print('Registry sync FAILED:')
+              for e in errors:
+                  print(f'  - {e}')
+              sys.exit(1)
+
+          print(f'Registry sync OK -- {len(skill_dirs)} skill(s) verified.')
+          "
+
+  # ===========================================================================
+  # Job 3: pii-deep-scan
+  # ---------------------------------------------------------------------------
+  # Grep-based deep scan across ALL files for patterns that should never appear
+  # in the public repository:
+  #   - Real email addresses (excluding @example.com)
+  #   - Internal / intranet domain URLs
+  #   - Hardcoded secrets (api_key, password, token with assigned values)
+  # Any match fails the build (hard gates H1, H2, H3).
+  # ===========================================================================
+  pii-deep-scan:
+    name: PII & Secrets Deep Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # -----------------------------------------------------------------------
+      # Email pattern scan
+      # Looks for anything resembling a real email address while excluding
+      # the safe placeholder domain @example.com.
+      # Also excludes binary files, .git, and this workflow file itself.
+      # -----------------------------------------------------------------------
+      - name: Scan for email addresses
+        run: |
+          echo "Scanning for email patterns (excluding @example.com)..."
+          HITS=$(grep -rInP '[a-zA-Z0-9._%+-]+@[a-z]+\.[a-z]+' \
+            --include='*.md' --include='*.yaml' --include='*.yml' \
+            --include='*.json' --include='*.py' --include='*.txt' \
+            --include='*.sh' --include='*.js' --include='*.ts' \
+            . \
+            | grep -v '@example\.com' \
+            | grep -v '\.github/workflows/' \
+            | grep -v 'noreply@' \
+            || true)
+
+          if [ -n "$HITS" ]; then
+            echo "::error::Real email addresses detected:"
+            echo "$HITS"
+            exit 1
+          fi
+          echo "No real email addresses found."
+
+      # -----------------------------------------------------------------------
+      # Internal domain scan
+      # Catches references to internal / intranet domains that must not appear
+      # in the public repo (GOVERNANCE.md -- Blocked Internal Domains).
+      # -----------------------------------------------------------------------
+      - name: Scan for internal domains
+        run: |
+          echo "Scanning for internal domain references..."
+          HITS=$(grep -rInP '(walmart\.com|wal-mart\.com|walmart\.net)' \
+            --include='*.md' --include='*.yaml' --include='*.yml' \
+            --include='*.json' --include='*.py' --include='*.txt' \
+            --include='*.sh' --include='*.js' --include='*.ts' \
+            . \
+            | grep -v '\.github/workflows/' \
+            || true)
+
+          if [ -n "$HITS" ]; then
+            echo "::error::Internal domain references detected:"
+            echo "$HITS"
+            exit 1
+          fi
+          echo "No internal domain references found."
+
+      # -----------------------------------------------------------------------
+      # Secret pattern scan
+      # Catches hardcoded API keys, passwords, and tokens with assigned values.
+      # -----------------------------------------------------------------------
+      - name: Scan for hardcoded secrets
+        run: |
+          echo "Scanning for hardcoded secrets..."
+          HITS=$(grep -rInP '(api[_-]?key|password|secret|token)\s*[=:]\s*["\x27][^"\x27]+["\x27]' \
+            --include='*.md' --include='*.yaml' --include='*.yml' \
+            --include='*.json' --include='*.py' --include='*.txt' \
+            --include='*.sh' --include='*.js' --include='*.ts' \
+            . \
+            | grep -v '\.github/workflows/' \
+            | grep -v 'validate_skill\.py' \
+            || true)
+
+          if [ -n "$HITS" ]; then
+            echo "::error::Hardcoded secrets detected:"
+            echo "$HITS"
+            exit 1
+          fi
+          echo "No hardcoded secrets found."
+
+  # ===========================================================================
+  # Job 4: structure-check
+  # ---------------------------------------------------------------------------
+  # Validates structural invariants of the repository layout:
+  #   - No files inside skills/ directory (pre-universalized content -- H10)
+  #   - Every root-level skill directory contains SKILL.md + skill.yaml (H4/H5)
+  #   - No .jsonl signal-log files anywhere in the repo
+  #   - No session artifact files (session_*.md, *.session, etc.)
+  # ===========================================================================
+  structure-check:
+    name: Repository Structure Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # -----------------------------------------------------------------------
+      # H10: No pre-universalized content in skills/ directory
+      # The skills/ directory is a legacy path. After universalization, skill
+      # directories live at the repo root. Any remaining content in skills/
+      # indicates pre-universalized artifacts.
+      # -----------------------------------------------------------------------
+      - name: Verify no files in skills/ directory
+        run: |
+          if [ -d "skills" ]; then
+            FILE_COUNT=$(find skills -type f | wc -l)
+            if [ "$FILE_COUNT" -gt 0 ]; then
+              echo "::error::Pre-universalized content found in skills/ directory:"
+              find skills -type f
+              exit 1
+            fi
+          fi
+          echo "No pre-universalized content in skills/."
+
+      # -----------------------------------------------------------------------
+      # H4 + H5: Every root-level skill directory must contain SKILL.md and
+      # skill.yaml.
+      # Infrastructure directories (docs, tools, templates, skills, .github)
+      # are excluded from this check.
+      # -----------------------------------------------------------------------
+      - name: Verify SKILL.md and skill.yaml in all skill directories
+        run: |
+          EXCLUDED="docs tools templates skills .git .github __pycache__ node_modules"
+          ERRORS=""
+
+          for dir in */; do
+            dirname="${dir%/}"
+
+            # Skip excluded infrastructure directories
+            skip=false
+            for ex in $EXCLUDED; do
+              if [ "$dirname" = "$ex" ]; then
+                skip=true
+                break
+              fi
+            done
+            if [ "$skip" = true ]; then
+              continue
+            fi
+
+            # Check for SKILL.md
+            if [ ! -f "${dir}SKILL.md" ]; then
+              ERRORS="${ERRORS}\n  - ${dirname}/ is missing SKILL.md"
+            fi
+
+            # Check for skill.yaml
+            if [ ! -f "${dir}skill.yaml" ]; then
+              ERRORS="${ERRORS}\n  - ${dirname}/ is missing skill.yaml"
+            fi
+          done
+
+          if [ -n "$ERRORS" ]; then
+            echo "::error::Required files missing in skill directories:"
+            printf "$ERRORS\n"
+            exit 1
+          fi
+          echo "All skill directories contain SKILL.md and skill.yaml."
+
+      # -----------------------------------------------------------------------
+      # No .jsonl signal log files
+      # Signal logs belong in the private repo; they must never be committed
+      # to the public library.
+      # -----------------------------------------------------------------------
+      - name: Verify no .jsonl signal log files
+        run: |
+          JSONL_FILES=$(find . -name '*.jsonl' -not -path './.git/*' | head -20)
+          if [ -n "$JSONL_FILES" ]; then
+            echo "::error::Signal log files (.jsonl) detected -- these belong in the private repo:"
+            echo "$JSONL_FILES"
+            exit 1
+          fi
+          echo "No .jsonl signal log files found."
+
+      # -----------------------------------------------------------------------
+      # No session artifact files
+      # Session artifacts (session_*.md, *.session, session_log.*) are private
+      # working files and must not be committed.
+      # -----------------------------------------------------------------------
+      - name: Verify no session artifact files
+        run: |
+          SESSION_FILES=$(find . -not -path './.git/*' \( \
+            -name 'session_*.md' -o \
+            -name '*.session' -o \
+            -name 'session_log.*' -o \
+            -name '.session_*' \
+          \) | head -20)
+          if [ -n "$SESSION_FILES" ]; then
+            echo "::error::Session artifact files detected -- these are private working files:"
+            echo "$SESSION_FILES"
+            exit 1
+          fi
+          echo "No session artifact files found."

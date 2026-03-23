@@ -47,7 +47,7 @@ Orchestrates the **complete Monthly Business Review deck pipeline** — raw data
 | `bigquery-explorer` | Deep BQ table exploration |
 | `powerbi` | Extract Power BI data |
 | `slide-creator` | Generate HTML slide decks |
-| `share-puppy` | Publish to puppy.walmart.com |
+| `your-publishing-agent` | Publish to your publishing platform |
 
 ### Architecture
 
@@ -209,7 +209,7 @@ while score < 4.0 or user_has_feedback:
 ## 📖 Phase 6: Delivery
 
 1. **Open** — `open presentation.html` (Mac) / `start` (Win)
-2. **Share** — `share-puppy` agent → puppy.walmart.com
+2. **Share** — `your-publishing-agent` agent → your publishing platform
 3. **Git** — `git commit -m 'MBR Dec 2025 deck v1'`
 4. **Archive** — `mbr/2025-12/presentation.html`
 
