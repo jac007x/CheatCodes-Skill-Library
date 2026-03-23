@@ -55,19 +55,37 @@ fully clean for a broad Walmart audience.
 
 ---
 
+## 🌳 Branch Model
+
+```
+main   ← public-facing. Only universalized, ladder-cleared skills.
+           Associates discover skills here.
+           Nothing merges without a PR.
+
+dev    ← working space. Everything in progress, backlog, experiments.
+           This is where skill-universalizer runs happen.
+           Default branch for day-to-day work.
+```
+
+**The rule:** A skill graduates from `dev` → `main` only after it clears
+Refine → Prove on the deployment ladder. Open a PR, review it, merge it.
+
+---
+
 ## 🗓️ Planned Sessions
 
-### Design Session — Week of March 23, 2026
+### Design Session — Tuesday March 24, 2026
 **Location:** The Hub  
-**Goal:** Walk through the universalization backlog together. Prioritize which
-skills to tackle first. Define what "done" looks like for each.
+**Goal:** Walk through the universalization backlog. Prioritize what to tackle
+first. Define "done" for each skill. Assign owners.
 
 **Agenda:**
-1. Review this backlog list
-2. Decide on `review-cycle-manager` scope and intake variables
-3. Identify which `skills/` subfolder skills can be fast-tracked vs. need deeper work
-4. Agree on the repo hygiene priority order
-5. Assign owners and target versions
+1. Branch model walkthrough — `main` / `dev` split, how PRs work
+2. `review-cycle-manager` scoping — what is a review cycle universally? What are the intake variables?
+3. `skills/` subfolder triage — fast-track vs. needs deeper work
+4. Repo hygiene priority order
+5. Owners + target versions per skill
+6. Marketplace publish step — puppy.walmart.com/marketplace timing
 
 ---
 

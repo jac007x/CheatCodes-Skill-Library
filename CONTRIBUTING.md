@@ -1,5 +1,17 @@
 # Contributing to CheatCodes Skill Library
 
+## Branch Model
+
+```
+main   ← public-facing. Universalized, ladder-cleared skills only.
+dev    ← working space. All in-progress work happens here.
+```
+
+**Day-to-day:** Work on `dev`. When a skill is ready, open a PR to `main`.
+**Never push directly to `main`.** Everything goes through a PR and review.
+
+---
+
 ## How to Contribute
 
 ### 1. Request a New Skill
