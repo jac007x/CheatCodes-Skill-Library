@@ -86,15 +86,16 @@ See [GOVERNANCE.md](GOVERNANCE.md) for promotion criteria.
 
 ## Meta-Skills
 
-These skills manage the library itself.
+These skills govern the library and architect new workflows.
 
 | Skill | What It Does | Maturity |
 |-------|-------------|----------|
+| [adaptive-workflow-architect](adaptive-workflow-architect/) | Designs entropy-aware workflows using Adaptive Narrative Control Theory (ANCT) | 🧪 Beta |
 | [skill-suggestor](skill-suggestor/) | Detects repeating workflow patterns and proposes new skills (passive + on-demand) | 🧪 Beta |
 | [skill-universalizer](skill-universalizer/) | 6-phase process to extract any working workflow into a reusable skill | 🧪 Beta |
 | [skill-improver](skill-improver/) | Passively observes sessions, detects friction, proposes improvements | 🧪 Beta |
 
-> **skill-suggestor** notices you need a skill. **skill-universalizer** builds it. **skill-improver** makes it better over time.
+> **adaptive-workflow-architect** designs *how* to build it. **skill-suggestor** notices you need one. **skill-universalizer** codifies it. **skill-improver** refines it over time.
 
 ---
 

@@ -1,0 +1,29 @@
+# ==============================================================================
+# Adaptive Workflow Architect — ANCT-based workflow design engine
+# ==============================================================================
+
+# === Identity (Required) ===
+name: adaptive-workflow-architect
+version: 1.0.0
+description: "Designs AI agent workflows using Adaptive Narrative Control Theory (ANCT) — entropy-aware architecture that maps phases to cognitive control modes (delegate, narrate, generate) and builds pipelines that know when to expand and when to compress"
+created: 2026-03-23
+
+# === Origin & Attribution (Required) ===
+origin: created
+author: jac007x
+
+# === Maturity (Required) ===
+maturity_status: beta
+
+# === Categorization (Required) ===
+tags:
+  - meta-skill
+  - workflow-design
+  - entropy-management
+  - cognitive-architecture
+  - skill-architecture
+  - cross-platform
+
+# === Model & Risk ===
+model_recommendation: opus
+risk_level: low

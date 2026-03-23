@@ -330,6 +330,27 @@
       "risk_level": "low"
     },
     {
+      "id": "adaptive-workflow-architect",
+      "name": "Adaptive Workflow Architect",
+      "version": "1.0.0",
+      "description": "Designs AI agent workflows using Adaptive Narrative Control Theory (ANCT) — entropy-aware architecture that maps phases to cognitive control modes (delegate, narrate, generate) and builds pipelines that know when to expand and when to compress",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "adaptive-workflow-architect",
+      "tags": [
+        "meta-skill",
+        "workflow-design",
+        "entropy-management",
+        "cognitive-architecture",
+        "skill-architecture",
+        "cross-platform"
+      ],
+      "category": "meta",
+      "model_recommendation": "opus",
+      "risk_level": "low"
+    },
+    {
       "id": "skill-improver",
       "name": "Skill Improver",
       "version": "1.0.0",
