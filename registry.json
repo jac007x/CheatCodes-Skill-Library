@@ -219,6 +219,27 @@
       "risk_level": "medium"
     },
     {
+      "id": "meeting-prep-assistant",
+      "name": "Meeting Prep Assistant",
+      "version": "1.0.0",
+      "description": "Entropy-aware meeting preparation — pulls context, assesses relationships, surfaces open items, infers real meeting purpose, and produces adaptive briefs matched to meeting uncertainty level",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "meeting-prep-assistant",
+      "tags": [
+        "workflow-automation",
+        "meeting-prep",
+        "calendar",
+        "entropy-aware",
+        "ANCT-designed",
+        "cross-platform"
+      ],
+      "category": "workflow-automation",
+      "model_recommendation": "sonnet",
+      "risk_level": "medium"
+    },
+    {
       "id": "layout-composition-analyzer",
       "name": "Layout & Composition Analyzer",
       "version": "1.0.0",

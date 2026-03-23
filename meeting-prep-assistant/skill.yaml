@@ -1,0 +1,32 @@
+# ==============================================================================
+# Meeting Prep Assistant — ANCT-designed entropy-aware meeting preparation
+# ==============================================================================
+
+# === Identity (Required) ===
+name: meeting-prep-assistant
+version: 1.0.0
+description: "Entropy-aware meeting preparation — pulls context, assesses relationships, surfaces open items, infers real meeting purpose, and produces adaptive briefs matched to meeting uncertainty level"
+created: 2026-03-23
+
+# === Origin & Attribution (Required) ===
+origin: created
+author: jac007x
+
+# === Maturity (Required) ===
+maturity_status: beta
+
+# === Categorization (Required) ===
+tags:
+  - workflow-automation
+  - meeting-prep
+  - calendar
+  - entropy-aware
+  - ANCT-designed
+  - cross-platform
+
+# === Model & Risk ===
+model_recommendation: sonnet
+risk_level: medium
+
+# === Design Credit ===
+designed_with: adaptive-workflow-architect
