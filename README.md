@@ -90,10 +90,11 @@ These skills manage the library itself.
 
 | Skill | What It Does | Maturity |
 |-------|-------------|----------|
+| [skill-suggestor](skill-suggestor/) | Detects repeating workflow patterns and proposes new skills (passive + on-demand) | 🧪 Beta |
 | [skill-universalizer](skill-universalizer/) | 6-phase process to extract any working workflow into a reusable skill | 🧪 Beta |
 | [skill-improver](skill-improver/) | Passively observes sessions, detects friction, proposes improvements | 🧪 Beta |
 
-> **skill-universalizer** creates skills. **skill-improver** makes them better over time.
+> **skill-suggestor** notices you need a skill. **skill-universalizer** builds it. **skill-improver** makes it better over time.
 
 ---
 
@@ -200,13 +201,14 @@ See [GOVERNANCE.md](GOVERNANCE.md) for the full quality framework.
 
 ## The Self-Improving System
 
-The library gets better every time a skill is used:
+The library gets better every time a skill is used — and it grows by
+detecting workflows that should *become* skills:
 
-1. `skill-improver` passively observes sessions (friction, confusion, abandonment)
-2. Signals are logged privately (never in this repo)
-3. After enough sessions, improvement proposals are generated
-4. Human reviews and approves changes
-5. Skills are updated, version-bumped, and committed
+1. `skill-suggestor` passively detects repeating patterns and proposes new skills
+2. `skill-universalizer` extracts the pattern into a reusable SKILL.md
+3. `skill-improver` watches sessions and proposes refinements to existing skills
+4. All signals are logged privately (never in this repo)
+5. Human reviews and approves every change
 
 See [DOCTRINE.md](DOCTRINE.md) for the full philosophy.
 

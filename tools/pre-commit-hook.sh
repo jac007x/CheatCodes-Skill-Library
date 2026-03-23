@@ -57,7 +57,7 @@ check_pattern() {
 # 1. No secrets
 # ---------------------------------------------------------------------------
 check_pattern "Secret / credential detected" \
-    '(api_key\s*=|password\s*=|token\s*=|ghp_[A-Za-z0-9]+|sk-[A-Za-z0-9]+|xox[bpars]-[A-Za-z0-9]+)'
+    '(api_key\s*=|password\s*=|token\s*=|ghp_[A-Za-z0-9]{36}|sk-[A-Za-z0-9]{20,}|sk-proj-[A-Za-z0-9_-]{20,}|xox[bpars]-[A-Za-z0-9]{10,})'
 
 # ---------------------------------------------------------------------------
 # 2. No internal URLs

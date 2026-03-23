@@ -50,11 +50,15 @@ Skills enter the repo through automated validation and human approval. The quali
 gates are tiered (hard blocks and soft warnings) and enforced at every stage: local
 pre-commit, CI on PR, and human review before merge.
 
-### 6. Skills Improve Themselves
-Every skill session is an opportunity for improvement. The `skill-improver` meta-skill
-passively observes friction, confusion, and abandonment — then proposes targeted
-improvements. The user's silence is data. Premature closure is data. The library
-gets better every time a skill is used.
+### 6. The Library Grows and Heals Itself
+Three meta-skills form a self-sustaining lifecycle:
+- **`skill-suggestor`** detects repeating patterns and proposes new skills
+- **`skill-universalizer`** extracts patterns into reusable SKILL.md files
+- **`skill-improver`** observes sessions and proposes improvements to existing skills
+
+The library doesn't just maintain itself — it actively discovers what should be
+built next. The user's repetition is data. Their silence is data. Premature
+closure is data. Every session is an opportunity to grow or heal.
 
 ### 7. Maturity Is Earned, Not Declared
 A new skill enters the library as **beta**. It earns **stable** status through
@@ -73,6 +77,7 @@ Platform-specific hints live in a footer — never in the core logic.
 
 ### 10. Human-in-the-Loop, Always
 Agents propose. Humans approve. This applies to:
+- Skill suggestion (skill-suggestor proposes, human decides to pursue)
 - Skill creation (skill-universalizer proposes, human validates context)
 - Skill improvement (skill-improver proposes, human approves changes)
 - Skill promotion (signals trigger proposals, human approves promotion)
@@ -222,46 +227,60 @@ Skills are not born production-ready. They earn trust through real-world usage.
 
 ---
 
-## The Self-Improving System
+## The Self-Growing, Self-Healing System
 
-The library is designed to get better every time a skill is used. This is not
-aspirational — it's architectural.
+The library is designed to **grow** by detecting new skill opportunities and
+**heal** by improving existing skills — every time any skill is used.
+This is not aspirational — it's architectural.
+
+### The Three Meta-Skills
+
+```
+skill-suggestor          skill-universalizer          skill-improver
+(detects the need) →     (builds the skill)     →    (makes it better)
+
+"You keep doing this      "Let me extract the          "Phase 3 has 40%
+ manually. Want a          pattern, create intake        abandonment. The
+ skill for it?"            variables, and write          intake question is
+                           the SKILL.md"                 confusing. Here's
+                                                         a clearer version."
+```
 
 ### How It Works
 
 ```
-User activates a skill
+User works in any session
+    │
+    ├─► skill-suggestor passively detects repeating patterns
+    │   (repetition, manual labor, wish language, cross-session similarity)
+    │
+    ├─► skill-improver passively observes active skill sessions
+    │   (friction, confusion, redirects, abandonment, delight)
     │
     ▼
-skill-improver passively observes the session
-(friction, confusion, redirects, abandonment, delight)
+Signals are logged to PRIVATE repo (never in public)
     │
     ▼
-Signals are logged to PRIVATE repo (session_signals.jsonl)
-    │
-    ▼
-After 5+ sessions, skill-improver analyzes patterns
-    │
-    ▼
-Improvement proposals are generated (specific, actionable, evidence-based)
+After enough signals accumulate:
+    ├─► skill-suggestor proposes new skills
+    └─► skill-improver proposes improvements to existing skills
     │
     ▼
 Human reviews and approves proposals
     │
-    ▼
-Skill is updated, version-bumped, committed to PUBLIC repo
-(commit message includes sanitized improvement context — never raw signals)
+    ├─► New skill? → skill-universalizer builds it → enters public as BETA
+    └─► Improvement? → skill updated, version-bumped → committed to public
 ```
 
-### Built-In Improvement During Use
-The `skill-improver` doesn't just run retroactively — it runs **during every
-skill session**. When any skill is active, the passive observation layer is
-automatically engaged:
+### Built-In Detection and Improvement During Use
+Both `skill-suggestor` and `skill-improver` run **during every session**,
+automatically, from the first turn:
 
-- Friction signals are detected in real-time
-- The agent self-corrects when possible (e.g., rephrasing a confusing intake question)
+- **Suggestor:** Detects repetition, manual labor, wish language, and cross-session patterns
+- **Improver:** Detects friction, confusion, abandonment, and delight in active skills
+- Both self-correct when possible (e.g., rephrasing a confusing intake question)
 - Signals that can't be self-corrected are logged for later analysis
-- The user never sees the observation layer — it's invisible
+- The user never sees either observation layer — they are architecturally invisible
 
 ### Signal-Driven Promotion
 The same signal system that improves skills also drives the private → public

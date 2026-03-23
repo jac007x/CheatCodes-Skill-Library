@@ -352,6 +352,27 @@
       "risk_level": "low"
     },
     {
+      "id": "skill-suggestor",
+      "name": "Skill Suggestor",
+      "version": "1.0.0",
+      "description": "Detects repeating workflow patterns and proposes new skills — passive observation during any session plus on-demand invocation with structured interview",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "skill-suggestor",
+      "tags": [
+        "meta-skill",
+        "skill-discovery",
+        "pattern-detection",
+        "workflow-capture",
+        "passive-observation",
+        "cross-platform"
+      ],
+      "category": "meta",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
       "id": "skill-universalizer",
       "name": "Skill Universalizer",
       "version": "1.0.0",

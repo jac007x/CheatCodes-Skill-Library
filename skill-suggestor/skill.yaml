@@ -1,0 +1,29 @@
+# ==============================================================================
+# Skill Suggestor — Meta-skill for detecting when workflows should become skills
+# ==============================================================================
+
+# === Identity (Required) ===
+name: skill-suggestor
+version: 1.0.0
+description: "Detects repeating workflow patterns and proposes new skills — passive observation during any session plus on-demand invocation with structured interview"
+created: 2026-03-23
+
+# === Origin & Attribution (Required) ===
+origin: created
+author: jac007x
+
+# === Maturity (Required) ===
+maturity_status: beta
+
+# === Categorization (Required) ===
+tags:
+  - meta-skill
+  - skill-discovery
+  - pattern-detection
+  - workflow-capture
+  - passive-observation
+  - cross-platform
+
+# === Model & Risk ===
+model_recommendation: sonnet
+risk_level: low
