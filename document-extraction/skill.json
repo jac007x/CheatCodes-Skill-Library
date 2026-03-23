@@ -1,0 +1,1 @@
+{"name": "document-extraction", "description": "Universal document extraction pipeline for PDFs, PowerPoints, Word docs, images, and forms. Extracts structured text, tables, charts, and metadata. Output is shaped for downstream processing.", "version": "1.0.0", "author": "jac007x", "tags": ["document-processing", "pdf", "extraction", "ocr", "structured-data", "cross-platform"]}

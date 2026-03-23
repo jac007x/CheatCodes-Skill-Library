@@ -35,10 +35,10 @@ logic never changes. Only your context does.
 
 ```
 CheatCodes-Skill-Library/
-├── {skill-name}/          # New-format skills (SKILL.md + skill.json)
-├── skills/                # Original-format skills (deeper structure)
+├── {skill-name}/          # Each skill: SKILL.md + skill.json
 ├── docs/                  # Compliance, discovery, contributing guides
 ├── templates/             # Skill templates for new contributors
+├── ROADMAP.md             # Backlog, planned sessions, completed work
 ├── registry.json          # Skill registry metadata
 └── README.md
 ```
@@ -70,6 +70,7 @@ These two skills manage the library itself.
 | [survey-nlp-analyzer](survey-nlp-analyzer/) | 1.1.0 | Open-text insights pipeline: topic modeling (NMF), sentiment analysis (VADER), fallback clustering, quote extraction, dimensional heatmaps. Works on surveys, transcripts, feedback forms, internal submissions, idea boards, support tickets, and more. | All |
 | [org-data-pipeline](org-data-pipeline/) | 1.0.0 | Pull → reconcile → cut by dimension → report → archive. Handles ad-hoc and recurring data requests from PowerBI, BigQuery, Excel, and HRIS platforms. | All |
 | [powerbi-reports](powerbi-reports/) | 1.0.0 | PowerBI report generation and distribution patterns | All |
+| [document-extraction](document-extraction/) | 1.0.0 | Universal document extraction pipeline for PDFs, PPTX, DOCX, images, and forms. Extracts text, tables, charts, and metadata. Output shaped for downstream processing. | All |
 
 ---
 
@@ -99,10 +100,14 @@ These two skills manage the library itself.
 
 ## ⚙️ Universal Skills — Workflow & Automation
 
-| Skill | What It Does |
-|-------|-------------|
-| [email-automation-pattern](email-automation-pattern/) | Email workflow automation patterns |
-| [task-rabbit](task-rabbit/) | Task management, audit documentation, and remediation tracking |
+| Skill | Version | What It Does |
+|-------|---------|-------------|
+| [email-automation-pattern](email-automation-pattern/) | 1.0.0 | Email workflow automation patterns |
+| [task-rabbit](task-rabbit/) | 1.0.0 | Task management, audit documentation, and remediation tracking |
+| [calendar-email-workflow](calendar-email-workflow/) | 1.0.0 | Schedule meetings, check availability, draft and send emails, manage follow-ups. Works with Microsoft 365 or Google Workspace. |
+| [knowledge-base-workflow](knowledge-base-workflow/) | 1.0.0 | Search, retrieve, summarize, and surface content from Confluence, SharePoint, Notion, or any knowledge store. |
+| [work-management-workflow](work-management-workflow/) | 1.0.0 | Create, track, update, and report on tasks across JIRA, Planner, Asana, ServiceNow, or any task system. |
+| [review-cycle-manager](review-cycle-manager/) | 1.0.0 | Universal nomination, assignment, status-tracking, and communication workflow for any review cycle — panels, calibrations, awards, and more. |
 
 
 

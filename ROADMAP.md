@@ -5,53 +5,34 @@
 
 ---
 
-## 🔄 Universalization Backlog
+## 🔄 Active Backlog
 
-Skills that exist but need to go through `skill-universalizer` before
-they can be listed in the library as ready.
+### Reconcile `mbr-engine` into `mbr-deck-builder`
+The original Python pipeline in `skills/mbr-engine/` has been removed.
+`mbr-deck-builder` has a SKILL.md. These need to be reconciled into one
+complete skill with working code + SKILL.md aligned.
 
-### Priority 1 — Consolidate into `review-cycle-manager`
-Two removed skills that share the same underlying workflow.
-Run `skill-universalizer` on both together to produce one universal skill.
-
-| Skill (removed) | What it did | Target universal skill |
-|-----------------|------------|------------------------|
-| `fplus-tech-panel` | Tech panel nomination tracking, panelist email automation, calibration reporting | `review-cycle-manager` |
-| `skyward-panel-status` | Poll system API for panel feedback status, update tracking spreadsheet | merge into `review-cycle-manager` |
-
-**Design session goal:** Map the generalizable pattern. What is a "review cycle"?
-Nomination → Assignment → Status tracking → Communications → Reporting.
-What are the intake variables? (system API, spreadsheet schema, email sender, categories, statuses)
+| Action | Owner | Target |
+|--------|-------|--------|
+| Reconcile mbr-engine pipeline into mbr-deck-builder | @jac007x | v2.1.0 |
+| Validate mbr-deck-builder end-to-end with real data | @jac007x | v2.1.0 |
 
 ---
 
-### Priority 2 — Universalize the `skills/` subfolder
+### Marketplace Publish Step
+When skills are proven across ≥2 teams, publish to `puppy.walmart.com/marketplace`
+so associates can discover them without visiting GitHub.
 
-Original curated skills that have internal content (policy YAML refs, `-people`
-naming, tool-specific README examples). Each needs `skill-universalizer` run
-before it can be listed in the main README.
-
-| Skill | Current location | Target universal skill | Notes |
-|-------|-----------------|----------------------|-------|
-| `msgraph-people` | `skills/msgraph-people/` | `calendar-email-workflow` | Already generic functionality; just needs intake abstracted |
-| `document-processing` | `skills/document-processing/` | `document-extraction` | Partially covered by `pptx-expert`; check for overlap |
-| `confluence-people` | `skills/confluence-people/` | `knowledge-base-workflow` | Pattern: search → retrieve → surface |
-| `jira-people` | `skills/jira-people/` | `work-management-workflow` | Pattern: create → track → report |
-| `mbr-engine` | `skills/mbr-engine/` | reconcile with `mbr-deck-builder` | Python pipeline exists; SKILL.md exists; need to merge |
-
----
-
-### Priority 3 — Repo Hygiene (not universalization, just cleanup)
-
-Things that are in the repo but need review before the library is
-fully clean for a broad Walmart audience.
-
-| Item | Issue | Action |
-|------|-------|--------|
-| `docs/COMPLIANCE.md` | Has `one.walmart.com` internal URL and `AI-01-02` / `DG-01-ST-02` policy numbers | Update or move behind a note that says "internal reference" |
-| `docs/SKILL-DISCOVERY.md` | Has `wibey.walmart.com/skills` internal URL | Genericize or note as internal |
-| `designer-orchestrator/audit_results/` | Contains `audit_report.html` and `audit_report.json` that may have internal design data | Review contents; remove if contains internal artifacts |
-| `skills/` subfolder (all 5 skills) | Not in README but still in repo; have internal content | Remove from repo once universalized versions are published |
+| Skill | Version | Ladder Stage | Marketplace |
+|-------|---------|-------------|-------------|
+| survey-nlp-analyzer | 1.1.0 | 🌐 Scale | ❌ Not published |
+| org-data-pipeline | 1.0.0 | 🔬 Prove | ❌ Not published |
+| mbr-deck-builder | 2.0.0 | 🧪 Refine | ❌ Not published |
+| review-cycle-manager | 1.0.0 | 🧪 Refine | ❌ Not published |
+| calendar-email-workflow | 1.0.0 | 🧪 Refine | ❌ Not published |
+| knowledge-base-workflow | 1.0.0 | 🧪 Refine | ❌ Not published |
+| work-management-workflow | 1.0.0 | 🧪 Refine | ❌ Not published |
+| document-extraction | 1.0.0 | 🧪 Refine | ❌ Not published |
 
 ---
 
@@ -75,17 +56,26 @@ Refine → Prove on the deployment ladder. Open a PR, review it, merge it.
 ## 🗓️ Planned Sessions
 
 ### Design Session — Tuesday March 24, 2026
-**Location:** The Hub  
-**Goal:** Walk through the universalization backlog. Prioritize what to tackle
-first. Define "done" for each skill. Assign owners.
+**Location:** The Hub
+**Status:** Ready — all agenda items pre-completed. Session is now a review + sign-off.
 
-**Agenda:**
-1. Branch model walkthrough — `main` / `dev` split, how PRs work
-2. `review-cycle-manager` scoping — what is a review cycle universally? What are the intake variables?
-3. `skills/` subfolder triage — fast-track vs. needs deeper work
-4. Repo hygiene priority order
-5. Owners + target versions per skill
-6. Marketplace publish step — puppy.walmart.com/marketplace timing
+**Pre-completed before session:**
+- [x] Branch model: `main` / `dev` split live, protection rules pending
+- [x] `review-cycle-manager` v1.0.0 — fully universalized SKILL.md
+- [x] `calendar-email-workflow` v1.0.0 — replaces `msgraph-people`
+- [x] `document-extraction` v1.0.0 — replaces `document-processing`
+- [x] `knowledge-base-workflow` v1.0.0 — replaces `confluence-people`
+- [x] `work-management-workflow` v1.0.0 — replaces `jira-people`
+- [x] `skills/` subfolder removed from repo
+- [x] `docs/COMPLIANCE.md` scrubbed (no internal URLs or policy numbers)
+- [x] `designer-orchestrator/audit_results/` removed
+
+**Remaining for session discussion:**
+- [ ] Set `main` branch protection in GitHub UI
+- [ ] Agree on PR review process and who approves
+- [ ] `mbr-deck-builder` reconciliation scope
+- [ ] Marketplace publish timing and process
+- [ ] Assign peer teams for Prove stage
 
 ---
 
@@ -97,6 +87,15 @@ first. Define "done" for each skill. Assign owners.
 | 2026-03-20 | Added `skill-universalizer` and `skill-improver` meta-skills |
 | 2026-03-20 | `survey-nlp-analyzer` v1.0.0 → v1.1.0 (universalized, scrubbed team refs) |
 | 2026-03-20 | Removed `fplus-tech-panel` and `skyward-panel-status` (team-specific) |
-| 2026-03-20 | Removed Curated Skills from README (not universalized) |
+| 2026-03-20 | Removed Curated Skills section from README |
 | 2026-03-20 | Purged 32 session artifact files from repo |
 | 2026-03-20 | Full public-readiness audit across all skills |
+| 2026-03-23 | `dev` branch created — branch model live |
+| 2026-03-23 | `review-cycle-manager` v1.0.0 written and committed |
+| 2026-03-23 | `calendar-email-workflow` v1.0.0 written and committed |
+| 2026-03-23 | `document-extraction` v1.0.0 written and committed |
+| 2026-03-23 | `knowledge-base-workflow` v1.0.0 written and committed |
+| 2026-03-23 | `work-management-workflow` v1.0.0 written and committed |
+| 2026-03-23 | `skills/` subfolder removed (all 5 skills replaced) |
+| 2026-03-23 | `docs/COMPLIANCE.md` scrubbed — no internal URLs or policy numbers |
+| 2026-03-23 | `designer-orchestrator/audit_results/` removed |
