@@ -1,0 +1,16 @@
+name: powerbi-reports
+version: 1.1.0
+description: "Pull reports, query data, apply filters, and schedule report bundles from PowerBI dashboards using natural language. Supports DAX queries, CSV/HTML exports, scheduled delivery, and interactive exploration of PowerBI workspaces."
+created: 2026-03-20
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - powerbi
+  - reporting
+  - data
+  - analytics
+  - scheduling
+  - browser-automation
+model_recommendation: sonnet
+risk_level: medium

@@ -1,0 +1,16 @@
+name: design-to-code-bridge
+version: 1.0.0
+description: "Design specification exporter — extract measurements, colors, typography specs, spacing values from designs and generate CSS/HTML/JSON specs. Converts PPTX/Figma exports to code-ready design tokens, component APIs, and visual regression baselines."
+created: 2026-03-20
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - design-to-code
+  - design-tokens
+  - css-generation
+  - html-specs
+  - design-specs
+  - measurement-export
+model_recommendation: sonnet
+risk_level: low

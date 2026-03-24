@@ -1,0 +1,17 @@
+name: skill-universalizer
+version: 1.1.0
+description: "Meta-skill for extracting, universalizing, and codifying reusable workflows from completed agent sessions. Analyzes a team-specific workflow, strips specifics, identifies parameterizable gaps, builds an intake step, and outputs a cross-platform SKILL.md that works in any LLM agent."
+created: 2026-03-20
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - meta-skill
+  - workflow-extraction
+  - universalization
+  - skill-building
+  - cross-platform
+  - human-in-the-loop
+  - refinement
+model_recommendation: sonnet
+risk_level: low

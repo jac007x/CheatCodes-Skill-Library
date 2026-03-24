@@ -1,0 +1,15 @@
+name: workday-roster-validator
+version: 1.1.0
+description: "Validates whether Workday Worker Change History has propagated correctly into a downstream roster (PowerBI ARS, Workday snapshot, or equivalent). Joins on WIN, compares field-level Proposed values against roster values, and produces a three-sheet Excel reconciliation report with a prioritized action list."
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - hr-data
+  - workday
+  - reconciliation
+  - data-quality
+  - roster-validation
+  - ANCT-designed
+model_recommendation: sonnet
+risk_level: low

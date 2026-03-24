@@ -1,0 +1,17 @@
+name: skill-improver
+version: 1.0.0
+description: "Continuous improvement meta-skill for the skill library. Passively observes session flow, friction signals, language patterns, and termination behavior during any skill run — without asking users for feedback. Retrospectively analyzes signal logs to surface improvement proposals, cross-skill patterns, and library health."
+created: 2026-03-20
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - meta-skill
+  - continuous-improvement
+  - signal-detection
+  - passive-observation
+  - skill-health
+  - friction-analysis
+  - cross-platform
+model_recommendation: sonnet
+risk_level: low

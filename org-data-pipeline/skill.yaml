@@ -1,0 +1,17 @@
+name: org-data-pipeline
+version: 1.0.0
+description: "Universalized pipeline for pulling, reconciling, slicing, and reporting organizational data. Handles ad-hoc and recurring requests: ingest from any source, validate against a roster, cut by org dimensions, generate formatted reports, and distribute."
+created: 2026-03-20
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - data-pipeline
+  - reporting
+  - org-analytics
+  - reconciliation
+  - heatmaps
+  - cross-platform
+  - automation
+model_recommendation: sonnet
+risk_level: medium

@@ -1,0 +1,15 @@
+name: design-system-validator
+version: 1.0.0
+description: "Design system compliance auditor — brand palette validation, component standards, spacing rules, shadow depth, border radius, responsive breakpoints, and design debt detection."
+created: 2026-03-20
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - design-system
+  - branding
+  - design-compliance
+  - component-standards
+  - color-validation
+model_recommendation: sonnet
+risk_level: low

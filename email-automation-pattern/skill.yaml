@@ -1,0 +1,17 @@
+name: email-automation-pattern
+version: 1.0.0
+description: "Bulletproof bulk email automation with browser preview dashboards, draft verification, batch sending, and stakeholder sharing. Reusable pattern for any email workflow."
+created: 2026-03-20
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - email
+  - automation
+  - outlook
+  - msgraph
+  - dashboard
+  - bulk-send
+  - workflow
+model_recommendation: sonnet
+risk_level: medium

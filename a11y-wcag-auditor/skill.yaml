@@ -1,0 +1,17 @@
+name: a11y-wcag-auditor
+version: 1.0.0
+description: "WCAG 2.2 Level AA design auditor — color contrast, text readability, motion/animation safety, color-blindness testing, font sizing, spacing for dyslexia, keyboard navigation, screen reader optimization, and accessibility compliance scoring."
+created: 2026-03-20
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - accessibility
+  - wcag
+  - a11y
+  - wcag2.2
+  - inclusive-design
+  - color-blindness
+  - dyslexia
+model_recommendation: sonnet
+risk_level: low

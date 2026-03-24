@@ -1,0 +1,16 @@
+name: task-rabbit
+version: 1.0.0
+description: "Design audit task manager — owns documentation, identifies CI opportunities, tracks design debt, documents skill gaps, escalates to engineering, and manages remediation workflows. Acts as the executive assistant for design quality assurance."
+created: 2026-03-20
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - task-management
+  - documentation
+  - ci-opportunities
+  - design-debt-tracking
+  - skill-gap-identification
+  - workflow-orchestration
+model_recommendation: haiku
+risk_level: low

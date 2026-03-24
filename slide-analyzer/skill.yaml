@@ -1,0 +1,17 @@
+name: slide-analyzer
+version: 2.0.0
+description: "Unified slide analysis — 7-dimension weighted scoring rubric for visual analysis, programmatic PPTX structural checks (20+ rules), Pillow preview rendering, WCAG accessibility auditing, and iterative improvement workflows."
+created: 2026-03-20
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - slide-analysis
+  - pptx
+  - visual-analysis
+  - computer-vision
+  - design-review
+  - accessibility
+  - powerpoint
+model_recommendation: sonnet
+risk_level: low

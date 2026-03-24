@@ -1,0 +1,19 @@
+name: pptx-expert
+version: 2.0.0
+description: "Expert python-pptx mastery combined with executive slide design principles — charts, tables, shapes, layouts, McKinsey rules, typography hierarchy, brand compliance, conditional formatting, and presentation engine integration."
+created: 2026-03-20
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - pptx
+  - powerpoint
+  - charts
+  - tables
+  - shapes
+  - design
+  - layout
+  - typography
+  - executive-reporting
+model_recommendation: sonnet
+risk_level: low

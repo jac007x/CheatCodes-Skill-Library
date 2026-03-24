@@ -1,0 +1,17 @@
+name: layout-composition-analyzer
+version: 1.0.0
+description: "Visual composition expertise — golden ratio, rule of thirds, balance, visual flow, whitespace, alignment grids, Gestalt principles, S-curve patterns, Z-pattern reading paths, focal points, and layout scoring."
+created: 2026-03-20
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - layout
+  - composition
+  - visual-design
+  - balance
+  - whitespace
+  - gestalt
+  - design-principles
+model_recommendation: sonnet
+risk_level: low

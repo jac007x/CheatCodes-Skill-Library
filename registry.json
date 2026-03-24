@@ -353,7 +353,7 @@
     {
       "id": "adaptive-workflow-architect",
       "name": "Adaptive Workflow Architect",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "description": "Designs AI agent workflows using Adaptive Narrative Control Theory (ANCT) — entropy-aware architecture that maps phases to cognitive control modes (delegate, narrate, generate) and builds pipelines that know when to expand and when to compress",
       "origin": "created",
       "author": "jac007x",
@@ -417,7 +417,7 @@
     {
       "id": "skill-universalizer",
       "name": "Skill Universalizer",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "description": "Meta-skill for extracting, universalizing, and codifying reusable workflows from completed agent sessions. Analyzes a team-specific workflow, strips specifics, identifies parameterizable gaps, builds an intake step, and outputs a cross-platform SKILL.md that works in any LLM agent.",
       "origin": "created",
       "author": "jac007x",
@@ -461,7 +461,7 @@
     {
       "id": "survey-nlp-analyzer",
       "name": "Survey NLP Analyzer",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "description": "Universalized NLP pipeline for analyzing any large body of open-ended human text. Handles anonymous feedback, open-door cases, idea submissions, survey verbatims, customer forms, support tickets, and more. Runs topic modeling (NMF), sentiment analysis, fallback clustering, quote extraction, and dimensional breakdowns.",
       "origin": "created",
       "author": "jac007x",
@@ -551,7 +551,7 @@
     {
       "id": "inbox-intelligence",
       "name": "Inbox Intelligence",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "description": "Entropy-aware communications intelligence — rapid inbox triage, persistent knowledge compendium with cross-referenced topics, action-required lists, and self-improving classification. Takes 300 unread to zero-anxiety in under an hour. Compendium feeds downstream skills like meeting-prep-assistant.",
       "origin": "created",
       "author": "jac007x",
@@ -572,6 +572,272 @@
       "category": "workflow-automation",
       "model_recommendation": "sonnet",
       "risk_level": "medium"
+    },
+    {
+      "id": "request-scope-builder",
+      "name": "Request Scope Builder",
+      "version": "1.0.0",
+      "description": "Transforms vague analytical or informational requests into clearly scoped, answerable briefs with defined success criteria, data requirements, and explicit assumptions.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "request-scope-builder",
+      "tags": [
+        "scoping",
+        "clarity",
+        "requirements",
+        "analytics",
+        "ANCT-designed"
+      ],
+      "category": "data-analytics",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "executive-rewrite",
+      "name": "Executive Rewrite",
+      "version": "1.0.0",
+      "description": "Rewrites any draft communication to executive standards: bottom-line-up-front structure, precise language, calibrated tone, and audience-appropriate variants for email, verbal, and one-pager channels.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "executive-rewrite",
+      "tags": [
+        "writing",
+        "executive-comms",
+        "rewrite",
+        "communication",
+        "ANCT-designed"
+      ],
+      "category": "document-generation",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "decision-memo-distiller",
+      "name": "Decision Memo Distiller",
+      "version": "1.0.0",
+      "description": "Distills raw meeting notes, threads, or conversations into structured decision memos with owners, deadlines, deferred items, and open questions.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "decision-memo-distiller",
+      "tags": [
+        "meetings",
+        "decisions",
+        "documentation",
+        "summarization",
+        "ANCT-designed"
+      ],
+      "category": "workflow-automation",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "insight-narrative-builder",
+      "name": "Insight Narrative Builder",
+      "version": "1.0.0",
+      "description": "Transforms raw analytical findings into compelling insight narratives with clear implications, logical flow, and executive-ready summaries.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "insight-narrative-builder",
+      "tags": [
+        "narrative",
+        "insights",
+        "analytics",
+        "storytelling",
+        "executive-comms",
+        "ANCT-designed"
+      ],
+      "category": "document-generation",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "status-update-normalizer",
+      "name": "Status Update Normalizer",
+      "version": "1.0.0",
+      "description": "Normalizes inconsistent status inputs from multiple contributors into structured, consistent status updates with executive and team-level variants.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "status-update-normalizer",
+      "tags": [
+        "status",
+        "reporting",
+        "normalization",
+        "communication",
+        "ANCT-designed"
+      ],
+      "category": "workflow-automation",
+      "model_recommendation": "haiku",
+      "risk_level": "low"
+    },
+    {
+      "id": "objection-prep-simulator",
+      "name": "Objection Prep Simulator",
+      "version": "1.0.0",
+      "description": "Simulates likely objections to any proposal or recommendation, generates stress-tested Q&A pairs, and produces a complete objection-handling prep pack.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "objection-prep-simulator",
+      "tags": [
+        "presentation",
+        "objection-handling",
+        "preparation",
+        "communication",
+        "strategy",
+        "ANCT-designed"
+      ],
+      "category": "workflow-automation",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "metric-spec-builder",
+      "name": "Metric Spec Builder",
+      "version": "1.0.0",
+      "description": "Formalizes loosely defined metric concepts into precise, implementation-ready metric specifications with formulas, sources, owners, thresholds, and conflict detection.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "metric-spec-builder",
+      "tags": [
+        "metrics",
+        "analytics",
+        "specification",
+        "data-governance",
+        "ANCT-designed"
+      ],
+      "category": "data-analytics",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "change-comms-architect",
+      "name": "Change Comms Architect",
+      "version": "1.0.0",
+      "description": "Architects comprehensive change communication plans with audience-segmented message variants, channel strategy, timing, consistency validation, and Q&A sets for any organizational change.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "change-comms-architect",
+      "tags": [
+        "change-management",
+        "communication",
+        "stakeholders",
+        "planning",
+        "ANCT-designed"
+      ],
+      "category": "workflow-automation",
+      "model_recommendation": "sonnet",
+      "risk_level": "medium"
+    },
+    {
+      "id": "output-router",
+      "name": "Output Router",
+      "version": "1.0.0",
+      "description": "Transforms content between formats optimized for the target channel and audience — from analysis to summary, narrative to bullets, full report to deck, or qualitative findings to table.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "output-router",
+      "tags": [
+        "formatting",
+        "transformation",
+        "communication",
+        "routing",
+        "ANCT-designed"
+      ],
+      "category": "workflow-automation",
+      "model_recommendation": "haiku",
+      "risk_level": "low"
+    },
+    {
+      "id": "privacy-guardrail",
+      "name": "Privacy Guardrail",
+      "version": "1.0.0",
+      "description": "Scans analytical outputs and communications for privacy risks: small cell sizes, re-identification vectors, sensitive language patterns, and inappropriate people data disclosure. Produces go/no-go recommendation.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "privacy-guardrail",
+      "tags": [
+        "privacy",
+        "compliance",
+        "people-analytics",
+        "guardrail",
+        "data-governance",
+        "ANCT-designed"
+      ],
+      "category": "data-analytics",
+      "model_recommendation": "sonnet",
+      "risk_level": "high"
+    },
+    {
+      "id": "document-adaptor",
+      "name": "Document Adaptor",
+      "version": "1.0.0",
+      "description": "Adapts content from one or more source documents into the format, structure, and style of a target document. Automatically maps content to target slots, surfaces ambiguous mappings for user guidance, previews the adapted draft before final production.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "document-adaptor",
+      "tags": [
+        "document-transformation",
+        "content-adaptation",
+        "format-conversion",
+        "human-in-the-loop",
+        "ANCT-designed"
+      ],
+      "category": "document-generation",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
+    },
+    {
+      "id": "repo-steward",
+      "name": "Repo Steward",
+      "version": "1.0.0",
+      "description": "A meticulous repository consistency agent that scans a codebase to extract conventions, detect structural drift and pattern conflicts, canonicalize a single standard per concept, and retroactively apply it across all affected artifacts — code, docs, tests, templates, audits, and cross-references.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "repo-steward",
+      "tags": [
+        "developer-tools",
+        "repo-health",
+        "consistency",
+        "refactoring",
+        "documentation",
+        "code-quality",
+        "ANCT-designed"
+      ],
+      "category": "meta",
+      "model_recommendation": "sonnet",
+      "risk_level": "medium"
+    },
+    {
+      "id": "workday-roster-validator",
+      "name": "Workday Roster Validator",
+      "version": "1.1.0",
+      "description": "Validates whether Workday Worker Change History has propagated correctly into a downstream roster (PowerBI ARS, Workday snapshot, or equivalent). Joins on WIN, compares field-level Proposed values against roster values, and produces a three-sheet Excel reconciliation report with a prioritized action list.",
+      "origin": "created",
+      "author": "jac007x",
+      "maturity_status": "beta",
+      "path": "workday-roster-validator",
+      "tags": [
+        "hr-data",
+        "workday",
+        "reconciliation",
+        "data-quality",
+        "roster-validation",
+        "ANCT-designed"
+      ],
+      "category": "data-analytics",
+      "model_recommendation": "sonnet",
+      "risk_level": "low"
     }
   ]
 }

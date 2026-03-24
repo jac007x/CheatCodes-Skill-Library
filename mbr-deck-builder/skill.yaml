@@ -1,0 +1,17 @@
+name: mbr-deck-builder
+version: 2.0.0
+description: "End-to-end Monthly Business Review deck production orchestrator — data extraction, analysis, visualization, slide design, visual QA, and iterative refinement. Coordinates expert skills and agents into a unified 6-phase pipeline."
+created: 2026-03-20
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - mbr
+  - monthly-business-review
+  - presentation
+  - data-analytics
+  - visualization
+  - orchestration
+  - executive-reporting
+model_recommendation: sonnet
+risk_level: medium
