@@ -1,0 +1,90 @@
+# ==============================================================================
+# Repo Steward — Repository consistency and retroactive standardization agent
+# ==============================================================================
+
+# === Identity (Required) ===
+name: repo-steward
+version: 1.0.0
+description: "A meticulous repository consistency agent that scans a codebase to extract conventions, detect structural drift and pattern conflicts, canonicalize a single standard per concept, and retroactively apply it across all affected artifacts — code, docs, tests, templates, audits, and cross-references."
+created: 2026-03-24
+
+# === Origin & Attribution (Required) ===
+origin: created
+author: jac007x
+
+# === Maturity (Required) ===
+maturity_status: beta
+
+# === Categorization (Required) ===
+tags: [developer-tools, repo-health, consistency, refactoring, documentation, code-quality, ANCT-designed]
+
+# === Model & Risk ===
+model_recommendation: sonnet   # opus for Phase 4 canonicalization; haiku for Phase 7 summary
+risk_level: medium             # applies retroactive file changes; always review manifest before confirming
+
+# === Intake Variables ===
+intake:
+  - name: REPO_PATH
+    type: path
+    required: true
+    description: "Root path of the repository to steward"
+
+  - name: SCOPE
+    type: choice
+    options: [full, docs-only, code-only, structure-only, audit-only]
+    default: full
+    required: false
+
+  - name: TRIGGER
+    type: choice
+    options: [first-run, new-convention, pr-review, scheduled, conflict-reported]
+    default: first-run
+    required: false
+
+  - name: PROTECTED_EXCEPTIONS
+    type: list
+    required: false
+    description: "File paths or patterns that are known intentional exceptions — will never be retroactively standardized"
+
+  - name: STANDARD_PRIORITY
+    type: choice
+    options: [most-common, most-recent, most-explicit]
+    default: most-common
+    required: false
+    description: "When a conflict exists and no documentation clarifies, which signal takes precedence"
+
+  - name: OUTPUT_VERBOSITY
+    type: choice
+    options: [full, concise, changes-only]
+    default: concise
+    required: false
+
+  - name: DRY_RUN
+    type: bool
+    default: false
+    required: false
+    description: "If true, produces the change manifest but does not apply any changes"
+
+  - name: AUTONOMOUS_MODE
+    type: bool
+    default: false
+    required: false
+    description: "Skip the Phase 5.5 approval gate for LOW and MEDIUM risk changes; auto-apply them. HIGH risk changes always require per-change approval regardless of this setting. Only enable after a verified dry run."
+
+  - name: APPROVAL_GRANULARITY
+    type: choice
+    options: [all-or-nothing, per-change, per-category]
+    default: per-category
+    required: false
+    description: "Controls how the approval gate groups changes for confirmation: approve/reject all at once, one by one, or by risk category (LOW/MEDIUM/HIGH)"
+
+  - name: SELF_IMPROVE_LOG
+    type: path
+    required: false
+    description: "Path where the session improvement log is written and passed to skill-improver. Defaults to {{REPO_PATH}}/.repo-steward/improvement-log.md"
+
+  - name: SELF_IMPROVE_ENABLED
+    type: bool
+    default: true
+    required: false
+    description: "If true, Phase 8 runs after every session (including dry runs) and invokes skill-improver to propose rule improvements based on override patterns and hatch activity"
