@@ -1,0 +1,17 @@
+name: exception-policy-evaluator
+version: 1.0.0
+description: "Evaluates exception requests against documented policy, generates both sides of the argument before recommending APPROVE / DENY / ESCALATE, and drafts a professional response — preventing each request from becoming a one-off judgment call."
+created: 2026-03-24
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - policy
+  - exceptions
+  - promotions
+  - decision-support
+  - ANCT-designed
+  - workflow-automation
+model_recommendation: sonnet
+risk_level: low
+designed_with: adaptive-workflow-architect

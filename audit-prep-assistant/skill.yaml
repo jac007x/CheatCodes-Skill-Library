@@ -1,0 +1,20 @@
+name: audit-prep-assistant
+version: 1.0.0
+description: "Guides people analytics leaders through internal audit preparation by organizing data methodology, classifying what to share vs. redact, drafting plain-language methodology narratives, and packaging a complete audit-ready kit with anticipated Q&A."
+created: 2026-03-24
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - audit
+  - compliance
+  - hr-analytics
+  - data-governance
+  - org-health
+  - people-analytics
+  - headcount-reporting
+  - methodology-documentation
+  - ANCT-designed
+model_recommendation: sonnet
+risk_level: medium
+designed_with: adaptive-workflow-architect

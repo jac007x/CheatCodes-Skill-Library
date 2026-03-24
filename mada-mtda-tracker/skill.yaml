@@ -1,0 +1,17 @@
+name: mada-mtda-tracker
+version: 1.0.0
+description: "Tracks MADA (Making a Difference Awards) and MTDA (Making the Difference Awards) recognition programs at Walmart Global Tech — ingests weekly xlsx reports, reconciles L3 budgets, surfaces anomalies (LATAM routing, IDC approval matrix mismatches), monitors open approval chains, and formats data for Power BI dashboard and MBR exec summaries."
+created: 2026-03-24
+origin: created
+author: jac007x
+maturity_status: beta
+tags:
+  - recognition-awards
+  - MADA
+  - MTDA
+  - budget-tracking
+  - hr-analytics
+  - ANCT-designed
+model_recommendation: sonnet
+risk_level: low
+designed_with: adaptive-workflow-architect
