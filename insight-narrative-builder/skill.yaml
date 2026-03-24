@@ -1,11 +1,11 @@
 # ==============================================================================
-# Skill Suggestor — Meta-skill for detecting when workflows should become skills
+# Insight Narrative Builder — Transforms analytical findings into executive narratives
 # ==============================================================================
 
 # === Identity (Required) ===
-name: skill-suggestor
+name: insight-narrative-builder
 version: 1.0.0
-description: "Detects repeating workflow patterns and proposes new skills — passive observation during any session plus on-demand invocation with structured interview"
+description: "Transforms raw analytical findings into compelling insight narratives with clear implications, logical flow, and executive-ready summaries."
 created: 2026-03-23
 
 # === Origin & Attribution (Required) ===
@@ -16,8 +16,11 @@ author: jac007x
 maturity_status: beta
 
 # === Categorization (Required) ===
-tags: [meta-skill, skill-discovery, pattern-detection, workflow-capture, passive-observation, cross-platform]
+tags: [narrative, insights, analytics, storytelling, executive-comms, ANCT-designed]
 
 # === Model & Risk ===
 model_recommendation: sonnet
 risk_level: low
+
+# === Design Credit ===
+designed_with: adaptive-workflow-architect

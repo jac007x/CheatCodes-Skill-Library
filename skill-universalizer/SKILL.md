@@ -1,16 +1,13 @@
 ---
 name: skill-universalizer
 description: "Meta-skill for extracting, universalizing, and codifying reusable workflows from completed agent sessions. Analyzes a team-specific workflow, strips specifics, identifies parameterizable gaps, builds an intake step, and outputs a cross-platform SKILL.md that works in code-puppy, wibey, Codex, or any LLM."
-version: 1.0.0
+version: 1.1.0
 author: jac007x
-tags:
-  - meta-skill
-  - workflow-extraction
-  - universalization
-  - skill-building
-  - cross-platform
-  - human-in-the-loop
-  - refinement
+origin: created
+maturity_status: beta
+tags: [meta-skill, workflow-extraction, universalization, skill-building, cross-platform, human-in-the-loop, refinement]
+model_recommendation: sonnet
+risk_level: low
 ---
 
 # 🧬 Skill Universalizer
@@ -291,6 +288,111 @@ Paste SKILL.md content as system prompt or conversation context
 | Tech review cycle tracking | review-cycle-manager | platform, statuses, roster |
 | Design QA pipeline | multi-skill-qa-orchestrator | skills, phases, thresholds |
 | MBR slide creation | data-story-deck-builder | data, template, audience |
+
+---
+
+## 🧪 Phase 6.5: Test Cases (NEW in v1.1.0)
+
+**Goal:** Before finalizing the skill, validate that the produced SKILL.md actually works across at least two different contexts.
+
+The 3 Context Test from Phase 6 is necessary but not sufficient. This phase adds structured test cases that must be documented in the skill itself.
+
+### Minimum Viable Test Suite
+
+Every universalized skill must include at least 3 test cases in its `## Example Applications` table. Each test case must specify:
+
+| Field | Description |
+|-------|-------------|
+| **Context** | Who is using it and for what purpose |
+| **Inputs** | What variables are set and to what values |
+| **Expected Output** | What the skill should produce |
+| **Success Condition** | How you'd know the output is correct |
+| **Failure Condition** | What would indicate the skill needs refinement |
+
+### Test Case Template
+
+```markdown
+### Test Case: [Name]
+
+**Context:** [Who is using this and what they're trying to do]
+
+**Inputs:**
+- `{{VAR_1}}` = [value]
+- `{{VAR_2}}` = [value]
+
+**Expected Output:**
+[Description of what should be produced]
+
+**Success Condition:**
+[How a human would confirm the output is correct without seeing the original workflow]
+
+**Failure Condition (skill needs refinement if):**
+- [Condition 1 that would indicate the skill is too specific]
+- [Condition 2 that would indicate missing parameterization]
+```
+
+### Validation Gate
+
+Before marking the skill as `maturity_status: beta` or higher, all 3 test cases must pass. A test case passes when:
+1. A human unfamiliar with the original workflow can run the skill using only the SKILL.md
+2. The output is meaningfully useful (not generic advice)
+3. No team-specific references or hardcoded values leak into the output
+
+---
+
+## 🚨 Exception Handling Guide (NEW in v1.1.0)
+
+**Goal:** Document what to do when Phase 2 (DECOMPOSE) or Phase 3 (CONTEXT REVIEW) reveals that the workflow cannot be universalized as-is.
+
+### Exception: The Workflow Is Too Specific
+
+**Signal:** > 60% of elements classify as "team-specific" or "incidental" in Phase 2.
+
+**Response:**
+1. Ask the human: "Is there a higher-level pattern here that could generalize?"
+2. If yes: Elevate the abstraction level. Document the higher-level pattern instead of the implementation details.
+3. If no: Document as a *reference workflow* rather than a reusable skill. A reference workflow is a case study, not a parameterized skill.
+
+**Do not force universalization** on workflows that are fundamentally one-off solutions.
+
+### Exception: The Workflow Has Too Many Branches
+
+**Signal:** Phase 2 identifies 5+ distinct decision paths, each with different tools, inputs, or outputs.
+
+**Response:**
+1. Identify the "golden path" (the most common successful execution).
+2. Universalize the golden path only.
+3. Document edge cases in an `## Edge Cases` section, not as core phases.
+4. Optional: Split into sub-skills if the branches are large enough to stand alone.
+
+### Exception: The Human Can't Articulate the Universal Pattern
+
+**Signal:** Phase 3 Context Review — the human can describe what they did but cannot state what it does at a higher level.
+
+**Response:**
+1. Offer 3 candidate abstractions and ask which fits best.
+2. Run a "5 Whys" on the workflow trigger: "Why do you do this? And why does that matter? And why does that matter?"
+3. If still unclear after two attempts: record the workflow as-is, mark as `maturity_status: draft`, and return to universalization after the workflow has been run 2+ more times.
+
+### Exception: Required Variables Have No Sensible Defaults
+
+**Signal:** Phase 4 — more than 50% of variables have no possible default and are highly context-specific (e.g., org-specific business rules, legal thresholds).
+
+**Response:**
+1. Distinguish between *configuration* variables (set once per deployment) and *execution* variables (set each run).
+2. Move configuration variables to a `## Configuration` section with deployment instructions.
+3. Execution variables remain in the standard intake step.
+4. Document that this skill requires a one-time setup before it can be used.
+
+### Exception: Output Quality Is Context-Dependent
+
+**Signal:** Phase 6 3 Context Test — the skill produces good output in the original context but weak output in distant contexts.
+
+**Response:**
+1. The skill is *partially universal*, not fully. That's acceptable.
+2. Document the known-good contexts in `## Example Applications` and note the limitations.
+3. Add a scope statement at the top of the skill: "Best suited for [context type]."
+4. Do not claim universality that doesn't exist.
 
 ---
 

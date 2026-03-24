@@ -16,17 +16,7 @@ author: jac007x
 maturity_status: beta
 
 # === Categorization (Required) ===
-tags:
-  - workflow-automation
-  - email
-  - teams
-  - inbox-triage
-  - knowledge-management
-  - compendium
-  - entropy-aware
-  - ANCT-designed
-  - self-improving
-  - cross-platform
+tags: [workflow-automation, email, teams, inbox-triage, knowledge-management, compendium, entropy-aware, ANCT-designed, self-improving, cross-platform]
 
 # === Model & Risk ===
 model_recommendation: sonnet

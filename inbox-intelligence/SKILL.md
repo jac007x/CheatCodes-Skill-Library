@@ -1,7 +1,7 @@
 ---
 name: inbox-intelligence
 description: "Entropy-aware communications intelligence skill that rapidly triages email and Teams messages, separates signal from noise, builds a persistent knowledge compendium with cross-referenced topics, and produces action-required lists — designed to take 300 unread messages to zero-anxiety in under an hour. The compendium becomes a living knowledge base that any agent can query, grows smarter through self-improvement, and feeds downstream skills like meeting-prep-assistant."
-version: 1.0.0
+version: 1.1.0
 author: jac007x
 origin: created
 maturity_status: beta
@@ -139,7 +139,7 @@ Collapsed into [M] conversations
 ---
 
 ## Phase 2: CLASSIFY BY TYPE
-**Control Mode: DELEGATE** | **Entropy: E2 (Procedural)**
+**Control Mode: DELEGATE → NARRATE (on mismatch)** | **Entropy: E2 (Procedural)**
 
 Pattern-match each message into a category. Same rules every time.
 
@@ -166,6 +166,26 @@ IF has_attachments and body is short → 📎
 IF is thread_reply and you're not addressed → 🔵
 ```
 
+### 🔍 Signal Check (Dynamic Entropy Sensor)
+
+After initial classification, run this check before finalizing any message as `⚪ Noise` or `🟢 FYI — peripheral`:
+
+```
+IF sender OR any participant in thread is in {{KNOWN_PRIORITIES}}
+   AND subject line is vague (e.g., "Quick question", "FYI", "Heads up", "Checking in")
+   THEN:
+     → Suspend DELEGATE classification
+     → Query the Compendium: "Does this sender's history suggest this
+       'Noise' pattern is actually a high-value outlier?"
+     → If Compendium shows prior high-value messages with similar vague subjects:
+         → Escalate to NARRATE: read the full message body before classifying
+     → If no Compendium history: flag for human review with one-line preview
+```
+
+**Why this matters:** High-priority senders often send critical information under
+deceptively casual subject lines. The Signal Check prevents over-delegation of
+messages that look like noise but carry strategic signal.
+
 ### Exit Condition
 Every message has a category. Counts per category logged.
 
@@ -173,6 +193,7 @@ Every message has a category. Counts per category logged.
 ```
 Classification: 🔴 [N] direct requests | 🟡 [N] important FYI | 🟢 [N] peripheral
                ⚪ [N] noise (auto-archived) | 🔵 [N] threads | 📎 [N] document shares
+Signal Check: [N] messages escalated from noise/peripheral → NARRATE review
 ```
 
 ---
@@ -222,7 +243,7 @@ Every message has urgency + importance + knowledge scores. Ranked action list pr
 ---
 
 ## Phase 4: EXTRACT KNOWLEDGE
-**Control Mode: GENERATE → NARRATE** | **Entropy: E4 (Creative)**
+**Control Mode: GENERATE → NARRATE (Compression Gate)** | **Entropy: E4 (Creative)**
 
 **The highest-value phase.** This is where emails become knowledge.
 
@@ -286,6 +307,32 @@ If `{{TOPIC_TAXONOMY}}` is not provided, auto-detect topics:
 2. Cluster by similarity
 3. Propose a taxonomy (user can refine)
 4. Assign each entry to 1 primary + 0-3 secondary topics
+
+### 🔍 Novelty Filter (Pre-Write Gate)
+
+Before writing any entry to the Compendium, run this check:
+
+```
+FOR each knowledge_entry:
+  → Search Compendium for matching topic entries from the last 14 days
+  → IF entry REPEATS existing facts:
+      → Skip creating a new entry
+      → Append the new source_link as an additional reference to the existing entry
+      → Log: "Duplicate suppressed — source added to [existing entry]"
+  → IF entry CONTRADICTS existing facts:
+      → TRIGGER GENERATE sub-phase:
+          "Fact conflict detected: [old fact] vs [new fact]"
+          → Resolve explicitly (e.g., "Deadline shifted from Friday to Tuesday")
+          → Update the existing entry with the corrected fact
+          → Add a delta note: "Updated [date]: [what changed] — [new source link]"
+          → If the change is significant: surface to user in action list as an alert
+  → IF entry is NEW (no matching topic or truly novel fact):
+      → Proceed to write normally
+```
+
+**Why this matters:** Without a Novelty Filter, every triage session adds
+redundant entries and the Compendium grows noisy. The filter ensures the
+Compendium stays clean, current, and contradiction-free.
 
 ### ⚡ COMPRESSION CHECKPOINT
 > Every knowledge entry must have:

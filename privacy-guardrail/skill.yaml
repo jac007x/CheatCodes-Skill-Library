@@ -1,0 +1,9 @@
+name: privacy-guardrail
+version: 1.0.0
+description: "Scans analytical outputs and communications for privacy risks: small cell sizes, re-identification vectors, sensitive language, and inappropriate people data disclosure."
+origin: created
+author: jac007x
+maturity_status: beta
+tags: [privacy, compliance, people-analytics, guardrail, data-governance, ANCT-designed]
+model_recommendation: sonnet
+risk_level: high

@@ -1,0 +1,184 @@
+# =============================================================================
+# CheatCodes Skill Library — Auto-Improvement Issue Creator
+# =============================================================================
+# Runs on the 1st of every month at 09:00 UTC (and on manual dispatch).
+#
+# What it does:
+#   For every skill × soft gate failure combination, opens a GitHub Issue
+#   with specific fix guidance — unless an open issue for that skill+gate
+#   already exists (deduped via title prefix search).
+#
+# Labels applied: skill-improvement, soft-gate, automated
+#
+# Requires: issues: write
+# =============================================================================
+
+name: Auto-Improvement Issues
+
+on:
+  schedule:
+    - cron: "0 9 1 * *"    # 1st of every month at 09:00 UTC
+  workflow_dispatch:         # Manual run from the Actions tab
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  create-improvement-issues:
+    name: Create Soft-Gate Improvement Issues
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0    # For git freshness in the scorer
+
+      - name: Set up Python 3.10+
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install PyYAML
+
+      # -----------------------------------------------------------------------
+      # Score all skills and dump JSON for the issue-creation step.
+      # -----------------------------------------------------------------------
+      - name: Score all skills (JSON)
+        run: python tools/skill_health_scorer.py --json > /tmp/health-report.json
+
+      # -----------------------------------------------------------------------
+      # Ensure required labels exist.
+      # -----------------------------------------------------------------------
+      - name: Ensure GitHub labels exist
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = [
+              { name: "skill-improvement", color: "0ea5e9", description: "Improves an existing skill (soft gate gap)" },
+              { name: "soft-gate",         color: "f59e0b", description: "Relates to a soft quality gate from GOVERNANCE.md" },
+              { name: "automated",         color: "6366f1", description: "Created automatically by CI" },
+            ];
+            for (const label of labels) {
+              try {
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  ...label,
+                });
+              } catch (e) {
+                if (e.status !== 422) throw e;
+              }
+            }
+
+      # -----------------------------------------------------------------------
+      # For each skill × soft gate failure:
+      #   1. Search for an existing open issue with a matching title prefix
+      #   2. If none found, create one with specific guidance
+      #
+      # Title format: "[Improvement] {skill}: {gate_name}"
+      # This makes dedup reliable across re-runs.
+      # -----------------------------------------------------------------------
+      - name: Create improvement issues for soft gate failures
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs     = require("fs");
+            const report = JSON.parse(fs.readFileSync("/tmp/health-report.json", "utf8"));
+
+            // Per-gate guidance (mirrors GATE_GUIDANCE in skill_health_scorer.py)
+            const GATE_GUIDANCE = {
+              S1: "Add a `## Compliance` section to `SKILL.md` documenting AI governance alignment, PII risk level, and model recommendation.",
+              S2: "Add or expand an `## Example Applications` section with at least 4 real-world use cases. Use a table or list format.",
+              S3: "Add a `## Platform Notes` section describing how this skill works on different platforms (CLI, web, IDE, any LLM).",
+              S4: "Document all `{{VARIABLE}}` intake variables in a table: name, description, type, required/optional, default.",
+              S5: "Add an `## Anti-Patterns` section listing common misuses and the correct alternative. Format: ✗ Wrong → ✓ Right.",
+              S6: "Add `model_recommendation` to `skill.yaml` (`haiku` / `sonnet` / `opus`). Explain the tradeoff in the Compliance section.",
+              S7: "Add `risk_level` to `skill.yaml` (`low` / `medium` / `high`). Reference the risk framework in `docs/COMPLIANCE.md`.",
+              S8: "Add PII handling controls to the `## Compliance` section: what data is processed, how it's protected, and storage/transmission constraints.",
+            };
+
+            let created = 0;
+            let skipped = 0;
+
+            for (const skill of report.skills) {
+              if (!skill.soft_failures.length) continue;
+
+              for (const failure of skill.soft_failures) {
+                const issueTitle = `[Improvement] ${skill.name}: ${failure.name}`;
+
+                // Dedup: search for an existing open issue with this exact title
+                const search = await github.rest.search.issuesAndPullRequests({
+                  q: `repo:${context.repo.owner}/${context.repo.repo} is:issue is:open in:title "${issueTitle}"`,
+                  per_page: 1,
+                });
+
+                if (search.data.total_count > 0) {
+                  core.info(`Skipping "${issueTitle}" — open issue already exists (#${search.data.items[0].number}).`);
+                  skipped++;
+                  continue;
+                }
+
+                // Build issue body
+                const guidance = GATE_GUIDANCE[failure.gate_id] ||
+                  "Review the gate definition in GOVERNANCE.md and address the finding.";
+
+                const softStatus = `${skill.soft_score}/${skill.soft_total} soft gates passing`;
+                const hardStatus = `${skill.hard_passed}/${skill.hard_total} hard gates passing`;
+
+                const body = [
+                  `## Improvement Opportunity — \`${failure.gate_id}\` ${failure.name}`,
+                  "",
+                  `| Field | Value |`,
+                  `|-------|-------|`,
+                  `| **Skill** | \`${skill.name}\` |`,
+                  `| **Version** | ${skill.version} |`,
+                  `| **Maturity** | ${skill.maturity_status} |`,
+                  `| **Gate** | ${failure.gate_id} (soft gate — improvement, not blocking) |`,
+                  `| **Current score** | ${softStatus} · ${hardStatus} |`,
+                  `| **Last updated** | ${skill.last_modified || "unknown"} |`,
+                  "",
+                  "## What Was Found",
+                  "",
+                  failure.message,
+                  "",
+                  "## How to Fix",
+                  "",
+                  guidance,
+                  "",
+                  "## Definition of Done",
+                  "",
+                  "- [ ] The fix is applied to `SKILL.md` or `skill.yaml`",
+                  "- [ ] Version is bumped per [GOVERNANCE.md versioning rules](GOVERNANCE.md#versioning-rules)",
+                  "- [ ] `python tools/validate_skill.py " + skill.name + "` passes all soft gates for this fix",
+                  "- [ ] PR opened and reviewed",
+                  "",
+                  "---",
+                  "",
+                  "> Auto-generated by [auto-improvement-issues](.github/workflows/auto-improvement-issues.yml). " +
+                  "See [GOVERNANCE.md](GOVERNANCE.md) for full gate definitions.",
+                ].join("\n");
+
+                await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo:  context.repo.repo,
+                  title: issueTitle,
+                  body,
+                  labels: ["skill-improvement", "soft-gate", "automated"],
+                });
+
+                created++;
+                core.info(`Created: ${issueTitle}`);
+
+                // Small delay to avoid secondary rate limits
+                await new Promise(r => setTimeout(r, 500));
+              }
+            }
+
+            core.info(`Done. Created: ${created} issue(s). Skipped (already open): ${skipped}.`);
+
+            if (created === 0 && skipped === 0) {
+              core.info("All skills pass all soft gates — no improvement issues needed.");
+            }

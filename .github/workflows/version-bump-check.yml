@@ -1,0 +1,203 @@
+# =============================================================================
+# CheatCodes Skill Library — Version Bump Check
+# =============================================================================
+# Triggers on any PR that modifies SKILL.md or skill.yaml in a skill directory.
+#
+# What it does:
+#   Compares the version field in the PR branch vs the base branch for each
+#   modified skill. If the content changed but the version did not, posts a
+#   PR comment reminding the author of the semver rules from GOVERNANCE.md.
+#
+# This is a soft reminder — it does NOT block the PR. The reviewer must
+# acknowledge the reminder and decide whether a bump is warranted.
+#
+# Requires: pull-requests: write
+# =============================================================================
+
+name: Version Bump Check
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "**/SKILL.md"
+      - "**/skill.yaml"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  version-bump-check:
+    name: Check for Missing Version Bumps
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # -----------------------------------------------------------------------
+      # For each skill whose SKILL.md or skill.yaml changed in this PR:
+      #   1. Extract the version from the PR branch
+      #   2. Extract the version from origin/main
+      #   3. If they match, add to the "missing bump" list
+      #
+      # New skills (no base version) are skipped — first-time merges don't
+      # require a bump because the skill didn't exist before.
+      # -----------------------------------------------------------------------
+      - name: Detect missing version bumps
+        id: bump-check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { execSync } = require("child_process");
+
+            // ----------------------------------------------------------------
+            // Helper: extract `version:` from SKILL.md YAML front matter
+            // or from a standalone skill.yaml file.
+            // ----------------------------------------------------------------
+            function extractVersion(content) {
+              if (!content) return null;
+              const m = content.match(/^version:\s*["']?([^\s"'\n]+)["']?/m);
+              return m ? m[1].trim() : null;
+            }
+
+            // ----------------------------------------------------------------
+            // Get list of files changed in this PR
+            // ----------------------------------------------------------------
+            const filesResp = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              pull_number: context.issue.number,
+              per_page: 100,
+            });
+
+            // Collect skill directories with SKILL.md or skill.yaml changes.
+            // Only consider root-level skill dirs (pattern: "{skill}/SKILL.md").
+            const skillDirs = new Set();
+            for (const f of filesResp.data) {
+              const match = f.filename.match(/^([^/]+)\/(SKILL\.md|skill\.yaml)$/);
+              if (match) skillDirs.add(match[1]);
+            }
+
+            if (skillDirs.size === 0) {
+              core.info("No root-level SKILL.md or skill.yaml files changed.");
+              return JSON.stringify([]);
+            }
+
+            const missingBumps = [];
+
+            for (const dir of skillDirs) {
+              // PR branch version: read from SKILL.md front matter
+              let prVersion = null;
+              try {
+                const prContent = execSync(`cat ${dir}/SKILL.md 2>/dev/null || echo ""`, {
+                  encoding: "utf8",
+                });
+                prVersion = extractVersion(prContent);
+
+                // Fall back to skill.yaml if SKILL.md has no version
+                if (!prVersion) {
+                  const yamlContent = execSync(`cat ${dir}/skill.yaml 2>/dev/null || echo ""`, {
+                    encoding: "utf8",
+                  });
+                  prVersion = extractVersion(yamlContent);
+                }
+              } catch (_) {
+                // File may not exist (e.g. skill being deleted)
+                continue;
+              }
+
+              // Base branch version: read from origin/main
+              let baseVersion = null;
+              try {
+                const baseSkillMd = execSync(
+                  `git show origin/main:${dir}/SKILL.md 2>/dev/null || echo ""`,
+                  { encoding: "utf8" }
+                );
+                baseVersion = extractVersion(baseSkillMd);
+
+                if (!baseVersion) {
+                  const baseYaml = execSync(
+                    `git show origin/main:${dir}/skill.yaml 2>/dev/null || echo ""`,
+                    { encoding: "utf8" }
+                  );
+                  baseVersion = extractVersion(baseYaml);
+                }
+              } catch (_) {
+                // Skill is new — no base version, skip
+                continue;
+              }
+
+              // New skill: no base version found — skip (first merge is always fine)
+              if (!baseVersion) {
+                core.info(`${dir}: new skill — skipping version check.`);
+                continue;
+              }
+
+              if (prVersion === baseVersion) {
+                core.warning(`${dir}: version unchanged (${prVersion}) despite content changes.`);
+                missingBumps.push({ dir, version: prVersion });
+              } else {
+                core.info(`${dir}: version bumped ${baseVersion} → ${prVersion} ✓`);
+              }
+            }
+
+            return JSON.stringify(missingBumps);
+
+      # -----------------------------------------------------------------------
+      # Post a PR comment if any skills are missing version bumps.
+      # Uses a collapsible <details> block to keep the comment tidy.
+      # -----------------------------------------------------------------------
+      - name: Post version bump reminder
+        if: steps.bump-check.outputs.result != '[]'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const missingBumps = JSON.parse(${{ toJson(steps.bump-check.outputs.result) }});
+
+            if (!missingBumps || !missingBumps.length) {
+              core.info("No missing version bumps — no comment needed.");
+              return;
+            }
+
+            const skillList = missingBumps
+              .map(b => `- **\`${b.dir}\`** — still at \`v${b.version}\``)
+              .join("\n");
+
+            const body = [
+              "## ⚠️ Version Bump Reminder",
+              "",
+              "The following skill(s) have content changes in `SKILL.md` or `skill.yaml` but the `version` field was not updated:",
+              "",
+              skillList,
+              "",
+              "<details>",
+              "<summary>📋 Semver Rules from GOVERNANCE.md</summary>",
+              "",
+              "| Change Type | Version Bump Required |",
+              "|-------------|----------------------|",
+              "| Wording fixes, typos, formatting | Patch `x.x.Z+1` |",
+              "| New phase, intake variable, examples, Anti-Patterns section | Minor `x.Y+1.0` |",
+              "| Core architecture change, breaking phase redesign | Major `X+1.0.0` |",
+              "",
+              "Version lives in the YAML front matter of `SKILL.md` (or `skill.yaml`):",
+              "```yaml",
+              "version: 1.1.0  ← bump this",
+              "```",
+              "",
+              "</details>",
+              "",
+              "> **This is a reminder, not a blocker.** Reviewer must acknowledge if the version bump is intentionally skipped (e.g. pure wording fix below patch threshold).",
+            ].join("\n");
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
+
+            core.info(`Version bump reminder posted for: ${missingBumps.map(b => b.dir).join(", ")}`);

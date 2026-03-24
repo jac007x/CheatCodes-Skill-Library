@@ -16,13 +16,7 @@ author: jac007x
 maturity_status: beta
 
 # === Categorization (Required) ===
-tags:
-  - meta-skill
-  - workflow-design
-  - entropy-management
-  - cognitive-architecture
-  - skill-architecture
-  - cross-platform
+tags: [meta-skill, workflow-design, entropy-management, cognitive-architecture, skill-architecture, cross-platform, ANCT-designed]
 
 # === Model & Risk ===
 model_recommendation: opus

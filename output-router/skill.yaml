@@ -1,0 +1,9 @@
+name: output-router
+version: 1.0.0
+description: "Transforms content between formats optimized for the target channel and audience — from analysis to summary, narrative to bullets, or full report to deck."
+origin: created
+author: jac007x
+maturity_status: beta
+tags: [formatting, transformation, communication, routing, ANCT-designed]
+model_recommendation: haiku
+risk_level: low

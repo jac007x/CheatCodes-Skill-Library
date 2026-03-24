@@ -1,7 +1,7 @@
 ---
 name: adaptive-workflow-architect
 description: "Designs AI agent workflows using Adaptive Narrative Control Theory (ANCT) — an entropy-aware architecture engine that maps workflow phases to cognitive control modes (delegate, narrate, generate), builds pipelines that know when to expand and when to compress, and produces skills that match their control strategy to the uncertainty level of each phase."
-version: 1.0.0
+version: 1.1.0
 author: jac007x
 origin: created
 maturity_status: beta
@@ -123,7 +123,7 @@ Activate when you need to:
 
 ---
 
-## 🏗️ The 5-Phase Architecture Process
+## 🏗️ The 6-Phase Architecture Process
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -146,6 +146,11 @@ Activate when you need to:
 │  Phase 5: ARCHITECTURE OUTPUT                            │
 │     Produce the workflow blueprint                        │
 │     Map to SKILL.md structure if building a skill         │
+│                                                           │
+│  Phase 6: STRESS TEST                         ← NEW      │
+│     Simulate corrupted / irrelevant input data            │
+│     Validate that escalation hatches fire correctly       │
+│     Confirm the pipeline doesn't silently fail            │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -224,13 +229,13 @@ Produce a table:
 
 #### Mode Selection Rules
 
-| Entropy Level | Primary Mode | Secondary Mode | Rationale |
-|--------------|-------------|----------------|-----------|
-| **E1: Deterministic** | DELEGATE | — | Known pattern. Execute it. No judgment needed. |
-| **E2: Procedural** | DELEGATE | NARRATE (on exception) | Follow process. Escalate to narrative if something unexpected appears. |
-| **E3: Analytical** | NARRATE | GENERATE (if stuck) | Construct interpretation. If analysis stalls, expand to multi-model thinking. |
-| **E4: Creative** | GENERATE → NARRATE | — | Diverge first (options), then converge (select and justify). Always ends in compression. |
-| **E5: Exploratory** | GENERATE → NARRATE → GENERATE | DELEGATE (to test) | Cycle: explore → frame → explore deeper → validate with a concrete test. |
+| Entropy Level | Primary Mode | Secondary Mode | Rationale | **Circuit Breaker** |
+|--------------|-------------|----------------|-----------|---------------------|
+| **E1: Deterministic** | DELEGATE | — | Known pattern. Execute it. No judgment needed. | — |
+| **E2: Procedural** | DELEGATE | NARRATE (on exception) | Follow process. Escalate to narrative if something unexpected appears. | — |
+| **E3: Analytical** | NARRATE | GENERATE (if stuck) | Construct interpretation. If analysis stalls, expand to multi-model thinking. | If confidence < 70% → force GENERATE "Red Team" session: generate 3 alternative interpretations before selecting one |
+| **E4: Creative** | GENERATE → NARRATE | — | Diverge first (options), then converge (select and justify). Always ends in compression. | Mandatory NARRATE "Executive Summary" (max 3 sentences) before any further GENERATE expansion |
+| **E5: Exploratory** | GENERATE → NARRATE → GENERATE | DELEGATE (to test) | Cycle: explore → frame → explore deeper → validate with a concrete test. | If cycling > 2 rounds without convergence → force NARRATE: "State the best hypothesis so far in one sentence" |
 
 #### Transition Design
 
@@ -352,6 +357,75 @@ When the workflow is being designed as a skill for the CheatCodes library:
 - [ ] No DELEGATE phase for E3+ entropy sub-problems
 - [ ] No NARRATE phase without considering alternatives first
 ```
+
+---
+
+### Phase 6: THE STRESS TEST
+**Control Mode: GENERATE** | **Entropy: E4 (Simulated Failure)**
+
+**Goal:** Validate that the designed architecture's escalation hatches actually
+fire under adversarial conditions — before the skill is deployed.
+
+This phase runs a **Bicameral Regression**: a deliberate simulation of
+corrupted or irrelevant input against the finalized architecture from Phase 5.
+
+#### Stress Test Protocol
+
+```
+FOR each DELEGATE phase (E1–E2) in the designed architecture:
+
+  SIMULATE: "What happens if this phase receives input that is
+             50% corrupted, irrelevant, or in the wrong format?"
+
+  CHECK:
+    → Does the DELEGATE phase fail silently?  (BAD — invisible breakage)
+    → Does it produce garbage output?          (BAD — pipeline poisoning)
+    → Does it escalate to NARRATE/GENERATE?    (GOOD — hatch fires)
+    → Does it surface an alert to the user?    (GOOD — transparent failure)
+
+  IF phase fails silently or produces garbage:
+    → Return to Phase 4 (Failure Mode Analysis)
+    → Add an explicit input validation gate before this phase
+    → Add an escalation trigger: "If input schema mismatch → NARRATE alert"
+    → Re-run stress test on the updated architecture
+```
+
+#### Bicameral Regression Checklist
+
+For the completed architecture, verify:
+
+```markdown
+[ ] Every DELEGATE phase has an input validation check
+[ ] Every E1→E2 transition has a "schema mismatch" escalation defined
+[ ] At least one NARRATE phase can surface a user-facing alert
+[ ] No phase can fail silently (every failure path ends in visibility)
+[ ] The pipeline degrades gracefully: partial input → partial output + alert
+    (not: partial input → catastrophic failure or silent wrong output)
+```
+
+#### Stress Test Output
+
+```markdown
+## Phase 6: Stress Test Results
+
+### Simulation: 50% corrupted input at [Phase N]
+- **Result:** [Pass / Fail]
+- **Behavior observed:** [what happened]
+- **Escalation fired?** Yes / No
+- **Fix applied:** [if fail — what was added/changed]
+
+### Simulation: Irrelevant input domain at [Phase N]
+- **Result:** [Pass / Fail]
+- **Behavior observed:** [what happened]
+- **Escalation fired?** Yes / No
+- **Fix applied:** [if fail — what was added/changed]
+
+### Bicameral Regression: PASSED / FAILED
+[Summary: N/N checks passed. Architecture is stress-tested and deployment-ready.]
+```
+
+**A workflow architecture that fails the stress test is not ready for deployment.**
+Return to Phase 4, patch the escape hatches, and re-run Phase 6.
 
 ---
 

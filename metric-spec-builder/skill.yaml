@@ -1,0 +1,9 @@
+name: metric-spec-builder
+version: 1.0.0
+description: "Formalizes loosely defined metric concepts into precise, implementation-ready metric specifications with formulas, sources, owners, and thresholds."
+origin: created
+author: jac007x
+maturity_status: beta
+tags: [metrics, analytics, specification, data-governance, ANCT-designed]
+model_recommendation: sonnet
+risk_level: low

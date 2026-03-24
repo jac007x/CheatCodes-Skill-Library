@@ -1,0 +1,9 @@
+name: change-comms-architect
+version: 1.0.0
+description: "Architects comprehensive change communication plans with audience-segmented message variants, channel strategy, timing, and Q&A sets for any organizational change."
+origin: created
+author: jac007x
+maturity_status: beta
+tags: [change-management, communication, stakeholders, planning, ANCT-designed]
+model_recommendation: sonnet
+risk_level: medium

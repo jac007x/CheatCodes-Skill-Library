@@ -123,8 +123,11 @@ INTERNAL_URL_PATTERNS: List[re.Pattern[str]] = [
 # H10 — pre-universalized content indicators
 PRE_UNIVERSALIZED_PATTERNS: List[re.Pattern[str]] = [
     re.compile(r'\bskills/[a-zA-Z0-9_-]+/', re.IGNORECASE),   # skills/ subdirectory refs
-    re.compile(r'team[_-]?specific', re.IGNORECASE),
-    re.compile(r'internal[_-]?only', re.IGNORECASE),
+    # Only flag possessive/directive use (hardcoded team context).
+    # Educational use in meta-skills ("strip team-specific content") is a false positive.
+    re.compile(r'\b(?:our|my|your|this)\s+team[_-]?specific', re.IGNORECASE),
+    # Only flag possessive use. Compliance clauses ("if the memo is internal-only") are false positives.
+    re.compile(r'\b(?:our|my|your|this)\s+internal[_-]?only', re.IGNORECASE),
 ]
 
 # S8 — PII keyword indicators (to decide if PII handling docs are expected)
@@ -579,10 +582,8 @@ def s1_compliance_section(skill_path: Path) -> GateResult:
     if text is None:
         return GateResult("S1", "Compliance Section", False, "SKILL.md not readable", "soft")
     lower = text.lower()
-    found = any(
-        marker in lower
-        for marker in ["## compliance", "### compliance", "## governance", "### governance"]
-    )
+    # Regex tolerates emoji/non-ASCII between ## and the keyword (e.g. "## 📋 Compliance")
+    found = bool(re.search(r'#{2,3}[^\n]*\b(?:compliance|governance)\b', lower))
     return GateResult(
         "S1",
         "Compliance Section",
@@ -600,8 +601,9 @@ def s2_example_applications(skill_path: Path) -> GateResult:
     lower = text.lower()
 
     # Look for a section header mentioning examples/applications
+    # [^\n]* tolerates emoji/non-ASCII prefixes (e.g. "## 💡 Example Applications")
     example_section = re.search(
-        r'#{1,3}\s*(?:example|sample|use[- ]?case|application)s?.*?\n(.*?)(?=\n#{1,3}\s|\Z)',
+        r'#{1,3}[^\n]*?(?:example|sample|use[- ]?case|application)s?[^\n]*\n(.*?)(?=\n#{1,3}[^\n]|\Z)',
         lower,
         re.DOTALL,
     )
@@ -631,10 +633,8 @@ def s3_platform_notes(skill_path: Path) -> GateResult:
     if text is None:
         return GateResult("S3", "Platform Notes", False, "SKILL.md not readable", "soft")
     lower = text.lower()
-    found = any(
-        marker in lower
-        for marker in ["## platform", "### platform", "## compatibility", "### compatibility"]
-    )
+    # Regex tolerates emoji/non-ASCII between ## and the keyword (e.g. "## 🖥️ Platform Notes")
+    found = bool(re.search(r'#{2,3}[^\n]*\b(?:platform|compatibility)\b', lower))
     return GateResult(
         "S3", "Platform Notes", found,
         "Platform notes section found" if found else "No platform notes section in SKILL.md",
@@ -656,10 +656,10 @@ def s4_intake_variables(skill_path: Path) -> GateResult:
         )
 
     # Check for intake table/section
+    # Regex tolerates emoji/non-ASCII between ## and the keyword (e.g. "## 📥 Intake Variables")
     lower = text.lower()
-    has_intake_section = any(
-        marker in lower
-        for marker in ["## intake", "### intake", "## variables", "### variables", "## customize", "### customize"]
+    has_intake_section = bool(
+        re.search(r'#{2,3}[^\n]*\b(?:intake|variables|customize)\b', lower)
     )
     unique_vars = sorted(set(variables))
     if has_intake_section:

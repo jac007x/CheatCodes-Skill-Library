@@ -1,7 +1,7 @@
 ---
 name: survey-nlp-analyzer
-description: "Universalized NLP pipeline for analyzing any large body of open-ended human text. Handles anonymous feedback, open-door cases, idea submissions, survey verbatims, customer forms, office hour transcripts, support tickets, and more. Runs topic modeling (NMF), sentiment analysis, fallback clustering, quote extraction, and dimensional breakdowns. Produces executive insights, heatmaps, and shareable reports."
-version: 1.1.0
+description: "Universalized NLP pipeline for analyzing any large body of open-ended human text. Handles anonymous feedback, open-door cases, idea submissions, survey verbatims, customer forms, office hour transcripts, support tickets, and more. Runs topic modeling (NMF), sentiment analysis, fallback clustering, quote extraction, dimensional breakdowns, sensitivity guardrails, and action implications."
+version: 1.2.0
 author: jac007x
 tags:
   - nlp
@@ -447,6 +447,125 @@ def build_heatmap(df: pd.DataFrame, dimension: str, topic_col: str,
 ```
 invoke_agent('share-puppy', 'Share {{OUTPUT_DIR}}/{{PROJECT_NAME}}_report.html')
 open {{OUTPUT_DIR}}/{{PROJECT_NAME}}_report.html   # macOS
+```
+
+---
+
+## 🔒 Phase 8.5: Sensitivity Guardrails (NEW in v1.2.0)
+
+**Goal:** Before generating or distributing any output, validate that no privacy thresholds are breached.
+
+Run this phase automatically when `{{SENSITIVITY_LEVEL}}` is `medium`, `high`, or `restricted`, or when `{{SOURCE_TYPE}}` is `anonymous-survey`, `open-door-cases`, or `exit-interviews`.
+
+### Small Cell Check
+
+```python
+SMALL_CELL_THRESHOLD = 10  # configurable; default is 10
+
+def flag_small_cells(df: pd.DataFrame, dimension: str, topic_col: str,
+                     threshold: int = SMALL_CELL_THRESHOLD) -> list[dict]:
+    """Return list of (dimension_value, topic) cells where n < threshold."""
+    ct = pd.crosstab(df[dimension], df[topic_col])
+    flags = []
+    for dim_val, row in ct.iterrows():
+        for topic, count in row.items():
+            if 0 < count < threshold:
+                flags.append({"dimension": dimension, "value": dim_val,
+                              "topic": topic, "n": count})
+    return flags
+```
+
+**Actions per flag:**
+- `n < 5`: Suppress — do not include this cell in any output
+- `5 ≤ n < 10`: Aggregate — merge with adjacent dimension value or report as "Other"
+- Flag all suppressions in `{{PROJECT_NAME}}_audit.log`
+
+### Quote PII Scan
+
+Before including any quote in an output:
+
+```python
+import re
+
+PII_PATTERNS = [
+    r"\b[A-Z][a-z]+ [A-Z][a-z]+\b",           # Proper names (heuristic)
+    r"\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b",  # Email
+    r"\b\d{3}[-.]?\d{3}[-.]?\d{4}\b",          # Phone
+    r"\bmy (manager|boss|director|VP|lead)\b",  # Role references (identity risk)
+]
+
+def has_pii_risk(text: str) -> bool:
+    """Return True if text contains patterns that may identify an individual."""
+    for pattern in PII_PATTERNS:
+        if re.search(pattern, text, re.IGNORECASE):
+            return True
+    return False
+```
+
+Any quote flagged by `has_pii_risk` is excluded from output automatically. Log count of excluded quotes in audit log.
+
+### Sensitivity Output Controls
+
+| Sensitivity Level | Distribution Control |
+|-------------------|---------------------|
+| `low` | Standard sharing; no controls |
+| `medium` | Confirm audience before generating HTML report; disable public share links |
+| `high` | Output suppresses all small cells (n<10); disable quote section by default; require human review before sharing |
+| `restricted` | No automated distribution; output to local file only; warn prominently in report header |
+
+---
+
+## 💡 Phase 9: Action Implications (NEW in v1.2.0)
+
+**Goal:** Translate topic findings into specific, actionable implications — not just "here's what people said" but "here's what this means and what to do."
+
+This phase runs after Phase 8 (Report Generation) and appends an **Action Implications** section to the executive summary.
+
+### Implication Generation Logic
+
+For each topic where a statistically notable finding exists (define notable as: negative sentiment > 40% OR topic volume > 15% of corpus OR significant variance across a dimension):
+
+1. **State the pattern** — what did the data show? (fact-based, not interpretive)
+2. **Name the implication** — what does this suggest about the underlying situation?
+3. **Propose the action** — what specific action could address this?
+4. **Flag confidence** — based on `{{CONFIDENCE_LEVEL}}` and n-size
+
+```
+Template:
+**[TOPIC NAME]**
+Pattern: [X]% of responses in this topic were negative, concentrated in [dimension value].
+Implication: This suggests [interpretation], particularly for [affected group].
+Suggested Action: [specific, owner-assignable action]
+Confidence: [HIGH/MEDIUM/LOW] — based on n=[N] responses, [timeframe].
+```
+
+### Action Implication Output
+
+Appended to the HTML report as a collapsible `Action Implications` section:
+
+```
+## Recommended Actions
+
+| Priority | Topic | Pattern | Suggested Action | Confidence |
+|----------|-------|---------|-----------------|------------|
+| 1 | [Topic] | [Pattern] | [Action] | High |
+...
+```
+
+**Prioritization rules:**
+1. Topics with highest negative sentiment % AND highest volume → Priority 1
+2. Topics where a specific dimension is a significant outlier → Priority 2
+3. Topics with high volume but mixed sentiment (potential opportunity) → Priority 3
+4. Topics with strong positive sentiment → Note as reinforcement actions only
+
+### Anti-Patterns for Action Implications
+
+```
+❌ Don't prescribe actions beyond the evidence (correlation ≠ causation)
+❌ Don't generate implications for low-N topics (< 30 comments)
+❌ Don't imply individual accountability from group-level data
+❌ Don't present implications as definitive — always caveat with confidence level
+❌ Don't skip implications for positive topics — reinforce what works
 ```
 
 ---

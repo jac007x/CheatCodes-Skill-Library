@@ -1,0 +1,9 @@
+name: document-adaptor
+version: 1.1.0
+description: "Adapts content from one or more source documents into the format, structure, and style of a target document. Automatically maps content to target slots, surfaces ambiguous mappings for user guidance, previews the adapted draft before final production."
+origin: created
+author: jac007x
+maturity_status: beta
+tags: [document-transformation, content-adaptation, format-conversion, human-in-the-loop, ANCT-designed]
+model_recommendation: sonnet
+risk_level: low

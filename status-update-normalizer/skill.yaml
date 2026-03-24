@@ -1,11 +1,11 @@
 # ==============================================================================
-# Meeting Prep Assistant — ANCT-designed entropy-aware meeting preparation
+# Status Update Normalizer — Normalizes multi-source status inputs into structured reports
 # ==============================================================================
 
 # === Identity (Required) ===
-name: meeting-prep-assistant
+name: status-update-normalizer
 version: 1.0.0
-description: "Entropy-aware meeting preparation — pulls context, assesses relationships, surfaces open items, infers real meeting purpose, and produces adaptive briefs matched to meeting uncertainty level"
+description: "Normalizes inconsistent status inputs from multiple contributors into structured, consistent status updates with executive and team-level variants."
 created: 2026-03-23
 
 # === Origin & Attribution (Required) ===
@@ -16,11 +16,11 @@ author: jac007x
 maturity_status: beta
 
 # === Categorization (Required) ===
-tags: [workflow-automation, meeting-prep, calendar, entropy-aware, ANCT-designed, cross-platform]
+tags: [status, reporting, normalization, communication, ANCT-designed]
 
 # === Model & Risk ===
-model_recommendation: sonnet
-risk_level: medium
+model_recommendation: haiku
+risk_level: low
 
 # === Design Credit ===
 designed_with: adaptive-workflow-architect
