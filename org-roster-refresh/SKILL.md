@@ -1,6 +1,6 @@
 ---
 name: org-roster-refresh
-description: "Operationalizes the recurring org roster refresh workflow: parse an inbound request (by leader, org, cost center, or segment), pull the latest snapshot from ARS or Workday, validate freshness against known recent changes, slice and format the output as xlsx or summary, cross-check headcount against the prior snapshot, and deliver a structured summary of what changed and any anomalies."
+description: "Operationalizes the recurring org roster refresh workflow: parse an inbound request (by leader, org, cost center, or segment), pull the latest snapshot from your HR system of record (Workday, ARS, or equivalent), validate freshness against known recent changes, slice and format the output as xlsx or summary, cross-check headcount against the prior snapshot, and deliver a structured summary of what changed and any anomalies."
 version: 1.0.0
 author: jac007x
 origin: created
@@ -21,11 +21,11 @@ designed_with: adaptive-workflow-architect
 
 > Pull, slice, validate, and deliver — without skipping the freshness check.
 
-People Partners submit roster refresh requests multiple times per week. The pattern is always the same: pull the latest associate data from Workday or ARS, slice it by a dimension (L3 leader, org, cost center, or segment), validate that recent Workday uploads have landed, format the output as xlsx or a written summary, and deliver with a clear change narrative. This skill encodes that end-to-end workflow so it runs consistently every time, regardless of which dimension is requested or who is asking.
+People Partners submit roster refresh requests multiple times per week. The pattern is always the same: pull the latest associate data from {{HR_SOURCE}}, slice it by a dimension (L3 leader, org, cost center, or segment), validate that recent HR system uploads have landed, format the output as xlsx or a written summary, and deliver with a clear change narrative. This skill encodes that end-to-end workflow so it runs consistently every time, regardless of which dimension is requested or who is asking.
 
 **What this skill knows:**
 - Roster requests arrive as plain-language emails — they need to be parsed into a structured execution plan before any data is touched
-- ARS and Workday exports have different freshness windows; a snapshot that is 48 hours old may not reflect an org move that processed this morning
+- {{HR_SOURCE}} exports have different freshness windows; a snapshot that is 48 hours old may not reflect an org move that processed this morning
 - Slicing by leader versus by cost center versus by segment produces different output shapes — the format step must adapt to the dimension
 - Headcount anomalies are only visible if you compare to a prior snapshot; delivering a point-in-time roster without a delta narrative misses the most useful part of the answer
 - PII is inherent to this data; delivery channel matters as much as output format
@@ -68,11 +68,12 @@ People Partners submit roster refresh requests multiple times per week. The patt
 | Variable | Description | Type | Required | Default |
 |----------|-------------|------|----------|---------|
 | `{{REQUEST_TEXT}}` | Plain-language email or message from the requester | string | Yes | — |
-| `{{SOURCE_PATH}}` | File path to ARS export, Workday snapshot, or cached roster file | file path | Yes | — |
+| `{{SOURCE_PATH}}` | File path to {{HR_SOURCE}} export, HR system snapshot, or cached roster file | file path | Yes | — |
 | `{{SLICE_BY}}` | Dimension to slice on: `leader`, `org`, `cc`, or `segment` | enum | Yes | — |
 | `{{PRIOR_SNAPSHOT_PATH}}` | File path to the previous roster run, for delta comparison | file path | No | — (delta section skipped if absent) |
 | `{{OUTPUT_FORMAT}}` | Desired output: `xlsx`, `summary`, or `both` | enum | No | `both` |
 | `{{REQUESTER}}` | Name of the person who submitted the request | string | No | inferred from `REQUEST_TEXT` |
+| `{{HR_SOURCE}}` | The HR data source to pull from (e.g., ARS, Workday, SuccessFactors, BambooHR) | string | Yes | — |
 
 ---
 

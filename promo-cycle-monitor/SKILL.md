@@ -1,6 +1,6 @@
 ---
 name: promo-cycle-monitor
-description: "Monitors the promotion cycle pipeline by pulling panel assignments from inbox and Skyward, classifying each by risk status, and surfacing stale or silently-dropped items before they become escalations."
+description: "Monitors the promotion cycle pipeline by pulling panel assignments from inbox and {{NOMINATION_PLATFORM}}, classifying each by risk status, and surfacing stale or silently-dropped items before they become escalations."
 version: 1.0.0
 author: jac007x
 origin: created
@@ -23,7 +23,7 @@ become escalations if no one acts today.
 
 Most promotion cycle tooling is reactive. You find out a panel disappeared
 after the deadline passed. You find out a panelist never responded after the
-candidate has been waiting three weeks. You find out about a Skyward access
+candidate has been waiting three weeks. You find out about a {{NOMINATION_PLATFORM}} access
 issue when the panelist emails you in frustration.
 
 This skill is architecturally different. It was designed using **Adaptive
@@ -66,7 +66,7 @@ Mode:       DELEGATE   DELEGATE   NARRATE    GEN→NAR    NARRATE      NAR→DEL
             pipeline   by status  risks      follow-ups exceptions   snapshot
             from                  and stale             (access,     (counts,
             inbox/                items                 post-        flags,
-            Skyward                                     deadline)    decisions)
+            {{NOMINATION_PLATFORM}}                                     deadline)    decisions)
 ```
 
 ### Mode Transition Diagram
@@ -79,7 +79,7 @@ Mode:       DELEGATE   DELEGATE   NARRATE    GEN→NAR    NARRATE      NAR→DEL
 │ panels    │  │ assignment│  │ overdue,  │  │ situation type        │
 │ from      │  │ on-track/ │  │ silently  │  │                       │
 │ inbox +   │  │ at-risk/  │  │ dropped   │  │ ⚡ COMPRESSION        │
-│ Skyward   │  │ stalled/  │  │ items     │  │ CHECKPOINT: one       │
+│ {{NOMINATION_PLATFORM}}   │  │ stalled/  │  │ items     │  │ CHECKPOINT: one       │
 │           │  │ dropped   │  │           │  │ action per assignment │
 │ E1        │  │ E2        │  │ E3        │  │ required before E5    │
 └──────────┘  └──────────┘  └──────────┘  └──────────────────────┘
@@ -108,6 +108,7 @@ Mode:       DELEGATE   DELEGATE   NARRATE    GEN→NAR    NARRATE      NAR→DEL
 | `{{STALE_THRESHOLD_DAYS}}` | Days of inactivity before an assignment is flagged as stale | integer | No | 5 |
 | `{{INBOX_SOURCE}}` | Where promotion cycle emails live | choice: outlook, gmail, manual-export | Yes | outlook |
 | `{{COMPENDIUM_PATH}}` | Path to the inbox-intelligence knowledge compendium | filepath | No | — |
+| `{{NOMINATION_PLATFORM}}` | The internal nomination and panel management platform (e.g., Skyward, Workday, SuccessFactors) | string | Yes | — |
 
 ---
 
@@ -122,17 +123,17 @@ This is pure enumeration. No judgment. Pull everything, classify nothing yet.
    - Panel assignment notifications
    - Panelist response emails (accepted, declined, completed)
    - Deadline reminder messages
-   - Skyward access request threads
+   - {{NOMINATION_PLATFORM}} access request threads
    - Exception request emails (post-deadline nominations, panel swaps)
    - Escalation threads
 
-2. Pull from Skyward (if accessible) or `{{COMPENDIUM_PATH}}` (if set):
+2. Pull from {{NOMINATION_PLATFORM}} (if accessible) or `{{COMPENDIUM_PATH}}` (if set):
    - Open panel assignments by candidate
    - Assignment status per panelist
    - Deadline dates per assignment
    - Completion timestamps where present
 
-3. Deduplicate and merge inbox signals with Skyward records. One row per assignment.
+3. Deduplicate and merge inbox signals with {{NOMINATION_PLATFORM}} records. One row per assignment.
 
 4. Enumerate total counts by raw status bucket:
    - **Pending** — assigned, no response yet
@@ -144,13 +145,13 @@ This is pure enumeration. No judgment. Pull everything, classify nothing yet.
 
 ### Exit Condition
 
-All assignments for `{{CYCLE_NAME}}` enumerated in a single flat list with raw status. Total count confirmed. If Skyward is inaccessible, flag and continue from inbox data only.
+All assignments for `{{CYCLE_NAME}}` enumerated in a single flat list with raw status. Total count confirmed. If {{NOMINATION_PLATFORM}} is inaccessible, flag and continue from inbox data only.
 
 ### Output
 
 ```markdown
 **Pipeline Pull — {{CYCLE_NAME}} ({{PANEL_TYPE}})**
-**Source:** [inbox / Skyward / compendium]
+**Source:** [inbox / {{NOMINATION_PLATFORM}} / compendium]
 **Pulled:** [N] total assignments
 
 | Status    | Count |
@@ -162,7 +163,7 @@ All assignments for `{{CYCLE_NAME}}` enumerated in a single flat list with raw s
 | Expired   | N     |
 | Declined  | N     |
 
-**Skyward access:** [available / unavailable — continuing from inbox]
+**{{NOMINATION_PLATFORM}} access:** [available / unavailable — continuing from inbox]
 ```
 
 ---
@@ -183,14 +184,14 @@ is Phase 3's job. Apply the rules consistently.
 | Panelist accepted, evaluation not submitted, deadline <= 48h | at-risk |
 | Panelist accepted, evaluation not submitted, deadline passed | stalled |
 | No panelist activity, deadline passed | silently-dropped |
-| Assignment removed from Skyward with no completion record | silently-dropped |
+| Assignment removed from {{NOMINATION_PLATFORM}} with no completion record | silently-dropped |
 | Evaluation submitted | completed |
 | Panelist formally declined | declined-needs-reassignment |
 
 ### Escalation → NARRATE
 
 If an assignment's state does not fit cleanly into the above table (ambiguous
-email signals, conflicting Skyward vs. inbox data, partial completion records):
+email signals, conflicting {{NOMINATION_PLATFORM}} vs. inbox data, partial completion records):
 
 - Flag the assignment as **ambiguous**
 - Carry it into Phase 3 for manual classification judgment
@@ -283,7 +284,7 @@ Priority 4 — Uncovered Panels (needs reassignment):
 - [Candidate] — panelist [name] declined [date] — no replacement assigned
 
 Priority 5 — Ambiguous (needs human judgment):
-- [Candidate] / [Panelist] — conflict: [describe inbox vs. Skyward discrepancy]
+- [Candidate] / [Panelist] — conflict: [describe inbox vs. {{NOMINATION_PLATFORM}} discrepancy]
 ```
 
 ---
@@ -292,7 +293,7 @@ Priority 5 — Ambiguous (needs human judgment):
 **Control Mode: GENERATE → NARRATE** | **Entropy: E4 (Creative)**
 
 **This is the highest-entropy phase.** The same follow-up message sent to
-a panelist who forgot and a panelist who is blocking on a Skyward access
+a panelist who forgot and a panelist who is blocking on a {{NOMINATION_PLATFORM}} access
 issue will get different responses — the wrong one wastes time or creates friction.
 
 ### GENERATE Step (expand)
@@ -309,7 +310,7 @@ Draft B (escalation): Situation-aware — acknowledges a specific barrier
 Signals to weigh per panelist:
 - **No activity at all** (never responded to assignment) → Draft A first, then B if no response
 - **Accepted but no submission** + long gap → ask if there is a blocker (Draft B)
-- **Previous Skyward access thread in inbox** → Draft B immediately (access is the known barrier)
+- **Previous {{NOMINATION_PLATFORM}} access thread in inbox** → Draft B immediately (access is the known barrier)
 - **Pattern across multiple candidates** → flag for manager escalation, not another nudge
 - **Same panelist, multiple silently-dropped** → escalate upward, do not re-remind
 
@@ -346,7 +347,7 @@ requiring escalation beyond a message are separated into an escalation list.
 > Just following up on the panel assignment for [Candidate] as part of
 > {{CYCLE_NAME}}. The evaluation window [closes / closed] on [date].
 >
-> If you have any questions or need access to Skyward, reply here and
+> If you have any questions or need access to {{NOMINATION_PLATFORM}}, reply here and
 > I can help get that sorted quickly.
 >
 > Thanks,
@@ -354,11 +355,11 @@ requiring escalation beyond a message are separated into an escalation list.
 
 ---
 **[Candidate] / [Panelist]** | Action: Send Draft B (known access issue)
-> Subject: Re: Skyward Access — {{CYCLE_NAME}} Panel
+> Subject: Re: {{NOMINATION_PLATFORM}} Access — {{CYCLE_NAME}} Panel
 >
 > Hi [Panelist],
 >
-> I saw the earlier thread about Skyward access. If that's still
+> I saw the earlier thread about {{NOMINATION_PLATFORM}} access. If that's still
 > blocking you on the [Candidate] panel, I want to make sure we get
 > it resolved before [deadline]. Can you confirm whether access is
 > working or if I should re-open a ticket?
@@ -386,7 +387,7 @@ judgment calls that need to be surfaced explicitly so a human can decide.
 |----------------|-------------|-------------------|
 | Post-deadline nomination | Candidate nominated after the cycle deadline | Accept with justification, or decline — cannot silently include |
 | Panel swap request | Assigned panelist requests to be replaced | Approve reassignment, or hold — requires tracking the new assignment |
-| Skyward access failure | Panelist cannot access the evaluation system | Open IT ticket, extend deadline, or accept off-system submission |
+| {{NOMINATION_PLATFORM}} access failure | Panelist cannot access the evaluation system | Open IT ticket, extend deadline, or accept off-system submission |
 | Incomplete panel | One panelist submitted, second did not — decision threshold unclear | Determine if single submission is sufficient for the candidate level |
 | Conflict of interest flag | Panelist raises a conflict with the candidate | Remove and reassign; document the flag |
 | Candidate withdrawal | Candidate withdraws from consideration mid-cycle | Close all open panels; notify assigned panelists |
@@ -415,7 +416,7 @@ Unresolved Exceptions Requiring a Decision:
    Candidate: [Name] | Nominated by: [Manager] | Date: [N days after deadline]
    Decision required: Accept with justification / Decline
 
-2. [Type: Skyward access failure]
+2. [Type: {{NOMINATION_PLATFORM}} access failure]
    Panelist: [Name] | Candidate: [Name] | IT ticket: [open / not yet filed]
    Decision required: Extend deadline / Accept off-system / Reassign
 
@@ -473,7 +474,7 @@ that builds trust because it looks the same every time you run it.
 | Exception | Type | Decision Needed |
 |-----------|------|-----------------|
 | [Candidate] | Post-deadline nomination | Accept / Decline |
-| [Panelist] | Skyward access | Extend / Reassign |
+| [Panelist] | {{NOMINATION_PLATFORM}} access | Extend / Reassign |
 
 ---
 
@@ -503,12 +504,12 @@ PROMO CYCLE MONITOR ANTI-PATTERNS (from ANCT failure mode analysis):
 
 X "Remind again" as default for all overdue
   Every overdue assignment gets the same nudge email.
-  No distinction between a panelist who forgot and one who is blocked on Skyward.
+  No distinction between a panelist who forgot and one who is blocked on {{NOMINATION_PLATFORM}}.
   → ANCT diagnosis: flat DELEGATE applied to E4 phase; skipped GENERATE step
   → Correct: classify the barrier first, then select Draft A or Draft B
 
 X Marking silently-dropped panels as complete
-  Skyward shows the assignment as closed. No submission record exists.
+  {{NOMINATION_PLATFORM}} shows the assignment as closed. No submission record exists.
   Assumes the system is correct and the panel was completed.
   → ANCT diagnosis: DELEGATE applied where NARRATE was required;
     absence of completion record was not treated as a signal
@@ -538,11 +539,11 @@ X Listing all 110+ assignments in the output
 | Scenario | Entropy | Key Phase | ANCT Insight |
 |----------|---------|-----------|--------------|
 | **Monday morning cycle check** | E1-E2 | Phase 6 | Snapshot first. If health is GREEN, stop. If YELLOW or RED, go deeper. |
-| **Panelist has not responded in 8 days** | E3 | Phase 4 | Do not auto-remind. Check for Skyward access thread first. Draft B may be correct. |
-| **5 panels expired same week** | E4 | Phase 3 + 5 | This is a pattern, not a coincidence. May indicate a manager block or a Skyward outage. Escalation, not reminders. |
+| **Panelist has not responded in 8 days** | E3 | Phase 4 | Do not auto-remind. Check for {{NOMINATION_PLATFORM}} access thread first. Draft B may be correct. |
+| **5 panels expired same week** | E4 | Phase 3 + 5 | This is a pattern, not a coincidence. May indicate a manager block or a {{NOMINATION_PLATFORM}} outage. Escalation, not reminders. |
 | **Post-deadline nomination arrives** | E3 | Phase 5 | Do not process silently. Surface for explicit accept/decline decision with justification. |
 | **Cycle closing in 72 hours** | E3-E4 | Phase 3 | Tighten `{{STALE_THRESHOLD_DAYS}}` to 1. Every at-risk becomes a red flag. |
-| **Skyward is down** | E4 | Phase 5 | Exception cascade in progress. All panelists with open assignments are effectively blocked. Single triage, not 110 individual tickets. |
+| **{{NOMINATION_PLATFORM}} is down** | E4 | Phase 5 | Exception cascade in progress. All panelists with open assignments are effectively blocked. Single triage, not 110 individual tickets. |
 
 ---
 
@@ -550,7 +551,7 @@ X Listing all 110+ assignments in the output
 
 | Platform | How to Use |
 |----------|------------|
-| **Any LLM** | Paste this SKILL.md as context. Provide exported inbox data or Skyward report and ask for a cycle status snapshot. |
+| **Any LLM** | Paste this SKILL.md as context. Provide exported inbox data or {{NOMINATION_PLATFORM}} report and ask for a cycle status snapshot. |
 | **With inbox-intelligence** | Set `{{COMPENDIUM_PATH}}` to the active compendium. Phases 1 and 5 get richer signals from indexed email threads. |
 | **CLI tools** | Copy to skills directory; invoke with `/skill promo-cycle-monitor` |
 | **Recurring use** | Run at the same time each day during an active cycle. Snapshot format is consistent — deltas are visible. |
@@ -565,12 +566,12 @@ This skill is designed to work with related skills in the library:
 |-------|-------------------|
 | **inbox-intelligence** | Primary data source. Set `{{COMPENDIUM_PATH}}` to pull indexed panel emails instead of raw inbox. Eliminates Phase 1 manual export. |
 | **workday-roster-validator** | Validates panelist roster before Phase 1 completes. Catches removed or transferred employees who still appear as assigned panelists. |
-| **skyward-support-responder** | Determines when a Skyward access issue warrants a formal IT escalation vs. a direct follow-up. Phase 5 hands off access exceptions here. |
+| **skyward-support-responder** | Determines when a {{NOMINATION_PLATFORM}} access issue warrants a formal IT escalation vs. a direct follow-up. Phase 5 hands off access exceptions here. |
 
 ### How to Use Together
 
 1. Run `inbox-intelligence` on the promotion cycle inbox folder before running this skill
-2. The compendium indexes all panel assignment threads, Skyward notifications, and panelist replies
+2. The compendium indexes all panel assignment threads, {{NOMINATION_PLATFORM}} notifications, and panelist replies
 3. Set `{{COMPENDIUM_PATH}}` when invoking `promo-cycle-monitor`
 4. Phase 1 queries the compendium instead of raw inbox — faster and cross-referenced
 5. Phase 4 (follow-up drafts) references prior interaction history from the compendium to avoid re-sending messages that were already sent

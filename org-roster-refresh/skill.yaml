@@ -1,13 +1,13 @@
 name: org-roster-refresh
 version: 1.0.0
-description: "Operationalizes the recurring org roster refresh workflow: parse an inbound request (by leader, org, cost center, or segment), pull the latest snapshot from ARS or Workday, validate freshness against known recent changes, slice and format the output as xlsx or summary, cross-check headcount against the prior snapshot, and deliver a structured summary of what changed and any anomalies."
+description: "Operationalizes the recurring org roster refresh workflow: parse an inbound request (by leader, org, cost center, or segment), pull the latest snapshot from your HR system of record (Workday, ARS, or equivalent), validate freshness against known recent changes, slice and format the output as xlsx or summary, cross-check headcount against the prior snapshot, and deliver a structured summary of what changed and any anomalies."
 created: 2026-03-24
 origin: created
 author: jac007x
 maturity_status: beta
 tags:
   - roster-management
-  - workday
+  - hr-systems
   - org-data
   - hr-analytics
   - workflow-automation

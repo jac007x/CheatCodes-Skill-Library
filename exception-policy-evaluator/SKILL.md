@@ -20,7 +20,7 @@ A decision-support skill for recurring exception requests. Instead of treating e
 
 **Design target:** Every exception request gets the same quality of analysis — regardless of who's asking, how persistent they are, or how late in the cycle it arrives.
 
-**Origin context:** Built for promotion cycle exception management at Walmart Global Tech. Representative cases include post-deadline nomination requests (e.g., a manager who did not nominate by the deadline) and tool access exceptions (e.g., a manager on leave who could not access the system). The pattern generalizes to any recurring exception workflow with documented policy.
+**Origin context:** Built for promotion cycle exception management at a large technology organization. Representative cases include post-deadline nomination requests (e.g., a manager who did not nominate by the deadline) and tool access exceptions (e.g., a manager on leave who could not access the system). The pattern generalizes to any recurring exception workflow with documented policy.
 
 ---
 
