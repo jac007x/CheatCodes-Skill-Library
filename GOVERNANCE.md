@@ -118,6 +118,24 @@ deprecation_date: null
 deprecation_reason: null
 ```
 
+### skill.json Augmentation (Optional)
+
+`skill.json` is an optional structured augmentation file for complex skills that benefit from machine-readable metadata beyond what `skill.yaml` provides.
+
+It is **not** required for all skills. Use it when one or more of the following applies:
+
+- The skill has complex intake variable schemas that benefit from JSON Schema validation
+- The skill produces structured output formats that need to be machine-readable by other tools or agents
+- The skill requires agent.json-style capability declarations (e.g., tool lists, model constraints, invocation contracts)
+
+Skills that currently use `skill.json` as examples:
+
+- `org-data-pipeline`
+- `skill-improver`
+- `survey-nlp-analyzer`
+- `talent-card-generator`
+- `skill-universalizer`
+
 ---
 
 ## Maturity Promotion Pipeline

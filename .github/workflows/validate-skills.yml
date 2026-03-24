@@ -132,6 +132,50 @@ jobs:
       - name: Install dependencies
         run: pip install PyYAML
 
+      - name: Count skill directories vs registry entries
+        run: |
+          python3 -c "
+          import json, os, sys
+
+          REPO_ROOT = os.getcwd()
+
+          EXCLUDED_DIRS = {
+              'docs', 'tools', 'templates', 'skills',
+              '.git', '.github', '__pycache__', 'node_modules',
+          }
+
+          skill_dirs = set()
+          for entry in sorted(os.listdir(REPO_ROOT)):
+              full = os.path.join(REPO_ROOT, entry)
+              if not os.path.isdir(full):
+                  continue
+              if entry.startswith('.') or entry in EXCLUDED_DIRS:
+                  continue
+              if os.path.isfile(os.path.join(full, 'skill.yaml')):
+                  skill_dirs.add(entry)
+
+          registry_path = os.path.join(REPO_ROOT, 'registry.json')
+          with open(registry_path) as f:
+              registry = json.load(f)
+
+          registry_ids = set()
+          for skill in registry.get('skills', []):
+              sid = skill.get('id') or skill.get('path', '').split('/')[-1]
+              registry_ids.add(sid)
+
+          dir_count = len(skill_dirs)
+          reg_count = len(registry_ids)
+
+          print(f'Skill directories with skill.yaml: {dir_count}')
+          print(f'registry.json entries:             {reg_count}')
+
+          if dir_count != reg_count:
+              print(f'::error::Count mismatch: {dir_count} skill director(ies) vs {reg_count} registry entr(ies). Run registry sync to reconcile.')
+              sys.exit(1)
+
+          print(f'Count check OK -- {dir_count} skill(s) on disk and in registry.')
+          "
+
       - name: Verify registry <-> directory sync
         run: |
           python3 -c "

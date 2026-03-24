@@ -1,0 +1,18 @@
+name: designer-orchestrator
+version: 1.0.0
+description: "Master design workflow orchestrator — coordinates all 7 design skills through a 4-phase pipeline: design validation, composition audit, accessibility compliance, and code bridge."
+origin: created
+author: jac007x
+created: 2026-03-24
+maturity_status: beta
+tags:
+  - orchestration
+  - design-workflow
+  - qa-pipeline
+  - multi-skill-coordination
+  - design-governance
+  - accessibility
+  - brand-compliance
+  - wcag
+  - design-tokens
+  - code-generation
